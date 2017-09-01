@@ -1,7 +1,9 @@
-package jsh.example.com.allstudy;
+package jsh.example.com.allstudy.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import jsh.example.com.allstudy.R;
 
 public class MainActivity extends AppCompatActivity {
 
