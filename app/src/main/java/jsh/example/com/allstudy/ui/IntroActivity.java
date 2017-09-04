@@ -28,8 +28,9 @@ public class IntroActivity extends AppCompatActivity {
         context = this;
 
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
-            permissionCheck();
+//            permissionCheck();
         }
+        goToLogin();
     }
 
     // 요청 권한 구분용, 권한 필요한 부분에서만 부분적으로 사용 가능하게 함

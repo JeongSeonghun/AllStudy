@@ -2,4 +2,9 @@
     <string name="app_name">AllStudy</string>
 
     <string name="intro_title">All Study</string>
+
+    <!-- login -->
+    <string name="login_id">id</string>
+    <string name="login_pw">pw</string>
+    <string name="login">login</string>
 </resources>
