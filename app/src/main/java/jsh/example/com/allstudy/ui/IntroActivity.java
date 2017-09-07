@@ -16,7 +16,7 @@ import jsh.example.com.allstudy.R;
 import jsh.example.com.allstudy.util.LogUtil;
 
 public class IntroActivity extends AppCompatActivity {
-    private final String TAG = this.getLocalClassName();
+    private final String TAG = getClass().getSimpleName();
     private Context context;
 
     @Override

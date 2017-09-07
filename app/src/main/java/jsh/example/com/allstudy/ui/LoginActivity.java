@@ -12,7 +12,7 @@ import jsh.example.com.allstudy.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String TAG = this.getLocalClassName();
+    private final String TAG = getClass().getSimpleName();
 
     private Context context;
 
