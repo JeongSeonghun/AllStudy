@@ -7,4 +7,18 @@
     <string name="login_id">id</string>
     <string name="login_pw">pw</string>
     <string name="login">login</string>
+
+    <!-- main -->
+    <string name="eng_start_btn">English Study Start</string>
+    <string name="db_start_btn">SQLite Study Start</string>
+
+    <!-- SQLite study -->
+    <string name="sq_study_title">SQLite Study</string>
+    <string name="sq_insert_tv">sq_table insert</string>
+    <string name="sq_insert_col1">str</string>
+    <string name="sq_insert_col2">i</string>
+    <string name="sq_clear_tv">sq_table clear</string>
+    <string name="sq_insert_btn">insert</string>
+    <string name="sq_clear_btn">clear</string>
+    <string name="sq_result" formatted="false">idx : %d, str : %s, i : %d</string>
 </resources>

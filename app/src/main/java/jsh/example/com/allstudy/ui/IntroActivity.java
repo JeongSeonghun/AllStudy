@@ -30,7 +30,8 @@ public class IntroActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
 //            permissionCheck();
         }
-        goToLogin();
+        //goToLogin();
+        IntroTimerStart();
     }
 
     // 요청 권한 구분용, 권한 필요한 부분에서만 부분적으로 사용 가능하게 함
@@ -80,6 +81,23 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(intent);
 
         finish();
+    }
+
+    private final long waitTime = 2*1000;
+    private void IntroTimerStart(){
+        Thread introTimer = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(waitTime);
+
+                    goToLogin();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        introTimer.start();
     }
 
     @Override

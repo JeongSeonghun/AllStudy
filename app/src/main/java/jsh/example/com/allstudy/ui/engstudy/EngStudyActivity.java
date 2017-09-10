@@ -13,4 +13,41 @@ public class EngStudyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eng_study);
     }
 
+    private void goToChapter(int num){
+        switch (num){
+            case 1:
+                // QuantityAdjectives
+                break;
+            case 2:
+                // Verb
+                break;
+            case 3:
+                // Tense
+                break;
+            case 4:
+                // Gerund
+                break;
+            case 5:
+                // ToInfinitive
+                break;
+            case 6:
+                // Participle
+                break;
+            case 7:
+                // Conjunction
+                break;
+            case 8:
+                // RelationshipPronounAdverb
+                break;
+            case 9:
+                // noun Conjunction
+                break;
+            case 10:
+                // PrePosition
+                break;
+            case 11:
+                // Inversion
+                break;
+        }
+    }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sq_study_title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/sq_insert_tv"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@string/sq_insert_col1"/>
+        <EditText
+            android:id="@+id/et_str_sq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@string/sq_insert_col2"/>
+        <EditText
+            android:id="@+id/et_i_sq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_insert_sq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sq_insert_btn"/>
+
+    <Button
+        android:id="@+id/btn_clear_sq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sq_clear_btn"/>
+
+    <TextView
+        android:id="@+id/tv_result_sq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

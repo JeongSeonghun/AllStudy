@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="eng_database">eng_database</string>
+    <string name="eng_table_base">eng_base</string>
+    <string name="eng_create_table_base">create table eng_base (idx integer primary key autoincrement, eng text, kor text</string>
+    <!-- string format 저장 시 % 주의 -->
+    <string name="eng_insert_table_base">INSERT INTO eng_base (eng, kor) VALUES(\'%%s\', \'%%s\')</string>
+    <string name="eng_insert_table_base2"
+        formatted="false">INSERT INTO eng_base (eng, kor) VALUES(\'%s\', \'%s\')</string>
+    <string name="eng_insert_table_base3">INSERT INTO eng_base (eng, kor) VALUES(\'$s\', \'$s\')</string>
+
+    <string name="sq_database">sq_database</string>
+    <string name="sq_table">sq_table</string>
+    <string name="sq_create_table">CREATE TABLE IF NOT EXISTS sq_table (idx integer PRIMARY KEY AUTOINCREMENT, col_str TEXT, col_int integer)</string>
+    <string name="sq_insert_table"
+        formatted="false">INSERT INTO sq_table (col_str, col_int) VALUES (\'%s\', %d)</string>
+    <string name="sq_clear_table">DELETE FROM sq_table</string>
+    <string name="sq_select_table">SELECT * FROM sq_table limit 10</string>
+
+</resources>
