@@ -2,12 +2,12 @@ package jsh.example.com.allstudy.data;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
 import jsh.example.com.allstudy.R;
+import jsh.example.com.allstudy.data.engdata.EngDBHelper;
 
 /**
  * Created by shun6 on 2017-09-10.

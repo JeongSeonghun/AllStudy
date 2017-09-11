@@ -1,8 +1,6 @@
-package jsh.example.com.allstudy.data;
+package jsh.example.com.allstudy.data.engdata;
 
 import java.util.ArrayList;
-
-import jsh.example.com.allstudy.constant.C;
 
 /**
  * Created by shun6 on 2017-09-05.
