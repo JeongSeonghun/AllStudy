@@ -129,4 +129,16 @@ public class IntroActivity extends AppCompatActivity {
         super.onResume();
         LogUtil.DLog(TAG, "onResume()");
     }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        LogUtil.DLog(TAG, "onUserLeaveHint()");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        LogUtil.DLog(TAG, "onBackPressed()");
+    }
 }
