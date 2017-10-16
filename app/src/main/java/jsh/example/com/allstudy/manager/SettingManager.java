@@ -32,7 +32,10 @@ public class SettingManager {
 
         editor.putString(key, param);
 
-        editor.commit();
+        // commit api 1 동기, apply api 9 비동기 성공 여부 반환. apply 가 빠르다네요...
+        // apply 적용 중일 경우 apply가 다 끝나기 전까지 commit 실행 안됨.
+        //editor.commit();
+        editor.apply();
 
     }
 
@@ -43,7 +46,8 @@ public class SettingManager {
 
         editor.putInt(key, param);
 
-        editor.commit();
+        //editor.commit();
+        editor.apply();
 
     }
 

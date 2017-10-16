@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import jsh.example.com.allstudy.util.LogUtil;
+
 /**
  * Created by EMGRAM on 2017-10-11.
  */
@@ -30,7 +32,9 @@ public class FileManager {
         File tempDir = new File(ctx.getCacheDir(), "temp"); // 임시 캐시
 
         if(!tempDir.exists()){
-            tempDir.mkdir();
+            if(tempDir.mkdir()){
+                LogUtil.DLog("dir make fail!");
+            }
         }
     }
 
@@ -62,6 +66,30 @@ public class FileManager {
     public void writeExternal(File file, Byte[] b){
 //        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC); // 공용 디렉터리 ex music
         Environment.getExternalStorageDirectory();  // 전용 디렉터리
+    }
+
+    public void add(File file, byte[] b){
+        try {
+            if(outputStream == null){
+                outputStream = new FileOutputStream(file, true);
+            }
+
+            outputStream.write(b);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addExternal(File file, byte[] b){
+        if(file == null){
+            file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        }
+
+        if(!file.exists()){
+            file.mkdirs();
+        }
+
+        add(file, b);
     }
 
     public void copy(File dir, File file){

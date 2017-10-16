@@ -16,7 +16,7 @@ public class CPManager extends ContentProvider{
     // CP(Context provider), URI, 데이터 외부 공개(DB, 내부 배열, 네트워크 등, 대부분 DB)
     // 국제 표준 URI- RFC 2396
     // content://authority/path/id
-    // content: url임을 알림, authority : 정보제공자 명칭(ex 페키지 명), path : 정보의 종류를 지정하는 가상의 경로
+    // content: uri임을 알림, authority : 정보제공자 명칭(ex 페키지 명), path : 정보의 종류를 지정하는 가상의 경로
     // , id : 원하는 정보 지정(전체 정보를 원할 시 생략 가능)
 
     public CPManager(){
