@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -57,6 +58,8 @@ public class EJNetwork {
 
             HttpURLConnection connection;
 
+            OutputStream out = null;
+
             try {
                 URL url = new URL(strUrl);
 
@@ -70,11 +73,13 @@ public class EJNetwork {
                 connection.setConnectTimeout(3000);
                 connection.setReadTimeout(3000);
 
+                connection.setDoInput(true);
 
+                if(requestMethod.equals(RequestMethod.POST)){
+                    // post value input
+                }
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (IOException e) {//MalformedURLException
                 e.printStackTrace();
             }
 
