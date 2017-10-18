@@ -1,9 +1,9 @@
 package jsh.example.com.common.util;
 
 
+import android.support.compat.BuildConfig;
 import android.util.Log;
 
-import jsh.example.com.allstudy.BuildConfig;
 
 /**
  * Created by EMGRAM on 2017-09-01.

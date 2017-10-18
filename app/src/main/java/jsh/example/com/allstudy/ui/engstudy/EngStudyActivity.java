@@ -54,7 +54,7 @@ public class EngStudyActivity extends AppCompatActivity {
         }
 
         for(String str : list){
-            LogUtil.d(getClass().getSimpleName(), "list item : "+str);
+            LogUtil.DLog(getClass().getSimpleName(), "list item : "+str);
         }
     }
 
