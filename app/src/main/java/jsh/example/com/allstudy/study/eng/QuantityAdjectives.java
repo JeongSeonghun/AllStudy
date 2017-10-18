@@ -33,10 +33,7 @@ public class QuantityAdjectives {
 
     public String[] countable = new String[]{
             "many"
-            , "a number of"
-            , "a great number of"
-            , "a good number of"
-            , "a large number of"
+            , "a (great, good, large)number of"
             , "several"
             , "a feq"
             , "few"
@@ -44,12 +41,9 @@ public class QuantityAdjectives {
 
     public String[] unCountable = new String[]{
             "much"
-            , "a deal of"
-            , "a great deal of"
-            , "a amount of"
-            , "a large amount of"
-            , "a little"
-            , "little"
+            , "a (great) deal of"
+            , "a (large) amount of"
+            , "(a) little"
     };
 
     public String[] allCountable = new String[]{

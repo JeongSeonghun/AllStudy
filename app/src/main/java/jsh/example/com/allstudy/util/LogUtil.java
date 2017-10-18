@@ -12,6 +12,12 @@ import jsh.example.com.allstudy.BuildConfig;
 public class LogUtil {
     private static boolean isDebug = BuildConfig.DEBUG;
 
+    public static void d(String target, String msg){
+        if(isDebug){
+            Log.d(target, msg);
+        }
+    }
+
     public static void DLog(String target, String msg){
         if(isDebug){
             Log.d(target, msg);

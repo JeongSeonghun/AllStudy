@@ -7,10 +7,12 @@ package jsh.example.com.allstudy.data.engdata;
 public class EngData {
     private String type;
     private String kor;
+    private String eng;
 
-    public EngData(String type, String kor){
+    public EngData(String type, String kor, String eng){
         this.type = type;
         this.kor = kor;
+        this.eng = eng;
     }
 
     public void setType(String type){
@@ -27,5 +29,13 @@ public class EngData {
 
     public String getKor(){
         return kor;
+    }
+
+    public void setEng(String eng){
+        this.eng = eng;
+    }
+
+    public String getEng(){
+        return eng;
     }
 }

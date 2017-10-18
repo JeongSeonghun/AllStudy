@@ -27,8 +27,8 @@ public class EngWord {
     }
 
     public void setKor(String type, String kor){
-        EngData engData = new EngData(type, kor);
-        setKor(engData);
+//        EngData engData = new EngData(type, kor);
+//        setKor(engData);
     }
 
     public ArrayList<EngData> getKorList(){
