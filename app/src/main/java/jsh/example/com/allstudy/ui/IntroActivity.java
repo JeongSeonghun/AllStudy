@@ -25,6 +25,9 @@ public class IntroActivity extends AppCompatActivity {
         LogUtil.DLog(TAG, "onCreate()");
         setContentView(R.layout.activity_intro);
 
+        // root Activity check
+        if(!isTaskRoot()) finish();
+
         context = this;
 
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
@@ -66,7 +69,7 @@ public class IntroActivity extends AppCompatActivity {
 
         switch (requestCode){
             case MY_PERMISSIONS_REQUEST:
-                if(grantResults !=null && grantResults.length>0){
+                if(grantResults.length>0){
                     if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
                         goToLogin();
                     }
