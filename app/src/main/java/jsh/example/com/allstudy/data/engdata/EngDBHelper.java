@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.data;
+package jsh.example.com.allstudy.data.engdata;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

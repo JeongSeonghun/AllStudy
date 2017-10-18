@@ -1,8 +1,6 @@
-package jsh.example.com.allstudy.data;
+package jsh.example.com.allstudy.data.engdata;
 
 import java.util.ArrayList;
-
-import jsh.example.com.allstudy.constant.C;
 
 /**
  * Created by shun6 on 2017-09-05.
@@ -29,8 +27,8 @@ public class EngWord {
     }
 
     public void setKor(String type, String kor){
-        EngData engData = new EngData(type, kor);
-        setKor(engData);
+//        EngData engData = new EngData(type, kor);
+//        setKor(engData);
     }
 
     public ArrayList<EngData> getKorList(){
