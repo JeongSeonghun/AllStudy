@@ -66,7 +66,8 @@ public class FileManager {
     // 저장유형 : 공용(앱제거시 유지), 전용(앱제거시 삭제)
     public void writeExternal(File file, Byte[] b){
 //        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC); // 공용 디렉터리 ex music
-        Environment.getExternalStorageDirectory();  // 전용 디렉터리
+        Environment.getExternalStorageDirectory();  // 전용 디렉터리(외부 저장소 최상위 위치, 이거 삭제되는 게 맞아?????)
+
     }
 
     public void add(File file, byte[] b){

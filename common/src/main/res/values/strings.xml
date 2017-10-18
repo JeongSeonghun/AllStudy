@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Common</string>
+
+    <string name="default_progress_msg">loading..</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
