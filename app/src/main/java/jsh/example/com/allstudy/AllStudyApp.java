@@ -2,7 +2,7 @@ package jsh.example.com.allstudy;
 
 import android.app.Application;
 
-import jsh.example.com.allstudy.util.FileLogUtil;
+import jsh.example.com.common.util.FileLogUtil;
 
 /**
  * Created by EMGRAM on 2017-09-01.

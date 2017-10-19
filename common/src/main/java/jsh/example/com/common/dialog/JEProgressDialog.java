@@ -50,15 +50,9 @@ public class JEProgressDialog extends ProgressDialog{
         progress.setProgress(progressLevel);
     }
 
-    public void setBasic(boolean isBasic){
-        this.isBasic = isBasic;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(isBasic) return;
 
         init();
 

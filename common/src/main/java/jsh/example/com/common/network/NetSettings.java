@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.module.network;
+package jsh.example.com.common.network;
 
 import java.net.HttpURLConnection;
 import java.security.KeyManagementException;

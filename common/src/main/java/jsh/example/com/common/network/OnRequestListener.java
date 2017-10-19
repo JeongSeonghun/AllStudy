@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.module;
+package jsh.example.com.common.network;
 
 /**
  * Created by shun6 on 2017-09-05.

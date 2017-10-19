@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.module.network;
+package jsh.example.com.common.network;
 
 /**
  * Created by EMGRAM on 2017-10-11.

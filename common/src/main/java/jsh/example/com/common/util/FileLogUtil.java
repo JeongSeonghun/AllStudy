@@ -33,10 +33,15 @@ public class FileLogUtil {
 
     public void init(Context context){
         fileManager = new FileManager(context);
-        setLogFile();
+        setLogFile(StringUtil.getSplitLastString(context.getPackageName(), "."));
     }
 
-    private void setLogFile(){
+    public void init(Context ctx, String appName){
+        fileManager = new FileManager(ctx);
+        setLogFile(appName);
+    }
+
+    private void setLogFile(String title){
         SimpleDateFormat format = new SimpleDateFormat("yyMMddhhmm");
         String fileName = "AllStudy_Log_"+format.format(new Date())+".txt";
 
@@ -50,6 +55,6 @@ public class FileLogUtil {
     }
 
     public void close(){
-        fileManager.closeStream();
+        if(fileManager != null)fileManager.closeStream();
     }
 }

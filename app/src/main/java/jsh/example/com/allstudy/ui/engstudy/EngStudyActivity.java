@@ -6,8 +6,9 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import jsh.example.com.allstudy.R;
-import jsh.example.com.allstudy.util.LogUtil;
+
 import jsh.example.com.allstudy.util.StringUtil;
+import jsh.example.com.common.util.LogUtil;
 
 public class EngStudyActivity extends AppCompatActivity {
 

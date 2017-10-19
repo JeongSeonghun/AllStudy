@@ -10,10 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-
 import jsh.example.com.allstudy.R;
-import jsh.example.com.allstudy.util.LogUtil;
+import jsh.example.com.common.util.LogUtil;
 
 public class IntroActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();

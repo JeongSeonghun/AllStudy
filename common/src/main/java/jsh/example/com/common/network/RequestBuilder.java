@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.module.network;
+package jsh.example.com.common.network;
 
 import org.json.JSONObject;
 

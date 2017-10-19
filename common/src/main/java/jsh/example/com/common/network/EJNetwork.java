@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.module.network;
+package jsh.example.com.common.network;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +12,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import jsh.example.com.allstudy.module.OnRequestListener;
+import jsh.example.com.common.network.OnRequestListener;
 
 /**
  * Created by EMGRAM on 2017-09-01.

@@ -1,4 +1,4 @@
-package jsh.example.com.allstudy.module.network;
+package jsh.example.com.common.network;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
