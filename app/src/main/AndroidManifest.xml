@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jsh.example.com.allstudy">
+    package="com.jshstudy.allstudy">
 
     <application
-        android:name=".AllStudyApp"
+        android:name="com.jshstudy.allstudy.AllStudyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.IntroActivity">
+        <activity android:name="com.jshstudy.allstudy.ui.MainActivity" />
+        <activity android:name="com.jshstudy.allstudy.ui.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.engstudy.QuantityAdjectivesActivity" />
-        <activity android:name=".ui.engstudy.EngStudyActivity" />
-        <activity android:name=".ui.DBStudyActivity"></activity>
+        <activity android:name="com.jshstudy.allstudy.ui.LoginActivity" />
+        <activity android:name="com.jshstudy.allstudy.ui.engstudy.QuantityAdjectivesActivity" />
+        <activity android:name="com.jshstudy.allstudy.ui.engstudy.EngStudyActivity" />
+        <activity android:name="com.jshstudy.allstudy.ui.DBStudyActivity"></activity>
     </application>
 
 </manifest>

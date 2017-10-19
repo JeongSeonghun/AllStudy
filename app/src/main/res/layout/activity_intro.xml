@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/introBack"
-    tools:context="jsh.example.com.allstudy.ui.IntroActivity">
+    tools:context="com.jshstudy.allstudy.ui.IntroActivity">
 
     <ImageView
         android:id="@+id/img_intro"
