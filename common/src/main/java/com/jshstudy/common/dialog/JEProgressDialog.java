@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.jshstudy.common.R;
 
+import java.text.Format;
+import java.util.Formattable;
+
 /**
  * Created by EMGRAM on 2017-10-18.
  */
@@ -20,34 +23,35 @@ public class JEProgressDialog extends ProgressDialog{
     private String msg;
     private String title;
     private boolean isRound;
-    private boolean isBasic = false;
     private TextView tv_title;
     private TextView tv_msg;
     private ProgressBar progress;
     private final int defaultMax = 100;
+    private int max=defaultMax;
+    private String progressForm;
 
     public JEProgressDialog(Context context) {
         super(context);
         msg = context.getString(R.string.default_progress_msg);
     }
 
-    public void setTitle(String title){
-        this.title = title;
-    }
-
-    public void setMsg(String msg){
-        this.msg = msg;
-    }
-
     public void setTypeRound(boolean isRound){
         this.isRound = isRound;
     }
 
-    public void setProgressLevel(int progressLevel){
-        if(isRound){
-            return;
-        }
-        progress.setProgress(progressLevel);
+    private void setProgressText(int progressLevel){
+        if(progressForm.isEmpty()) progressForm = getContext().getString(R.string.default_hprogress_msg);
+
+        tv_msg.setText(String.format(progressForm, progressLevel));
+
+    }
+
+    public void setMax(int max){
+        this.max = max;
+    }
+
+    public void setProgressFormat(String progressForm){
+        this.progressForm = progressForm;
     }
 
     @Override
@@ -58,6 +62,29 @@ public class JEProgressDialog extends ProgressDialog{
 
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+    }
+
+    @Override
+    public void setProgress(int value) {
+        //super.setProgress(value);
+        if(isRound){
+            return;
+        }
+        progress.setProgress(value);
+
+        setProgressText(value);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        //super.setTitle(title);
+        this.title = title.toString();
+    }
+
+    @Override
+    public void setMessage(CharSequence message) {
+        //super.setMessage(message);
+        this.msg = message.toString();
     }
 
     private void init(){
@@ -76,7 +103,7 @@ public class JEProgressDialog extends ProgressDialog{
             tv_msg = (TextView)findViewById(R.id.tv_je_hprogress_msg);
             progress = (ProgressBar)findViewById(R.id.hprogress_je);
 
-            progress.setMax(defaultMax);
+            progress.setMax(max);
         }
 
         if(!title.isEmpty()){

@@ -4,4 +4,5 @@
     <string name="default_progress_msg">loading..</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="default_hprogress_msg">%1$d %%</string>
 </resources>

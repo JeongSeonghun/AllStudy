@@ -3,6 +3,8 @@ package com.jshstudy.common.network;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.jshstudy.common.dialog.JEProgressDialog;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,8 @@ public class EJNetwork {
     boolean isCancel = false;
     int BUFFER_MAX = 4*1024*8; //4k byte
 
+    private JEProgressDialog progressDialog;
+
     public static class RequestMethod{
         public static final String POST = "POST";
         public static final String GET = "GET";
@@ -42,6 +46,10 @@ public class EJNetwork {
 
     public void get(NetParams params, OnRequestListener listener){
         request(RequestMethod.GET, params, listener);
+    }
+
+    public void setProgress(JEProgressDialog progressDialog){
+        this.progressDialog = progressDialog;
     }
 
     public void cancel(){
@@ -137,6 +145,8 @@ public class EJNetwork {
                         }
 
                         readSize += input.read(buffer);
+
+                        progressDialog.setProgress(0);
 
                         resStream.write(buffer);
                     }
