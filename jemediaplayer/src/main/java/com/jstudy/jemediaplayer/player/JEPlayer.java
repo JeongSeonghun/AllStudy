@@ -3,11 +3,13 @@ package com.jstudy.jemediaplayer.player;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
+import android.os.Build;
 
 import com.jshstudy.common.util.LogUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +54,7 @@ public class JEPlayer {
 //        LogUtil.DLog("video duration : "+ duration + "ms");
 
 
-        // --- 여기 부터 재생????? ---
+        // --- 여기 부터 재생????? --- doExtract로 가야하려나...
 
         try {
             //create decoder
@@ -63,7 +65,7 @@ public class JEPlayer {
 
             codec.start();
 
-            doExtract();
+            //doExtract(codec);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,10 +118,19 @@ public class JEPlayer {
     }
 
     public void play(){
+        // ...
 
+        doExtract(null);
     }
 
-    private void doExtract(){
+    private void doExtract(MediaCodec decoder){
+
+        // 롤리팝 미만일 때에는 getInputBuffers를 사용하여 가져와야 함
+        ByteBuffer[] decoderInputBuffers = null;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            decoderInputBuffers = decoder.getInputBuffers();
+        }
+
 
     }
 
