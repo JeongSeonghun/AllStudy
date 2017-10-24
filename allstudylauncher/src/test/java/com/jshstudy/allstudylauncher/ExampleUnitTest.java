@@ -1,4 +1,4 @@
-package jsh.example.com.allstudylauncher;
+package com.jshstudy.allstudylauncher;
 
 import org.junit.Test;
 

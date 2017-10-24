@@ -1,4 +1,4 @@
-package jsh.example.com.allstudylauncher;
+package com.jshstudy.allstudylauncher;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
