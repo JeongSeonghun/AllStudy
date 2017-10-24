@@ -1,1 +1,1 @@
-include ':app', ':common', ':jemediaplayer'
+include ':app', ':common', ':jemediaplayer', ':allstudylauncher'
