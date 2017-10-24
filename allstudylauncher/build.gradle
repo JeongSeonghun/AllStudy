@@ -3,11 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
-
     defaultConfig {
         applicationId "jsh.example.com.allstudylauncher"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
@@ -19,6 +18,28 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def path = rootDir.absolutePath + "/custom_out/"
+            def apkName = "allstudylauncher"
+
+            if (variant.buildType.name == "release") {
+                def date = new Date().format("yyyyMMdd")
+                path += date
+
+                apkName += "_v${variant.versionName}.apk"
+            } else {
+                apkName += "_${variant.buildType.name}.apk"
+            }
+
+            output.outputFile = new File(
+                    path,
+                    apkName
+            )
+        }
+    }
+    productFlavors {
     }
 }
 

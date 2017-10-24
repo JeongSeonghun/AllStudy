@@ -21,6 +21,27 @@ android {
     }
     productFlavors {
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def path = rootDir.absolutePath + "/custom_out/"
+            def apkName = "jemediaplayer"
+
+            if (variant.buildType.name == "release") {
+                def date = new Date().format("yyyyMMdd")
+                path += date
+
+                apkName += "_v${variant.versionName}.apk"
+            } else {
+                apkName += "_${variant.buildType.name}.apk"
+            }
+
+            output.outputFile = new File(
+                    path,
+                    apkName
+            )
+        }
+    }
 }
 
 dependencies {

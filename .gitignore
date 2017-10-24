@@ -11,3 +11,5 @@
 # add jsh
 # Android Studio
 .idea/
+
+custom_out/

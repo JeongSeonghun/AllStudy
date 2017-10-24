@@ -17,6 +17,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def path = rootDir.absolutePath + "/custom_out/"
+            def apkName = "engstudy"
+
+            if (variant.buildType.name == "release") {
+                def date = new Date().format("yyyyMMdd")
+                path += date
+
+                apkName += "_v${variant.versionName}.apk"
+            } else {
+                apkName += "_${variant.buildType.name}.apk"
+            }
+
+            output.outputFile = new File(
+                    path,
+                    apkName
+            )
+        }
+    }
 }
 
 dependencies {
