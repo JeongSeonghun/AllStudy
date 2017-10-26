@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.common.util.LogUtil;
@@ -21,6 +22,13 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtil.DLog(TAG, "onCreate()");
+
+        // 잠금화면 만들기 에도 사용??
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED // 잠금화면 위에 표시, full 스크린만 지원
+//                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD    // 잠금화면 해제
+//                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON    // 스크린 켜진 상태 유지, layout android:keepScreenOn="true"
+//                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);  // 화면 켜기
+
         setContentView(R.layout.activity_intro);
 
         // root Activity check

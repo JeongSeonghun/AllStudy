@@ -22,6 +22,12 @@
         <activity android:name="com.jshstudy.allstudy.ui.engstudy.QuantityAdjectivesActivity" />
         <activity android:name="com.jshstudy.allstudy.ui.engstudy.EngStudyActivity" />
         <activity android:name="com.jshstudy.allstudy.ui.DBStudyActivity"></activity>
+
+        <receiver android:name=".receiver.JBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.jshstudy.allstudy.wakeup"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

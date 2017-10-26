@@ -11,7 +11,8 @@ import com.jshstudy.common.BuildConfig;
 public class LogUtil {
     private static final String TAG = "LogUtil";
 
-    private static boolean isDebug = BuildConfig.DEBUG;
+//    private static boolean isDebug = BuildConfig.DEBUG;
+    private static boolean isDebug = true;
 
     private static boolean isSave = false;
 

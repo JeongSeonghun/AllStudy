@@ -2,6 +2,8 @@
 
     package="com.jshstudy.common">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
 
