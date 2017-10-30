@@ -2,6 +2,7 @@ package com.jshstudy.common.util;
 
 import android.util.Log;
 
+import com.jshstudy.common.AppConfig;
 import com.jshstudy.common.BuildConfig;
 
 /**
@@ -12,9 +13,9 @@ public class LogUtil {
     private static final String TAG = "LogUtil";
 
 //    private static boolean isDebug = BuildConfig.DEBUG;
-    private static boolean isDebug = true;
+    private static boolean isDebug = AppConfig.isDebug;
 
-    private static boolean isSave = false;
+    private static boolean isSave = AppConfig.isSaveLog;
 
     public static void DLog(String msg){
         DLog(TAG, msg);

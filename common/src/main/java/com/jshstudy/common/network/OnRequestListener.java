@@ -5,5 +5,5 @@ package com.jshstudy.common.network;
  */
 
 public interface OnRequestListener {
-    void OnResult();
+    void OnResult(int statusCode, Object data, Exception e);
 }

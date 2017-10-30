@@ -25,18 +25,6 @@ public class PatternUtil
 	
 	/**
 	 * 이메일이 올바른지 조회
-	 * <p>
-	 * 
-	 * @author karukaru
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 * @return
-	 *         <p>
-	 * 
-	 *         <pre>
-	 * - 사용 예
-	 * 
-	 * </pre>
 	 */
 	public static boolean checkEmail(String checkStr){
 		return checkPattern("^[_0-9a-zA-Z-.]+@.+\\.[_0-9a-zA-Z-]+", checkStr);
@@ -45,18 +33,6 @@ public class PatternUtil
 	/**
 	 * 전화번호 체크 자릿수 ?
 	 * 3자리거나 4자리 체크
-	 * <p>
-	 * 
-	 * @author karukaru
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 * @return
-	 *         <p>
-	 * 
-	 *         <pre>  
-	 * - 사용 예
-	 * 
-	 * </pre>
 	 */
 	public static boolean checkPhone(String checkStr)
 	{
@@ -65,18 +41,6 @@ public class PatternUtil
 	
 	/**
 	 * 영문/ 숫자 인지 체크
-	 * <p>
-	 * 
-	 * @author karukaru
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 * @return
-	 *         <p>
-	 * 
-	 *         <pre>
-	 * - 사용 예
-	 * 
-	 * </pre>
 	 */
 	public static boolean checkEngNum(String checkStr)
 	{
@@ -85,18 +49,6 @@ public class PatternUtil
 
 	/**
 	 * 영소문/ 숫자 인지 체크
-	 * <p>
-	 * 
-	 * @author karukaru
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 * @return
-	 *         <p>
-	 * 
-	 *         <pre>
-	 * - 사용 예
-	 * 
-	 * </pre>
 	 */
 	public static boolean checkSmallEngNum(String checkStr)
 	{
@@ -105,18 +57,6 @@ public class PatternUtil
 	
 	/**
 	 * 숫자인지 체 크
-	 * <p>
-	 * 
-	 * @author karukaru
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 * @return
-	 *         <p>
-	 * 
-	 *         <pre>
-	 * - 사용 예
-	 * 
-	 * </pre>
 	 */
 	public static boolean checkNum (String checkStr)
 	{

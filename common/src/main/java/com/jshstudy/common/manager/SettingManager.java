@@ -10,9 +10,10 @@ import android.content.SharedPreferences;
 public class SettingManager {
 
     private static SettingManager settingManager;
-    private Context ctx;
+    private Context ctx = null;
     private String prefName = "setting";
 
+    private SettingManager(){}
     private SettingManager(Context ctx){
         this.ctx = ctx;
     }

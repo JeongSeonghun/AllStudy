@@ -26,11 +26,15 @@ public class EJNetwork {
     boolean isCancel = false;
     int BUFFER_MAX = 4*1024*8; //4k byte
 
-    private JEProgressDialog progressDialog;
+    private NetProgressListener progressListener;
 
     public static class RequestMethod{
         public static final String POST = "POST";
         public static final String GET = "GET";
+    }
+
+    interface NetProgressListener{
+        void onProgress(long readSize, long totalSize);
     }
 
     private void request(String mathod, NetParams params, OnRequestListener listener){
@@ -48,19 +52,28 @@ public class EJNetwork {
         request(RequestMethod.GET, params, listener);
     }
 
-    public void setProgress(JEProgressDialog progressDialog){
-        this.progressDialog = progressDialog;
+    public void setProgressListener(NetProgressListener progressListener){
+        this.progressListener = progressListener;
     }
 
     public void cancel(){
         isCancel = true;
     }
 
-    private void responseMain(){
+    private void onProgress(final long readSize, final long totalSize){
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                listener.OnResult();
+                if(progressListener != null) progressListener.onProgress(readSize, totalSize);
+            }
+        });
+    }
+
+    private void responseMain(final int statusCode, final Object data, final Exception e){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                listener.OnResult(statusCode, data, e);
             }
         });
     }
@@ -112,7 +125,6 @@ public class EJNetwork {
                 if(requestMethod.equals(RequestMethod.POST)){
                     // post value input
 
-
                     RequestBuilder requestBuilder = new RequestBuilder();
                     requestBuilder.setPre(connection);
                     requestBuilder.write(out, null);
@@ -134,7 +146,7 @@ public class EJNetwork {
                     InputStream input = connection.getInputStream();
                     // totalSize, readSize를 통한 progress 표시 가능
                     long totalSize = connection.getContentLength();
-                    int readSize = 0;
+                    long readSize = 0;
 
                     byte[] buffer = new byte[BUFFER_MAX];
 
@@ -146,23 +158,28 @@ public class EJNetwork {
 
                         readSize += input.read(buffer);
 
-                        progressDialog.setProgress(0);
+                        onProgress(readSize, totalSize);
 
                         resStream.write(buffer);
                     }
 
 
                     // 응답 전달 구현 필요
-                    responseMain();
+                    responseMain(statusCode, resStream, null);
                 }else{
                     // connect fail
-                    responseMain();
+                    responseMain(statusCode, null, null);
                 }
 
             } catch (IOException e) {//MalformedURLException
                 e.printStackTrace();
+                responseMain(-1, null, e);
+            }finally {
+                if(connection != null){
+                    connection.disconnect();
+                    connection = null;
+                }
             }
-
 
         }
     }

@@ -86,11 +86,7 @@ public class AllStudySSLFactory extends SSLSocketFactory{
             ca = createCertificate();
             keyStore = createKeystore(ca);
             tmf = createTrustManagerFactory(keyStore);
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
+        } catch (CertificateException | KeyStoreException | IOException e) {
             e.printStackTrace();
         }
 
