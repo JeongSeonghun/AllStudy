@@ -20,8 +20,11 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class EJNetwork {
 
-    Handler mHandler = new Handler(Looper.getMainLooper());
-    OnRequestListener listener;
+    private final int CONNET_TIMEOUT = 5000;
+    private final int REAL_TIMEOUT = 5000;
+
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private NetResponseHandler responseHandler;
 
     boolean isCancel = false;
     int BUFFER_MAX = 4*1024*8; //4k byte
@@ -37,19 +40,19 @@ public class EJNetwork {
         void onProgress(long readSize, long totalSize);
     }
 
-    private void request(String mathod, NetParams params, OnRequestListener listener){
-        this.listener = listener;
+    private void request(String mathod, NetParams params, NetResponseHandler responseHandler){
+        this.responseHandler = responseHandler;
 
         Request request = new Request(mathod, null, params);
         request.start();
     }
 
-    public void post(NetParams params, OnRequestListener listener){
-        request(RequestMethod.POST, params, listener);
+    public void post(NetParams params, NetResponseHandler responseHandler){
+        request(RequestMethod.POST, params, responseHandler);
     }
 
-    public void get(NetParams params, OnRequestListener listener){
-        request(RequestMethod.GET, params, listener);
+    public void get(NetParams params, NetResponseHandler responseHandler){
+        request(RequestMethod.GET, params, responseHandler);
     }
 
     public void setProgressListener(NetProgressListener progressListener){
@@ -65,15 +68,6 @@ public class EJNetwork {
             @Override
             public void run() {
                 if(progressListener != null) progressListener.onProgress(readSize, totalSize);
-            }
-        });
-    }
-
-    private void responseMain(final int statusCode, final Object data, final Exception e){
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                listener.OnResult(statusCode, data, e);
             }
         });
     }
@@ -115,8 +109,8 @@ public class EJNetwork {
                 }
 
                 connection.setRequestMethod(requestMethod);
-                connection.setConnectTimeout(3000);
-                connection.setReadTimeout(3000);
+                connection.setConnectTimeout(CONNET_TIMEOUT);
+                connection.setReadTimeout(REAL_TIMEOUT);
 
                 connection.setDoInput(true);
 
@@ -142,7 +136,9 @@ public class EJNetwork {
                     cancel();
                 }
 
-                if(statusCode == HttpURLConnection.HTTP_OK){
+                // https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C#2xx_.28.EC.84.B1.EA.B3.B5.29
+                // 2xx : success
+                if(statusCode < 300 && statusCode >= 200){
                     InputStream input = connection.getInputStream();
                     // totalSize, readSize를 통한 progress 표시 가능
                     long totalSize = connection.getContentLength();
@@ -152,8 +148,8 @@ public class EJNetwork {
 
                     while (readSize >= totalSize){
                         if(isCancel){
-                            cancel();
                             input.close();
+                            cancel();
                         }
 
                         readSize += input.read(buffer);
@@ -163,18 +159,13 @@ public class EJNetwork {
                         resStream.write(buffer);
                     }
 
-
-                    // 응답 전달 구현 필요
-                    responseMain(statusCode, resStream, null);
-                }else{
-                    // connect fail
-                    responseMain(statusCode, null, null);
                 }
 
-            } catch (IOException e) {//MalformedURLException
-                e.printStackTrace();
-                responseMain(-1, null, e);
-            }finally {
+                responseHandler.responseData(EJNetwork.this,connection, resStream);
+
+            } catch (IOException e) {//include MalformedURLException and responseHandler.responseData
+                responseHandler.onSendFail(EJNetwork.this, new NetException(e));
+            } finally {
                 if(connection != null){
                     connection.disconnect();
                     connection = null;
