@@ -6,8 +6,11 @@ import android.os.Environment;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import com.jshstudy.common.manager.FileManager;
+import com.jshstudy.common.manager.LogFileManager;
 
 
 /**
@@ -18,6 +21,9 @@ public class FileLogUtil {
 
     private static FileLogUtil fileLogUtil;
     private FileManager fileManager;
+    private LogFileManager logFileManager;
+
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     private File saveFile;
 
@@ -41,20 +47,49 @@ public class FileLogUtil {
         setLogFile(appName);
     }
 
+    public void init(){
+        logFileManager = new LogFileManager();
+        setLogFile("logs");
+        logFileManager.setLogFile(saveFile);
+    }
+
+    public void init(String appName){
+        logFileManager = new LogFileManager();
+        setLogFile(appName);
+        logFileManager.setLogFile(saveFile);
+    }
+
     private void setLogFile(String title){
         SimpleDateFormat format = new SimpleDateFormat("yyMMddhhmm");
-        String fileName = "AllStudy_Log_"+format.format(new Date())+".txt";
+        String fileName = "AllStudy_Log_"+title+format.format(new Date())+".txt";
 
         saveFile = new File(Environment.getExternalStorageDirectory().getPath()+"/AllStudy/", fileName);
     }
 
     public void append(String msg){
-        if(fileManager == null) return;
-        
-        fileManager.addExternal(saveFile, msg.getBytes());
+
+        if(fileManager != null) fileManager.addExternal(saveFile, msg.getBytes());
+
+        if(logFileManager != null) executor.execute(new AppendRun(msg));
     }
 
     public void close(){
         if(fileManager != null)fileManager.closeStream();
     }
+
+    class AppendRun implements Runnable{
+
+        String text;
+
+        public AppendRun(String text){
+            long curTime = new Date().getTime();
+            this.text = text;
+        }
+
+        @Override
+        public void run() {
+            logFileManager.write(text);
+        }
+    }
+
 }

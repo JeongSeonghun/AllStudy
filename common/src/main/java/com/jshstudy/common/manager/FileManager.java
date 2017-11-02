@@ -18,7 +18,7 @@ import com.jshstudy.common.util.LogUtil;
 
 public class FileManager {
     private long MAX = 500 * 1024 * 1024;
-    private long MAXBUFF = 1024;
+    private long MAXBUFF = 1024; // 1kByte 가 그나마 최대..
     private String saveDir;
 
     FileOutputStream outputStream;

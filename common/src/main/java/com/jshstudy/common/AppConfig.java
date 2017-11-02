@@ -5,6 +5,6 @@ package com.jshstudy.common;
  */
 
 public class AppConfig {
-    public static final boolean isDebug = true;
-    public static final boolean isSaveLog = false;
+    public static final boolean isDebug = true;     // 로그 남김
+    public static final boolean isSaveLog = false;  // 로그 파일 남김
 }
