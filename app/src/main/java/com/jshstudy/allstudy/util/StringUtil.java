@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by shun6 on 2017-10-03.
  */
 
-public class StringUtil {
+public class StringUtil extends com.jshstudy.common.util.StringUtil{
     public static ArrayList<String> engDivider(String engStr){
         ArrayList<String> list = new ArrayList<>();
 

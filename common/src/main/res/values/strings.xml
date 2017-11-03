@@ -5,4 +5,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="default_hprogress_msg">%1$d %%</string>
+
+    <string name="log_time">yyyy.MM.dd hh:mm:ss SSS</string>
 </resources>

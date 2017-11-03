@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.jshstudy.common.R;
 import com.jshstudy.common.manager.FileManager;
 import com.jshstudy.common.manager.LogFileManager;
 
@@ -26,6 +27,7 @@ public class FileLogUtil {
     private Executor executor = Executors.newSingleThreadExecutor();
 
     private File saveFile;
+    private String timeFormat;
 
     public static FileLogUtil getInstance(){
         if(fileLogUtil == null){
@@ -37,13 +39,17 @@ public class FileLogUtil {
     private FileLogUtil(){
     }
 
-    public void init(Context context){
-        fileManager = new FileManager(context);
-        setLogFile(StringUtil.getSplitLastString(context.getPackageName(), "."));
+    public void init(Context ctx){
+        //fileManager = new FileManager(ctx);
+        logFileManager = new LogFileManager();
+        timeFormat = ctx.getString(R.string.log_time);
+        setLogFile(StringUtil.getSplitLastString(ctx.getPackageName(), "."));
     }
 
     public void init(Context ctx, String appName){
-        fileManager = new FileManager(ctx);
+        //fileManager = new FileManager(ctx);
+        logFileManager = new LogFileManager();
+        timeFormat = ctx.getString(R.string.log_time);
         setLogFile(appName);
     }
 
@@ -68,7 +74,7 @@ public class FileLogUtil {
 
     public void append(String msg){
 
-        if(fileManager != null) fileManager.addExternal(saveFile, msg.getBytes());
+        //if(fileManager != null) fileManager.addExternal(saveFile, msg.getBytes());
 
         if(logFileManager != null) executor.execute(new AppendRun(msg));
     }
@@ -77,13 +83,23 @@ public class FileLogUtil {
         if(fileManager != null)fileManager.closeStream();
     }
 
-    class AppendRun implements Runnable{
+    private class AppendRun implements Runnable{
 
         String text;
 
         public AppendRun(String text){
-            long curTime = new Date().getTime();
-            this.text = text;
+            this.text = appendTime() + text;
+        }
+
+        private String appendTime(){
+            String append = "";
+
+            if(timeFormat != null && !timeFormat.isEmpty()){
+                SimpleDateFormat format = new SimpleDateFormat(timeFormat);
+                append = format.format(new Date());
+            }
+
+            return append;
         }
 
         @Override

@@ -13,7 +13,7 @@ public class AllStudyApp extends Application{
     public void onCreate() {
         super.onCreate();
 
-        FileLogUtil.getInstance().init();
+        FileLogUtil.getInstance().init(this);
     }
 
 }

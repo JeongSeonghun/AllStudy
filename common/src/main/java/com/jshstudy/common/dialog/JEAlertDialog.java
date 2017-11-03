@@ -69,6 +69,9 @@ public class JEAlertDialog extends Dialog{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if(listener != null){
+            listener.onResponse(DialogListener.DIAL_BACKPRESS);
+        }
     }
 
     @Override
