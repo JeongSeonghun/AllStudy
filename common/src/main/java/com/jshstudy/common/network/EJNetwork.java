@@ -27,7 +27,7 @@ public class EJNetwork {
     private NetResponseHandler responseHandler;
 
     boolean isCancel = false;
-    int BUFFER_MAX = 4*1024*8; //4k byte
+    int BUFFER_MAX = 2*1024*8; //2k byte
 
     private NetProgressListener progressListener;
 

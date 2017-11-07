@@ -45,6 +45,7 @@ public class LogFileManager {
             bw= new BufferedWriter(fw);
 
             bw.write(text);
+            // fw.write(text);
 
             bw.close();
             fw.close();
@@ -55,6 +56,7 @@ public class LogFileManager {
 
     // stream : byte 단위, reader : char 단위
     // => stream 사용시 영어, 숫자는 안깨져도 한글은...
+    // read : 읽을 내용 없을 시 -1
     public void read(){
         FileReader fr;
         BufferedReader br;
@@ -80,53 +82,17 @@ public class LogFileManager {
 //                LogUtil.DLog(line +"\n");
 //            }
 
+            // fw 사용 1
+//            char ch = (char)fr.read();
+            // fw 사용 2
+//            while((size  =fr.read(chars)) != -1){
+//                String str = new String(chars, 0, size);
+//            }
+
             fr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
-//    public void write(String text){
-//        FileWriter fw;
-//        try {
-//            fw = new FileWriter(logFile);
-//
-//            fw.write(text);
-//
-//            fw.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void read(){
-//        FileReader fr;
-//        int length = 1000;
-//        int size = -1;
-//
-//        try {
-//            fr = new FileReader(logFile);
-//
-//            //  --- 1 한글자 씩 ---
-//            char ch;
-//            int data;
-//
-//            while((data=fr.read())!=-1){
-//                ch = (char) data;
-//            }
-//
-//            // --- 2 ---
-//            char[] chars = new char[length];
-//
-//            while((size  =fr.read(chars)) != -1){
-//                String str = new String(chars, 0, size);
-//            }
-//
-//            fr.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
