@@ -73,10 +73,9 @@ public class DBData {
 
         if(db == null) return;
 
-        String sql = "UPDATE SQLITE_SEQUENCE SET seq = 1 WHERE name = '"+SaveContracts.DBtb1Entry.TB_NAME+"'";
+        String sql = "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = '"+SaveContracts.DBtb1Entry.TB_NAME+"'";
         // "ALTER TABLE "+SaveContracts.DBtb1Entry.TB_NAME+" AUTO_INCREMENT = 1"; -> sqlite는 안되는 듯...
-//UPDATE SQLITE_SEQUENCE SET seq = N WHERE name = 'TABLE_NAME';
-//delete from sqlite_sequence where name='your_table';
+        //delete from sqlite_sequence where name='"+SaveContracts.DBtb1Entry.TB_NAME+"'";
         db.execSQL(sql);
     }
 

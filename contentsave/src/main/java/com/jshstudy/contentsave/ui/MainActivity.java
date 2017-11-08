@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init(){
         findViewById(R.id.btn_run_db).setOnClickListener(this);
+        findViewById(R.id.btn_run_preference).setOnClickListener(this);
     }
 
     private void startAct(Class act){
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()){
             case R.id.btn_run_db:
                 startAct(DBActivity.class);
+                break;
+            case R.id.btn_run_preference:
+                startAct(PreferenceActivity.class);
                 break;
         }
     }

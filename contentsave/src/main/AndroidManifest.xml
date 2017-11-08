@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.DBActivity" />
-        <activity android:name=".ui.SelectResultActivity"></activity>
+        <activity android:name=".ui.SelectResultActivity" />
+        <activity android:name=".ui.PreferenceActivity"></activity>
     </application>
 
 </manifest>
