@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="db_name">ContentSaveDB</string>
+    <integer name="db_version">1</integer>
+    <string name="table_tb1">tb1</string>
+
+    <string name="create_table_tb1">CREATE TABLE tb1 IF NOT EXISTS tb1
+        (index INTEGER AUTO_INCREMENT PRIMARY KEY
+        , num INTEGER
+        , msg TEXT NOT NULL
+        , time TEXT)</string>
+
+    <!-- 시퀀스 초기화(index 초기화, 1부터 다시 시작), table 초기화 후 진행-->
+    <string name="alter_init">ALTER TABLE tb1 AUTO_INCREMENT = 1</string>
+</resources>
