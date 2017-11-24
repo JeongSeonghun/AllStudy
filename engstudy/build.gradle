@@ -11,6 +11,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            keyAlias 'jshstudy'
+            keyPassword 'allstudy'
+            storeFile file('../keystore/keystore_allstudy.jks')
+            storePassword 'allstudy'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

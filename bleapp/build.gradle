@@ -13,6 +13,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+    signingConfigs {
+        config {
+            keyAlias 'jshstudy'
+            keyPassword 'allstudy'
+            storeFile file('../keystore/keystore_allstudy.jks')
+            storePassword 'allstudy'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -20,6 +28,26 @@ android {
         }
     }
     productFlavors {
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def path = rootDir.absolutePath + "/custom_out/"
+            def apkName = "bleapp"
+
+            if (variant.buildType.name == "release") {
+                def date = new Date().format("yyyyMMdd")
+                path += date
+
+                apkName += "_v${variant.versionName}.apk"
+            } else {
+                apkName += "_${variant.buildType.name}.apk"
+            }
+
+            output.outputFile = new File(
+                    path,
+                    apkName
+            )
+        }
     }
 }
 
