@@ -37,7 +37,7 @@ public class SettingManager {
         // apply 적용 중일 경우 apply가 다 끝나기 전까지 commit 실행 안됨.
         //editor.commit();
         editor.apply();
-
+        editor.clear();
     }
 
     public void putInt(String key, int param){
@@ -49,7 +49,7 @@ public class SettingManager {
 
         //editor.commit();
         editor.apply();
-
+        editor.clear();
     }
 
     public String getString(String key){

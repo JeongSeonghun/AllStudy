@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ui.DBActivity" />
         <activity android:name=".ui.SelectResultActivity" />
-        <activity android:name=".ui.PreferenceActivity"></activity>
+        <activity android:name=".ui.PreferenceActivity" />
+        <activity android:name=".ui.SystemSetActivity"></activity>
     </application>
 
 </manifest>
