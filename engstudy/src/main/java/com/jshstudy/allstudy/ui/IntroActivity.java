@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -121,6 +122,8 @@ public class IntroActivity extends AppCompatActivity {
         LogUtil.DLog(TAG, "onStop()");
     }
 
+    // ensure onPause(), onStop()
+    // no ensure onDestroy()
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -149,5 +152,17 @@ public class IntroActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         LogUtil.DLog(TAG, "onBackPressed()");
+    }
+
+    // before destroy. state save
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    // before resume. state load. no act when bundle not exist
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

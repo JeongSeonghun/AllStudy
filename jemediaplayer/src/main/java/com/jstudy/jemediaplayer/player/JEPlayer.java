@@ -21,7 +21,15 @@ import java.util.ArrayList;
  * media data(format) create?? get??
  *
  * MediaCodec
+ * api 4.1
  * encoding, decoding
+ * use law byte.
+ * api 4.3
+ * display mp4. use MediaMuxer.
+ * encoding. use surface
+ * encoding, decoding. vp8, vp9
+ *
+ *
  *
  * apply format from android
  * https://developer.android.com/guide/topics/media/media-formats.html
@@ -31,6 +39,7 @@ import java.util.ArrayList;
  */
 
 public class JEPlayer {
+    private static final String TAG = JEPlayer.class.getSimpleName();
 
     /**
      * mime     ?
@@ -56,6 +65,7 @@ public class JEPlayer {
     private PlayThread playThread;
     private JEPlayerListener listener;
     private ArrayList<Integer> trackList;
+    private ArrayList<MediaFormat> formats;
     private Surface sf;
     private MediaCrypto mediaCrypto;
     private File playFile;
@@ -126,20 +136,34 @@ public class JEPlayer {
         }
     }
 
+    /**
+     * set tack information
+     * @param extractor
+     */
     private void setTrackList(MediaExtractor extractor){
         int trackCnt = extractor.getTrackCount();
 
         for(int idx = 0 ; idx < trackCnt ; idx++){
+            // media information of track
             MediaFormat format = extractor.getTrackFormat(idx);
+            // media type ex video, audio
             String mimeType = format.getString(MediaFormat.KEY_MIME);
+            // display all information of format
+            LogUtil.DLog(TAG,format.toString());
 
-            if(mimeType.startsWith(Type)) trackList.add(idx);
+            if(mimeType.startsWith(Type)){
+                trackList.add(idx);
+                formats.add(format);
+            }
 
         }
     }
 
     public ArrayList<Integer> getTrackList(){
         return trackList;
+    }
+    public ArrayList<MediaFormat> getTrackFormats(){
+        return formats;
     }
 
     public void setListener(JEPlayerListener listener){
@@ -154,6 +178,10 @@ public class JEPlayer {
             playThread = new PlayThread();
             playState = STATE_PLAY;
             playThread.start();
+        }else{
+            if(playState == STATE_PUASED){
+                playThread.notify();
+            }
         }
 
     }
@@ -235,9 +263,8 @@ public class JEPlayer {
 
             while(playState != STATE_STOP){
                 // ------------- pause -------------------------
-                if(playState == STATE_PUASE || playState == STATE_PUASED){
+                if(playState == STATE_PUASE){
                     if(listener!=null&&playState != STATE_PUASED){
-                        playState = STATE_PUASED;
                         if(listener != null) listener.playing(playState, playTime);
                     }
 
