@@ -81,6 +81,7 @@ public class JEPlayer {
 
     private JEPlayer(){
         trackList = new ArrayList<>();
+        formats = new ArrayList<>();
         Type = TYPE_VIDEO;
     }
 
@@ -197,6 +198,7 @@ public class JEPlayer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        playState = STATE_PUASED;
     }
 
     public void seek(long seekTime){
@@ -263,20 +265,20 @@ public class JEPlayer {
 
             while(playState != STATE_STOP){
                 // ------------- pause -------------------------
-                if(playState == STATE_PUASE){
-                    if(listener!=null&&playState != STATE_PUASED){
-                        if(listener != null) listener.playing(playState, playTime);
-                    }
-
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        if(listener != null) listener.error(e.getMessage());
-                    }
-
-                    continue;
-                }
+//                if(playState == STATE_PUASE){
+//                    if(listener!=null&&playState != STATE_PUASED){
+//                        if(listener != null) listener.playing(playState, playTime);
+//                    }
+//
+//                    try {
+//                        Thread.sleep(10);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                        if(listener != null) listener.error(e.getMessage());
+//                    }
+//                    playState = STATE_PUASED;
+//                    continue;
+//                }
 
 
                 // ------------ seek ------------------------
