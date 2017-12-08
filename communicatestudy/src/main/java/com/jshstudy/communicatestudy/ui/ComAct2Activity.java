@@ -45,7 +45,7 @@ public class ComAct2Activity extends AppCompatActivity implements View.OnClickLi
         int recInt = intentRec.getIntExtra(CmData.CmActData.KEY_SEND_INT, -1);
         String recString = intentRec.getStringExtra(CmData.CmActData.KEY_SEND_STRING);
 
-        int_act2rec_tv.setText(recInt);
+        int_act2rec_tv.setText(String.valueOf(recInt));
         if(recString !=null&&!recString.isEmpty()){
             str_act2rec_tv.setText(recString);
         }
@@ -59,13 +59,21 @@ public class ComAct2Activity extends AppCompatActivity implements View.OnClickLi
     private void resultFinish(){
         String strInt = resint_act2send_et.getText().toString();
 
+        String strRes = res_act2send_et.getText().toString();
+
+        int resCode = RESULT_OK;
+
+        if(PatternUtil.checkNum(strRes)){
+            resCode = Integer.valueOf(strRes);
+        }
+
         if(PatternUtil.checkNum(strInt)){
             int resInt = Integer.valueOf(strInt);
             Intent intentRes = new Intent();
             intentRes.putExtra(CmData.CmActData.KEY_SEND_RESINT, resInt);
-            setResult(RESULT_OK, intentRes);
+            setResult(resCode, intentRes);
         }else{
-            setResult(RESULT_OK);
+            setResult(resCode);
         }
 
         finish();

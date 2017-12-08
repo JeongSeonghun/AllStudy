@@ -74,12 +74,12 @@ public class ComAct1Activity extends AppCompatActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        res_act1res_tv.setText(resultCode);
-        resreq_act1res_tv.setText(requestCode);
+        res_act1res_tv.setText(String.valueOf(resultCode));
+        resreq_act1res_tv.setText(String.valueOf(requestCode));
 
-        if(data.hasExtra(CmData.CmActData.KEY_SEND_RESINT)){
+        if(data != null && data.hasExtra(CmData.CmActData.KEY_SEND_RESINT)){
             int recInt = data.getIntExtra(CmData.CmActData.KEY_SEND_RESINT, -1);
-            recint_act1res_tv.setText(recInt);
+            recint_act1res_tv.setText(String.valueOf(recInt));
         }
     }
 

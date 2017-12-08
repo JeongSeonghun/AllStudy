@@ -7,7 +7,7 @@
     tools:context="com.jshstudy.communicatestudy.ui.ComAct1Activity">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/act11send_cl"
+        android:id="@+id/act1send_cl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,7 +17,7 @@
             android:id="@+id/send_act1title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sub_request"
+            android:text="@string/title_send"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -44,8 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/key_request_code"
-            app:layout_constraintTop_toBottomOf="@+id/req_act1key_tv"
+            android:text="@string/key_int"
+            app:layout_constraintTop_toBottomOf="@+id/req_act1send_et"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <EditText
@@ -60,12 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/key_request_code"
-            app:layout_constraintTop_toBottomOf="@+id/int_act1key_tv"
+            android:text="@string/key_string"
+            app:layout_constraintTop_toBottomOf="@+id/int_act1send_et"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <EditText
-            android:id="@+id/str_act1req_tv"
+            android:id="@+id/str_act1send_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/str_act1key_tv"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/start"
-            app:layout_constraintTop_toBottomOf="@+id/str_act1key_tv"
+            app:layout_constraintTop_toBottomOf="@+id/str_act1send_et"
             app:layout_constraintLeft_toLeftOf="parent"
             />
 
@@ -87,12 +87,12 @@
         android:id="@+id/ac1res_cl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/act11send_cl">
+        app:layout_constraintTop_toBottomOf="@id/act1send_cl">
         <TextView
             android:id="@+id/title_act1res_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sub_response"
+            android:text="@string/title_response"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -109,6 +109,7 @@
             android:id="@+id/res_act1res_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             app:layout_constraintLeft_toRightOf="@id/res_act1key_tv"
             app:layout_constraintTop_toTopOf="@id/res_act1key_tv"/>
 
@@ -118,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/key_request_code"
-            app:layout_constraintTop_toBottomOf="@+id/title_act1res_tv"
+            app:layout_constraintTop_toBottomOf="@+id/res_act1key_tv"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
@@ -134,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/key_int"
-            app:layout_constraintTop_toBottomOf="@+id/title_act1res_tv"
+            app:layout_constraintTop_toBottomOf="@+id/res_act1key_tvreq"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
