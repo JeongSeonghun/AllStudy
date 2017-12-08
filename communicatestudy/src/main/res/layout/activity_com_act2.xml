@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jshstudy.communicatestudy.ui.ComAct2Activity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/act2rec_cl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="parent">
+        <TextView
+            android:id="@+id/title_act2rec_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sub_response"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/int_act2key_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/key_res_code"
+            app:layout_constraintTop_toBottomOf="@+id/title_act2rec_tv"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/int_act2rec_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/int_act2key_tv"
+            app:layout_constraintTop_toTopOf="@id/int_act2key_tv"/>
+
+        <TextView
+            android:id="@+id/str_act2key_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/key_res_code"
+            app:layout_constraintTop_toBottomOf="@+id/int_act2key_tv"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/str_act2rec_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/int_act2rec_tv"
+            app:layout_constraintTop_toTopOf="@id/str_act2key_tv"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_act_send2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/act2rec_cl"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+            android:id="@+id/title_act2send_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sub_request"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/res_act2key_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/key_request_code"
+            app:layout_constraintTop_toBottomOf="@+id/title_act2send_tv"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <EditText
+            android:id="@+id/res_act2send_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toTopOf="@+id/res_act2key_tv"
+            app:layout_constraintLeft_toRightOf="@+id/res_act2key_tv"
+            android:layout_marginStart="10dp" />
+
+        <TextView
+            android:id="@+id/resint_act2key_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/key_request_code"
+            app:layout_constraintTop_toBottomOf="@+id/res_act2key_tv"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <EditText
+            android:id="@+id/resint_act2send_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/resint_act2key_tv"
+            app:layout_constraintLeft_toLeftOf="@+id/res_act2send_et"/>
+
+        <Button
+            android:id="@+id/act2send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/start"
+            app:layout_constraintTop_toBottomOf="@+id/resint_act2key_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
