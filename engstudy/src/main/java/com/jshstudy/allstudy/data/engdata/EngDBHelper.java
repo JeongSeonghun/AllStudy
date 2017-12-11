@@ -26,6 +26,7 @@ public class EngDBHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(context.getString(R.string.eng_create_table_base));
 
+        db.execSQL(context.getString(R.string.eng_create_table_sample));
     }
 
     @Override

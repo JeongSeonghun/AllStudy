@@ -2,6 +2,7 @@ package com.jshstudy.allstudy;
 
 import android.app.Application;
 
+import com.jshstudy.allstudy.data.AllStudyDB;
 import com.jshstudy.common.util.FileLogUtil;
 
 /**
@@ -9,11 +10,15 @@ import com.jshstudy.common.util.FileLogUtil;
  */
 
 public class AllStudyApp extends Application{
+
+    AllStudyDB allStudyDB;
     @Override
     public void onCreate() {
         super.onCreate();
 
         FileLogUtil.getInstance().init(this);
+
+        //allStudyDB = new AllStudyDB(this);
     }
 
 }

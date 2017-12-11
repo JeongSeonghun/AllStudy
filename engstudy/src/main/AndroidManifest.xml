@@ -3,31 +3,34 @@
     package="com.jshstudy.allstudy">
 
     <application
-        android:name="com.jshstudy.allstudy.AllStudyApp"
+        android:name=".AllStudyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.jshstudy.allstudy.ui.MainActivity" />
-        <activity android:name="com.jshstudy.allstudy.ui.IntroActivity">
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.jshstudy.allstudy.ui.LoginActivity" />
-        <activity android:name="com.jshstudy.allstudy.ui.engstudy.QuantityAdjectivesActivity" />
-        <activity android:name="com.jshstudy.allstudy.ui.engstudy.EngStudyActivity" />
-        <activity android:name="com.jshstudy.allstudy.ui.DBStudyActivity"></activity>
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.engstudy.QuantityAdjectivesActivity" />
+        <activity android:name=".ui.engstudy.EngStudyActivity" />
+        <activity android:name=".ui.DBStudyActivity" />
 
         <receiver android:name=".receiver.JBroadcastReceiver">
             <intent-filter>
-                <action android:name="com.jshstudy.allstudy.wakeup"/>
+                <action android:name="com.jshstudy.allstudy.wakeup" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ui.engstudy.EngCheckActivity" />
+        <activity android:name=".ui.engstudy.EngCheckAddActivity"></activity>
     </application>
 
 </manifest>

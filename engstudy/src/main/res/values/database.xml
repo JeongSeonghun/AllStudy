@@ -2,7 +2,7 @@
 <resources>
     <string name="eng_database">eng_database</string>
     <string name="eng_table_base">eng_base</string>
-    <string name="eng_create_table_base">create table eng_base (idx integer primary key autoincrement, eng text, kor text</string>
+    <string name="eng_create_table_base">create table eng_base (idx integer primary key autoincrement, eng text, kor text)</string>
     <!-- string format 저장 시 % 주의 -->
     <string name="eng_insert_table_base">INSERT INTO eng_base (eng, kor) VALUES(\'%%s\', \'%%s\')</string>
     <string name="eng_insert_table_base2"
@@ -16,5 +16,15 @@
         formatted="false">INSERT INTO sq_table (col_str, col_int) VALUES (\'%s\', %d)</string>
     <string name="sq_clear_table">DELETE FROM sq_table</string>
     <string name="sq_select_table">SELECT * FROM sq_table limit 10</string>
+
+    <!-- sample eng db -->
+    <string name="eng_create_table_sample">CREATE TABLE IF NOT EXISTS eng_sample (idx integer primary key autoincrement, eng text, kor text, type text
+        , success INTEGER, fail INTEGER)</string>
+    <string name="select_cnt_eng_sample">SELECT idx FROM eng_sample</string>
+    <string name="select_data_eng_sample">SELECT * FROM eng_sample WHERE idx = %1$d</string>
+    <string name="insert_data_eng_sample">INSERT INTO eng_sample (eng, kor, type, success, fail)
+        VALUES(\'%1$s\', \'%2$s\', \'%3$s\', 0, 0)</string>
+    <string name="update_success_eng_sample">UPDATE eng_sample SET success = %1$d WHERE idx = %2$d</string>
+    <string name="update_fail_eng_sample">UPDATE eng_sample SET fail = %1$d WHERE idx = %2$d</string>
 
 </resources>
