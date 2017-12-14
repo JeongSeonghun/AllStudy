@@ -25,7 +25,7 @@ public class EngCheckActivity extends Activity implements View.OnClickListener{
     private EditText type1_sample_et;
     private EditText type2_sample_et;
     private Button add_eng_sample_btn;
-    private Button chekc_eng_sample_btn;
+    private Button check_eng_sample_btn;
     private TextView result_chk1_sample_tv;
     private TextView result_chk2_sample_tv;
 
@@ -57,12 +57,12 @@ public class EngCheckActivity extends Activity implements View.OnClickListener{
         type1_sample_et = (EditText)findViewById(R.id.type1_sample_et);
         type2_sample_et = (EditText)findViewById(R.id.type2_sample_et);
         add_eng_sample_btn = (Button)findViewById(R.id.add_eng_sample_btn);
-        chekc_eng_sample_btn = (Button)findViewById(R.id.check_eng_btn);
+        check_eng_sample_btn = (Button)findViewById(R.id.check_eng_btn);
         result_chk1_sample_tv = (TextView)findViewById(R.id.result_chk1_sample_tv);
         result_chk2_sample_tv = (TextView)findViewById(R.id.result_chk2_sample_tv);
 
         add_eng_sample_btn.setOnClickListener(this);
-        chekc_eng_sample_btn.setOnClickListener(this);
+        check_eng_sample_btn.setOnClickListener(this);
 
     }
 
@@ -108,13 +108,9 @@ public class EngCheckActivity extends Activity implements View.OnClickListener{
         int rIdx = 0;
 
         double ran = Math.random();
-        LogUtil.DLog("random origin ran = "+ran);
         int num = (int) Math.floor(Math.log10(total_num)) +1;
-        LogUtil.DLog("random num = "+num);
         ran *= Math.pow(10, num);
-        LogUtil.DLog("random ran = "+ran);
         int num2 = (int) Math.floor(ran);
-        LogUtil.DLog("random num2 = "+num2);
         rIdx = num2%total_num;
 
         LogUtil.DLog("random idx = "+rIdx);
@@ -123,16 +119,10 @@ public class EngCheckActivity extends Activity implements View.OnClickListener{
 
     private void checkEngSample(){
 
-        String str_kor1;
-        String str_kor2;
-        String type1;
-        String type2;
-
-        str_kor1 = kor1_sample_et.getText().toString();
-        str_kor2 = kor2_sample_et.getText().toString();
-
-        type1 = type1_sample_et.getText().toString();
-        type2 = type2_sample_et.getText().toString();
+        String str_kor1 = kor1_sample_et.getText().toString();
+        String str_kor2 = kor2_sample_et.getText().toString();
+        String type1 = type1_sample_et.getText().toString();
+        String type2 = type2_sample_et.getText().toString();
 
         EngCheckData data1 = engCheckDatas.get(0);
         EngCheckData data2 = engCheckDatas.get(1);
@@ -146,11 +136,25 @@ public class EngCheckActivity extends Activity implements View.OnClickListener{
         result_chk2_sample_tv.setText(String.valueOf(result2));
     }
 
+    private void showAnswers(EngCheckData data, String chkData, String chkType){
+
+        kor1_sample_et.setText(addAnswer(chkData, data.getKor()));
+
+        kor2_sample_et.setText(addAnswer(chkType, data.getType()));
+
+    }
+
+    private String addAnswer(String input, String answer){
+        return input + "\n -->" + answer;
+    }
+
     private boolean setResult(EngCheckData data, String chkData, String chkType){
         boolean isSuccess = false;
 
         if(chkData.equals(data.getKor()) && chkType.equals(data.getType())){
             isSuccess = true;
+        }else{
+            showAnswers(data, chkData, chkType);
         }
 
         if(isSuccess){
