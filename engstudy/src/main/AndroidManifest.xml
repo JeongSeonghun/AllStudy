@@ -30,7 +30,7 @@
         </receiver>
 
         <activity android:name=".ui.engstudy.EngCheckActivity" />
-        <activity android:name=".ui.engstudy.EngCheckAddActivity"></activity>
+        <activity android:name=".ui.engstudy.EngCheckAddActivity" />
     </application>
 
 </manifest>

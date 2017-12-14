@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.jshstudy.communicatestudy.ui.ComFragActivity">
 
+    <fragment
+        android:id="@+id/fargact_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.jshstudy.communicatestudy.ui.fragment.ComFrag1Fragment"
+        tools:layout="@layout/activity_main"/>
+
+    <FrameLayout
+        android:id="@+id/frag_frl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>
