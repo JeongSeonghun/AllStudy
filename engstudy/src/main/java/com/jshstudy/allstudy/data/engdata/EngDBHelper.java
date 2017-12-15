@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.jshstudy.allstudy.R;
+import com.jshstudy.allstudy.data.EngDataC;
 
 /**
  * Created by shun6 on 2017-09-10.
@@ -27,6 +28,8 @@ public class EngDBHelper extends SQLiteOpenHelper{
         db.execSQL(context.getString(R.string.eng_create_table_base));
 
         db.execSQL(context.getString(R.string.eng_create_table_sample));
+
+        db.execSQL(EngDataC.WordDB.QUERY_CREATE_TABLE);
     }
 
     @Override

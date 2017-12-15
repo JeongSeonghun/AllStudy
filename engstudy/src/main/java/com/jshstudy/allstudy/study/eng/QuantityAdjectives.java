@@ -1,5 +1,11 @@
 package com.jshstudy.allstudy.study.eng;
 
+import com.jshstudy.allstudy.data.AllStudyDB;
+import com.jshstudy.allstudy.data.engdata.EngWord;
+import com.jshstudy.allstudy.data.engdata.EngWordList;
+
+import java.util.ArrayList;
+
 /**
  * Created by shun6 on 2017-09-05.
  */
@@ -231,6 +237,83 @@ public class QuantityAdjectives {
         }
         return null;
     }
+
+
+    public void saveWord(){;
+        getQuantityAdjList();
+        for(EngWord word : quantityAdjList){
+
+        }
+    }
+    ArrayList<EngWord> quantityAdjList = new ArrayList<>();
+
+    // base
+    public ArrayList<EngWord> getQuantityAdjList(){
+        addQuantityAdj("many", "많은");
+        addQuantityAdj("a number of", "많은");
+        addQuantityAdj("a good number of", "많은");
+        addQuantityAdj("a great number of", "많은");
+        addQuantityAdj("a large number of", "많은");
+        addQuantityAdj("several", "몇몇의");
+        addQuantityAdj("a few", "적은");
+        addQuantityAdj("few", "거의 없는");
+
+        addQuantityAdj("much", "많은");
+        addQuantityAdj("a deal of", "많은");
+        addQuantityAdj("a great deal of", "많은");
+        addQuantityAdj("a amount of", "많은");
+        addQuantityAdj("a large amount of", "많은");
+        addQuantityAdj("a little", "적은");
+        addQuantityAdj("little", "거의 없는");
+
+        addQuantityAdj("a lot of", "많은");
+        addQuantityAdj("lots of", "많은");
+        addQuantityAdj("no", "없는");
+        addQuantityAdj("all", "모든");
+        addQuantityAdj("some", "몇몇");
+        addQuantityAdj("most", "대부분");
+
+        addQuantityAdj("one of the", "~중에 하나");
+        addQuantityAdj("all of the", "~중에 모두");
+        addQuantityAdj("some of the", "~중에 몇몇");
+        addQuantityAdj("most of the", "~중에 대부분");
+        addQuantityAdj("many of the", "~중에 많은 것");
+        addQuantityAdj("a few of the", "~중에 적은 것");
+        addQuantityAdj("few of the", "~중에 거의 없는");
+        addQuantityAdj("several of the", "~중에 몇몇");
+        addQuantityAdj("both of the", "~중에 둘다");
+        addQuantityAdj("a little of the", "~중에 적은 것");
+        addQuantityAdj("little of the", "~중에 거의 없는");
+
+        addQuantityAdj("every", "모든");
+        addQuantityAdj("each", "각각");
+        addQuantityAdj("the whole", "모든");
+
+        addQuantityAdj("another", "다른");
+        addQuantityAdj("other", "다른");
+
+        addQuantityAdj("the number of", "~의 숫자");
+
+        return quantityAdjList;
+
+    }
+
+    private void addQuantityAdj(String eng, String... kors){
+
+    }
+
+    private void addQuantityAdj(String eng, String kor){
+        quantityAdjList.add(createEngWord(eng, kor));
+    }
+
+    public EngWord createEngWord(String eng, String kor){
+        EngWord engWord = new EngWord();
+        engWord.setEng(eng);
+        engWord.setKor(EngWord.EngType.KEY_ADJ, kor);
+        engWord.setChapter(EngWord.EngChapter.QUANTITY_ADJECTIVES);
+        return engWord;
+    }
+
 
 
 }

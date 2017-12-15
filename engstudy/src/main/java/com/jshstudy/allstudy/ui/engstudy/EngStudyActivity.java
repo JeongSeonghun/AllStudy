@@ -10,21 +10,29 @@ import java.util.ArrayList;
 
 import com.jshstudy.allstudy.R;
 
+import com.jshstudy.allstudy.data.AllStudyDB;
+import com.jshstudy.allstudy.data.engdata.EngWord;
+import com.jshstudy.allstudy.study.eng.Gerund;
+import com.jshstudy.allstudy.study.eng.QuantityAdjectives;
+import com.jshstudy.allstudy.study.eng.Verb;
 import com.jshstudy.allstudy.util.StringUtil;
 import com.jshstudy.common.util.LogUtil;
 
 public class EngStudyActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button check_eng_btn;
+    private Button check_eng_btn;
+
+    private AllStudyDB allStudyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eng_study);
 
-        test();
-
         initUi();
+
+        allStudyDB = new AllStudyDB(this);
+        saveBaseWord();
     }
 
     private void initUi(){
@@ -33,42 +41,23 @@ public class EngStudyActivity extends AppCompatActivity implements View.OnClickL
         check_eng_btn.setOnClickListener(this);
     }
 
-    public void test(){
-        String[] countable = new String[]{
-                "many"
-                , "a (great, good, large) number of"
-                , "several"
-                , "a feq"
-                , "few"
-        };
 
-        String[] unCountable = new String[]{
-                "much"
-                , "a (great) deal of"
-                , "a (large) amount of"
-                , "(a) little"
-        };
+    private void saveBaseWord(){
+        QuantityAdjectives quantityAdjectives = new QuantityAdjectives();
+        insertWord(quantityAdjectives.getQuantityAdjList());
 
-        ArrayList<String> list = new ArrayList<>();
+        Verb verb = new Verb();
+        insertWord(verb.getVerbList());
 
-        for(String tempStr : unCountable){
-            if(tempStr.contains("(")){
-                ArrayList<String> tempList = StringUtil.engDivider(tempStr);
+        Gerund gerund = new Gerund();
+        insertWord(gerund.getGerundList());
 
-                if(tempList == null || tempList.size()<=0){
-                    return;
-                }
 
-                list.addAll(tempList);
-            }else{
+    }
 
-                list.add(tempStr);
-            }
-
-        }
-
-        for(String str : list){
-            LogUtil.DLog(getClass().getSimpleName(), "list item : "+str);
+    private void insertWord(ArrayList<EngWord> words){
+        for(EngWord word : words){
+            allStudyDB.insertEngWord(word);
         }
     }
 

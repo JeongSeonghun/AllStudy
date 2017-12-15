@@ -27,4 +27,8 @@
     <string name="update_success_eng_sample">UPDATE eng_sample SET success = %1$d WHERE idx = %2$d</string>
     <string name="update_fail_eng_sample">UPDATE eng_sample SET fail = %1$d WHERE idx = %2$d</string>
 
+    <!-- eng word -->
+    <string name="table_eng_word">eng_word</string>
+    <string name="eng_crate_table_word">CREATE TABLE IF NOT EXISTS eng_word (idx integer primary key autoincrement, eng text, kor text, chapter text
+        , success INTEGER, fail INTEGER)</string>
 </resources>

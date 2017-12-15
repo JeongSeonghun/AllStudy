@@ -11,6 +11,7 @@ import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.data.engdata.EngCheckData;
 import com.jshstudy.allstudy.data.engdata.EngDBHelper;
 import com.jshstudy.allstudy.data.engdata.EngData;
+import com.jshstudy.allstudy.data.engdata.EngWord;
 import com.jshstudy.common.util.LogUtil;
 
 /**
@@ -203,5 +204,15 @@ public class AllStudyDB {
         }
 
         engDB.execSQL(updateQuery);
+    }
+
+    public void insertEngWord(EngWord word){
+        engDB = engHelper.getWritableDatabase();
+
+        if(engDB == null) return;
+
+        String insertQuery = String.format(EngDataC.WordDB.QUERY_INSERT, word.getEng(), word.getKor(), word.getJSChapterList().toString());
+
+
     }
 }

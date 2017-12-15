@@ -1,5 +1,9 @@
 package com.jshstudy.allstudy.study.eng;
 
+import com.jshstudy.allstudy.data.engdata.EngWord;
+
+import java.util.ArrayList;
+
 /**
  * Created by shun6 on 2017-09-05.
  */
@@ -39,4 +43,77 @@ public class Gerund {
             , "bo subject to 명사"
             , "bo loyal to", "bo equal to"
     };
+
+
+    // base
+    ArrayList<EngWord> gerundList = new ArrayList<>();
+
+    public ArrayList<EngWord> getGerundList(){
+
+        addGerund("suggest", "~을 제안하다");
+        addGerund("finish", "~을 마치다");
+        addGerund("enjoy", "~을 즐기다");
+        addGerund("envy", "~을 부러워하다");
+        addGerund("deny", "~을 거부하다");
+        addGerund("give up", "~을 포기하다");
+        addGerund("avoid", "~을 회피하다");
+        addGerund("consider", "~을 고려하다");
+        addGerund("keep", "~을 유지하다");
+        addGerund("postpone", "~을 연기하다");
+        addGerund("recommend", "~을 추천하다");
+        addGerund("mind", "~을 꺼리다");
+        addGerund("discontinue", "~을 중단하다");
+
+
+        addGerund_phr("look forward to", "~을 기대하다");
+        addGerund_phr("be accustomed to", "~에 익숙해지다");
+        addGerund_phr("be used to", "~에 익숙해지다");
+        addGerund_phr("be committed to", "~을 헌신하다");
+        addGerund_phr("be dedicated to", "~을 헌신하다");
+        addGerund_phr("devoted to", "~을 헌신하다");
+        addGerund_phr("react to ", "~에 반응하다");
+        addGerund_phr("respond to", "~에 응답하다");
+        addGerund_phr("reply to", "~에 응답하다");
+        addGerund_phr("attribute A to B", "A는 B때문이다");
+        addGerund_phr("be opposed to", "~에 반대하다");
+        addGerund_phr("object to", "~을 반대하다");
+        addGerund_phr("contribute A to B", "A를 B에 헌신하다");
+        addGerund_phr("contribute to A", "A를 헌신하다");
+        addGerund_phr("be superior to", "상위이다??");
+        addGerund_phr("be inferior to", "열등하다???");
+        addGerund_phr("prior to", "~전에");
+        addGerund_phr("previous to", "~전에");
+        addGerund_phr("be subject to", new String[]{"~당하기 쉽다", });
+        addGerund_phr("be loyal to", "~에 복종하다");
+        addGerund_phr("be equal to", "동등하다");
+
+
+        return gerundList;
+    }
+
+
+
+    private void addGerund(String eng, String... kor){
+        gerundList.add(createEngWord(eng, kor));
+    }
+
+    public EngWord createEngWord(String eng, String... kor){
+        EngWord engWord = new EngWord();
+        engWord.setEng(eng);
+        engWord.setKor(EngWord.EngType.KEY_VERB, kor);
+        engWord.setChapter(EngWord.EngChapter.GERUND);
+        return engWord;
+    }
+
+    private void addGerund_phr(String eng, String... kor){
+        gerundList.add(createEngWord_phr(eng, kor));
+    }
+
+    public EngWord createEngWord_phr(String eng, String... kor){
+        EngWord engWord = new EngWord();
+        engWord.setEng(eng);
+        engWord.setKor(EngWord.EngType.KEY_PHR, kor);
+        engWord.setChapter(EngWord.EngChapter.GERUND);
+        return engWord;
+    }
 }

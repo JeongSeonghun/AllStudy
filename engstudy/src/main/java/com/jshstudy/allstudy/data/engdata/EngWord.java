@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -16,11 +17,18 @@ import java.util.Set;
 public class EngWord {
     private String eng;
     private HashMap<String, ArrayList<String>> means;
-    private ArrayList<Integer> chList;
 
     public EngWord(){
         means = new HashMap<>();
-        chList = new ArrayList<>();
+
+    }
+
+    public EngWord(String eng, String korType, String kor, int... chapter){
+        means = new HashMap<>();
+        setEng(eng);
+        setKor(korType, kor);
+        setChapter(chapter);
+
     }
 
     public void setEng(String eng){
@@ -43,6 +51,16 @@ public class EngWord {
                 korList.add(kor);
             }
         }
+    }
+
+    public void setKor(String type, String... kors){
+        means = new HashMap<>();
+        ArrayList<String> list = new ArrayList<>();
+        for(String kor : kors){
+            list.add(kor);
+        }
+
+        means.put(type, list);
     }
 
     // kor {verb: [kor1, kor2 ...]}
@@ -104,31 +122,40 @@ public class EngWord {
         return object;
     }
 
-    public void setChList(ArrayList<Integer> chList){
-        this.chList = chList;
-    }
+    private ArrayList<Integer> chapterList = new ArrayList<>();
 
-    public void setChList(String strChList){
-        try {
-            JSONArray ja = new JSONArray(strChList);
-
-            int size = ja.length();
-
-            for(int idx = 0; idx < size ; idx ++){
-                chList.add(ja.getInt(idx));
+    public void setChapter(JSONArray ja){
+        chapterList = new ArrayList<>();
+        int size = ja.length();
+        for(int idx = 0; idx < size ; idx++){
+            try {
+                chapterList.add(ja.getInt(idx));
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 
-    public ArrayList<Integer> getChList(){
-        return chList;
+    public void setChapter(int... chapters){
+        chapterList = new ArrayList<>();
+        for(int chapter : chapters){
+            chapterList.add(chapter);
+        }
     }
 
-    public String getStrChList(){
-        JSONArray ja = new JSONArray(chList);
-        return ja.toString();
+    public void addChapter(int... chapters){
+        for(int chapter : chapters){
+            if(chapterList.contains(chapter)) continue;
+            chapterList.add(chapter);
+        }
+    }
+
+    public ArrayList<Integer> getChapterList(){
+        return chapterList;
+    }
+
+    public JSONArray getJSChapterList(){
+        return new JSONArray(chapterList);
     }
 
 
