@@ -1,5 +1,6 @@
 package com.jshstudy.sendstudy.service;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -8,6 +9,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 
 import com.jshstudy.common.util.LogUtil;
 
@@ -52,10 +54,20 @@ public class AutoSendService extends Service{
         sendHandler.sendEmptyMessageDelayed(0, time);
     }
 
+    private Notification createNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+        builder.setContentTitle("경찰청 스마트카 서비스");
+        builder.setContentText("");
+        builder.setSmallIcon(android.R.mipmap.sym_def_app_icon);
+
+        return builder.build();
+    }
+
     // start : app
 //    @IntDef(value = {Service.START_FLAG_REDELIVERY, Service.START_FLAG_RETRY}, flag = true)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        startForeground(100, createNotification());
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -70,7 +82,8 @@ public class AutoSendService extends Service{
             super.handleMessage(msg);
 
             if(msg.what == 0){
-                sendWakeUp();
+                //sendWakeUp();
+                stopSelf();
             }
         }
     };

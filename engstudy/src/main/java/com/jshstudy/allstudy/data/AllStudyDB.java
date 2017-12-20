@@ -33,6 +33,13 @@ public class AllStudyDB {
         sqHelper = new SQLiteDBHelper(context);
     }
 
+    public void close(){
+        engHelper.close();
+        sqHelper.close();
+        engHelper = null;
+        sqHelper = null;
+    }
+
     public int insertEngBase(String eng, String kor){
         String insertQuery = String.format(context.getString(R.string.eng_insert_table_base2),eng,kor);
 
