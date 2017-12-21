@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.ui.engstudy.EngCheckActivity;
+import com.jshstudy.allstudy.ui.engstudy.EngSearchActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngStudyActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngWordChkActivity;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_db_start).setOnClickListener(this);
         findViewById(R.id.btn_eng_chk_start).setOnClickListener(this);
         findViewById(R.id.btn_word_chk_start).setOnClickListener(this);
+        findViewById(R.id.btn_eng_search_start).setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_word_chk_start:
                 goToAct(EngWordChkActivity.class);
+                break;
+            case R.id.btn_eng_search_start:
+                goToAct(EngSearchActivity.class);
                 break;
         }
     }

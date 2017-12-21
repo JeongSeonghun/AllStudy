@@ -31,7 +31,9 @@
 
         <activity android:name=".ui.engstudy.EngCheckActivity" />
         <activity android:name=".ui.engstudy.EngCheckAddActivity" />
-        <activity android:name=".ui.engstudy.QuantityAdjActivity"></activity>
+        <activity android:name=".ui.engstudy.QuantityAdjActivity" />
+        <activity android:name=".ui.engstudy.EngWordChkActivity" />
+        <activity android:name=".ui.engstudy.EngSearchActivity"></activity>
     </application>
 
 </manifest>

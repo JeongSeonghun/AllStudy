@@ -1,5 +1,6 @@
 package com.jshstudy.allstudy.ui.engstudy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.data.AllStudyDB;
+import com.jshstudy.allstudy.data.engdata.EngCheckData;
 
 public class EngCheckAddActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -26,8 +28,9 @@ public class EngCheckAddActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_eng_check_add);
 
         initUi();
+        initData();
 
-        allStudyDB = new AllStudyDB(this);
+
     }
 
     private void initUi(){
@@ -38,6 +41,28 @@ public class EngCheckAddActivity extends AppCompatActivity implements View.OnCli
         result_add_eng_tv = (TextView)findViewById(R.id.result_add_eng_tv);
 
         add_eng_sam_btn.setOnClickListener(this);
+    }
+
+    private void initData(){
+        allStudyDB = new AllStudyDB(this);
+
+        Intent intent = getIntent();
+        int idx = intent.getIntExtra("idx", -1);
+
+        if(idx<0) return;
+
+        EngCheckData data = allStudyDB.getEngCheckData(idx);
+
+    }
+
+    private void setData(EngCheckData data){
+        String eng = data.getEng();
+        String kor = data.getKor();
+        String type = data.getType();
+
+        add_eng_sample_et.setText(eng);
+        add_kor_sample_et.setText(kor);
+        add_type_sample_et.setText(type);
     }
 
     private void add(){
