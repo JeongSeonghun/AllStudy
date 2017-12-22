@@ -1,6 +1,6 @@
 AllStudy content
 ============================
-total : 9
+total : 10
 
 android library : 1
 - common
@@ -14,8 +14,10 @@ app module : 7
 - bleapp
 - sendstudy
 
-explain : 1
-- gradle
+explain : 2
+- gradle buildType & productFlavor
+- gradle packagingOptions
+- url
 
 
 index
@@ -28,7 +30,9 @@ index
 6. [contentsave](#contentsave)
 7. [bleapp](#bleapp)
 8. [sendstudy](#sendstudy)
-9. [gradle](#gradle)
+9. [gradle buildType & productFlavor](#gradle_build)
+10. [gradle packagingOptions](#gradle_packagingOptions)
+11. [url](#url)
 
 
 common <a id="common">
@@ -118,7 +122,7 @@ simple explanation
 ~~~~
 
 
-gradle <a id="gradle">
+gradle buildType & productFlavor <a id="gradle_build">
 --------------------
 gradle setting
 
@@ -180,6 +184,24 @@ gradle setting
   * both flavor and build type combined (<flavorName><BuildTypeName>Compile).
 
 
+gradle packagingOptions <a id="gradle_packagingOptions">
+--------------------
+gradle setting.
+reduce apk size.
+
+1. code
+~~~~
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/ASL2.0'
+    }
+~~~~
+
+
+url <a id="url">
+--------------------
+url
 
 readme.md expain
 https://gist.github.com/ihoneymon/652be052a0727ad59601
