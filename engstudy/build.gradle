@@ -18,13 +18,63 @@ android {
             storeFile file('../keystore/keystore_allstudy.jks')
             storePassword 'allstudy'
         }
+
+        release {
+            keyAlias 'jshstudy'
+            keyPassword 'allstudy'
+            storeFile file('../keystore/keystore_allstudy.jks')
+            storePassword 'allstudy'
+        }
+
+        freeRelease {
+            keyAlias 'jshstudy'
+            keyPassword 'allstudy'
+            storeFile file('../keystore/keystore_allstudy.jks')
+            storePassword 'allstudy'
+        }
+
+        paidRelease {
+            keyAlias 'jshstudy'
+            keyPassword 'allstudy'
+            storeFile file('../keystore/keystore_allstudy.jks')
+            storePassword 'allstudy'
+        }
+
     }
+
+    productFlavors {
+        free {
+            applicationId "com.jshstudy.allstudy.free"
+            versionName defaultConfig.versionName +"-free"
+        }
+
+        paid {
+            applicationId "com.jshstudy.allstudy.paid"
+            versionName defaultConfig.versionName +"-paid"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            productFlavors.free.signingConfig = signingConfigs.freeRelease
+            productFlavors.paid.signingConfig = signingConfigs.paidRelease
+        }
+        dev {
+            debuggable true
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".dev"
+        }
+        qa {
+            debuggable true;
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".qa"
         }
     }
+
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def path = rootDir.absolutePath + "/custom_out/"
@@ -45,8 +95,7 @@ android {
             )
         }
     }
-    productFlavors {
-    }
+
 }
 
 dependencies {
