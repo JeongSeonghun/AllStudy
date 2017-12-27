@@ -1,8 +1,13 @@
 package com.jshstudy.allstudy.study.eng;
 
 import com.jshstudy.allstudy.data.AllStudyDB;
+import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngWord;
 import com.jshstudy.allstudy.data.engdata.EngWordList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -246,6 +251,7 @@ public class QuantityAdjectives {
         }
     }
     ArrayList<EngWord> quantityAdjList = new ArrayList<>();
+    ArrayList<EngData> quantityAdjList2 = new ArrayList<>();
 
     // base
     public ArrayList<EngWord> getQuantityAdjList(){
@@ -273,17 +279,17 @@ public class QuantityAdjectives {
         addQuantityAdj("some", "몇몇");
         addQuantityAdj("most", "대부분");
 
-        addQuantityAdj("one of the", "~중에 하나");
-        addQuantityAdj("all of the", "~중에 모두");
-        addQuantityAdj("some of the", "~중에 몇몇");
-        addQuantityAdj("most of the", "~중에 대부분");
-        addQuantityAdj("many of the", "~중에 많은 것");
-        addQuantityAdj("a few of the", "~중에 적은 것");
-        addQuantityAdj("few of the", "~중에 거의 없는");
-        addQuantityAdj("several of the", "~중에 몇몇");
-        addQuantityAdj("both of the", "~중에 둘다");
-        addQuantityAdj("a little of the", "~중에 적은 것");
-        addQuantityAdj("little of the", "~중에 거의 없는");
+        addQuantityAdjPhr("one of the", "~중에 하나");
+        addQuantityAdjPhr("all of the", "~중에 모두");
+        addQuantityAdjPhr("some of the", "~중에 몇몇");
+        addQuantityAdjPhr("most of the", "~중에 대부분");
+        addQuantityAdjPhr("many of the", "~중에 많은 것");
+        addQuantityAdjPhr("a few of the", "~중에 적은 것");
+        addQuantityAdjPhr("few of the", "~중에 거의 없는");
+        addQuantityAdjPhr("several of the", "~중에 몇몇");
+        addQuantityAdjPhr("both of the", "~중에 둘다");
+        addQuantityAdjPhr("a little of the", "~중에 적은 것");
+        addQuantityAdjPhr("little of the", "~중에 거의 없는");
 
         addQuantityAdj("every", "모든");
         addQuantityAdj("each", "각각");
@@ -292,10 +298,15 @@ public class QuantityAdjectives {
         addQuantityAdj("another", "다른");
         addQuantityAdj("other", "다른");
 
-        addQuantityAdj("the number of", "~의 숫자");
+        addQuantityAdjPhr("the number of", "~의 숫자");
 
         return quantityAdjList;
 
+    }
+
+    public ArrayList<EngData> getQuantityAdjList2(){
+        getQuantityAdjList();
+        return quantityAdjList2;
     }
 
     private void addQuantityAdj(String eng, String... kors){
@@ -303,7 +314,31 @@ public class QuantityAdjectives {
     }
 
     private void addQuantityAdj(String eng, String kor){
-        quantityAdjList.add(createEngWord(eng, kor));
+        JSONObject jo = new JSONObject();
+        JSONArray ja = new JSONArray();
+        try {
+            ja.put(kor);
+            jo.put(EngCommon.EngType.KEY_ADJ, ja);
+
+            quantityAdjList.add(createEngWord(eng, kor));
+            quantityAdjList2.add(createEngData(eng, kor));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addQuantityAdjPhr(String eng, String kor){
+        JSONObject jo = new JSONObject();
+        JSONArray ja = new JSONArray();
+        try {
+            ja.put(kor);
+            jo.put(EngCommon.EngType.KEY_PHR, ja);
+
+            quantityAdjList.add(createEngWord(eng, kor));
+            quantityAdjList2.add(createEngData(eng, kor));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public EngWord createEngWord(String eng, String kor){
@@ -312,6 +347,14 @@ public class QuantityAdjectives {
         engWord.setKor(EngWord.EngType.KEY_ADJ, kor);
         engWord.setChapter(EngWord.EngChapter.QUANTITY_ADJECTIVES);
         return engWord;
+    }
+
+    private EngData createEngData(String eng, String kor){
+        EngData engData = new EngData();
+        engData.setEng(eng);
+        engData.setKor(kor);
+        engData.setCh(1);
+        return engData;
     }
 
 
