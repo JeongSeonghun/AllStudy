@@ -1,14 +1,14 @@
 package com.jshstudy.allstudy.study.eng;
 
-import com.jshstudy.allstudy.data.engdata.EngWord;
-
-import java.util.ArrayList;
-
 /**
  * Created by shun6 on 2017-09-05.
  */
 // 동사 Ch02
-public class Verb {
+public class Verb extends EngBase{
+
+    public Verb(){
+        super(EngCommon.EngChapter.VERB);
+    }
 
     // 조동사 auxiliary verb
     String[] aux = new String[]{
@@ -150,154 +150,127 @@ public class Verb {
 
 
     // base
-    ArrayList<EngWord> verbList = new ArrayList<>();
+    @Override
+    public void setEngList() {
+        addEngVerb("rise", "오르다");
+        addEngVerb("remain", "남다");
+        addEngVerb("last", "지속되다");
+        addEngVerb("persist", "지속되다");
+        addEngVerb("exist", "존재하다");
+        addEngVerb("expire", "만료되다");
+        addEngVerb("emerge", "나타나다");
+        addEngVerb("apply", "지원하다");
+        addEngVerb("convene", "모이다");
+        addEngVerb("differ", "다르다");
+        addEngVerb("progress", new String[]{"진보되다", "진전되다"});
+        addEngVerb("proceed", new String[]{"진행되다", "계속되다"});
+        addEngVerb("take place", "열리다");
+        addEngVerb("happen", "발생하다");
+        addEngVerb("occur", "발생하다");
+        addEngVerb("communicate", "의사소통하다");
+        addEngVerb("cooperate", "협력하다");
+        addEngVerb("collaborate", "협력하다");
+        addEngVerb("interact", "상호작용하다");
+        addEngVerb("reside", "살다");
+        addEngVerb("resign", "은퇴하다");
+        addEngVerb("retire", "은퇴하다");
 
-    public ArrayList<EngWord> getVerbList(){
-        addVerb("rise", "오르다");
-        addVerb("remain", "남다");
-        addVerb("last", "지속되다");
-        addVerb("persist", "지속되다");
-        addVerb("exist", "존재하다");
-        addVerb("expire", "만료되다");
-        addVerb("emerge", "나타나다");
-        addVerb("apply", "지원하다");
-        addVerb("convene", "모이다");
-        addVerb("differ", "다르다");
-        addVerb("progress", new String[]{"진보되다", "진전되다"});
-        addVerb("proceed", new String[]{"진행되다", "계속되다"});
-        addVerb("take place", "열리다");
-        addVerb("happen", "발생하다");
-        addVerb("occur", "발생하다");
-        addVerb("communicate", "의사소통하다");
-        addVerb("cooperate", "협력하다");
-        addVerb("collaborate", "협력하다");
-        addVerb("interact", "상호작용하다");
-        addVerb("reside", "살다");
-        addVerb("resign", "은퇴하다");
-        addVerb("retire", "은퇴하다");
+        addEngVerb("become", "~이 되다");
+        addEngVerb("get", "~하다");
+        addEngVerb("seem", "~하다");
+        addEngVerb("remain", "~하다");
+        addEngVerb("stay", "~하다");
 
-        addVerb("become", "~이 되다");
-        addVerb("get", "~하다");
-        addVerb("seem", "~하다");
-        addVerb("remain", "~하다");
-        addVerb("stay", "~하다");
+        addEngPhr("concentrate on", "~에 집중하다");
+        addEngPhr("focus on", "~에 집중하다");
+        addEngPhr("react to", "~에 반응하다");
+        addEngPhr("participate in", "~에 참석하다");
+        addEngVerb("attend", "~에 참석하다");
+        addEngPhr("comply with", "~에 따르다");
+        addEngPhr("adhere to", "~에 따르다");
+        addEngPhr("observe to", "~에 따르다");
+        addEngPhr("respond to","~에 따르다");
+        addEngPhr("account for", "~을 설명하다");
+        addEngPhr("explain", "~을 설명하다");
+        addEngPhr("deal with", "~을 다루다");
+        addEngVerb("handle", "~을 다루다");
+        addEngPhr("reply to", "~에 응답하다");
+        addEngVerb("answer", "~에 응답하다");
+        addEngPhr("arrive in", "~에 도달하다");
+        addEngPhr("arrive at", "~에 도달하다");
+        addEngPhr("interfere with", "~을 방해하다");
+        addEngPhr("object to", "~을 반대하다");
 
-        addVerb_phr("concentrate on", "~에 집중하다");
-        addVerb_phr("focus on", "~에 집중하다");
-        addVerb_phr("react to", "~에 반응하다");
-        addVerb_phr("participate in", "~에 참석하다");
-        addVerb("attend", "~에 참석하다");
-        addVerb_phr("comply with", "~에 따르다");
-        addVerb_phr("adhere to", "~에 따르다");
-        addVerb_phr("observe to", "~에 따르다");
-        addVerb_phr("respond to","~에 따르다");
-        addVerb_phr("account for", "~을 설명하다");
-        addVerb_phr("explain", "~을 설명하다");
-        addVerb_phr("deal with", "~을 다루다");
-        addVerb("handle", "~을 다루다");
-        addVerb_phr("reply to", "~에 응답하다");
-        addVerb("answer", "~에 응답하다");
-        addVerb_phr("arrive in", "~에 도달하다");
-        addVerb_phr("arrive at", "~에 도달하다");
-        addVerb_phr("interfere with", "~을 방해하다");
-        addVerb_phr("object to", "~을 반대하다");
+        addEngVerb("suggest", "~을 제안하다");
+        addEngVerb("recommend", "~을 제안하다");
+        addEngVerb("introduce", new String[]{"~을 소개하다", "~을 도입하다"});
+        addEngVerb("make sure", "~을 확실히하다");
+        addEngVerb("ensure", "~을 확실히하다");
+        addEngVerb("express", "~을 표현하다");
+        addEngVerb("indicate", "~을 나타내다");
+        addEngVerb("note", "~을 알리다");
+        addEngVerb("mention", "~을 알리다");
+        addEngVerb("insist", "~을 주장하다");
+        addEngVerb("ask", "~을 요구하다");
+        addEngVerb("request", "~을 요구하다");
+        addEngVerb("require", "~을 요구하다");
+        addEngVerb("show", "~을 보여주다");
+        addEngVerb("explain", "~을 설명하다");
+        addEngVerb("announce", "~을 발표하다");
 
-        addVerb("suggest", "~을 제안하다");
-        addVerb("recommend", "~을 제안하다");
-        addVerb("introduce", new String[]{"~을 소개하다", "~을 도입하다"});
-        addVerb("make sure", "~을 확실히하다");
-        addVerb("ensure", "~을 확실히하다");
-        addVerb("express", "~을 표현하다");
-        addVerb("indicate", "~을 나타내다");
-        addVerb("note", "~을 알리다");
-        addVerb("mention", "~을 알리다");
-        addVerb("insist", "~을 주장하다");
-        addVerb("ask", "~을 요구하다");
-        addVerb("request", "~을 요구하다");
-        addVerb("require", "~을 요구하다");
-        addVerb("show", "~을 보여주다");
-        addVerb("explain", "~을 설명하다");
-        addVerb("announce", "~을 발표하다");
+        addEngVerb("give", "~을 주다");
+        addEngVerb("offer", "~을 주다");
+        addEngVerb("send", "~를 주다");
+        addEngVerb("grant", "~을 주다");
+        addEngVerb("bring", "~을 주다");
+        addEngVerb("award", "~을 주다");
 
-        addVerb("give", "~을 주다");
-        addVerb("offer", "~을 주다");
-        addVerb("send", "~를 주다");
-        addVerb("grant", "~을 주다");
-        addVerb("bring", "~을 주다");
-        addVerb("award", "~을 주다");
+        addEngVerb("make", "~라고 생각하다");
+        addEngVerb("find", "~라고 생각하다");
+        addEngVerb("consider", "~라고 생각하다");
+        addEngVerb("keep", "~라고 생각하다");
+        addEngVerb("deem", "~라고 생각하다");
+        addEngVerb("hold", "~라고 생각하다");
 
-        addVerb("make", "~라고 생각하다");
-        addVerb("find", "~라고 생각하다");
-        addVerb("consider", "~라고 생각하다");
-        addVerb("keep", "~라고 생각하다");
-        addVerb("deem", "~라고 생각하다");
-        addVerb("hold", "~라고 생각하다");
+        addEngVerb("enable", "~을 가능하게하다");
+        addEngVerb("ask", "~을 요청하다");
+        addEngVerb("request", "~을 요청하다");
+        addEngVerb("require", "~을 요청하다");
+        addEngVerb("allow", "~을 허가하다");
+        addEngVerb("expect", "~을 원하다");
+        addEngVerb("want", "~을 원하다");
+        addEngVerb("encourage", "~을 격려하다");
+        addEngVerb("recommend", "~을 제안하다");
+        addEngVerb("force", "~을 강요하다");
+        addEngVerb("cause", "~을 유발하다");
+        addEngVerb("persuade", "~을 설득하다");
 
-        addVerb("enable", "~을 가능하게하다");
-        addVerb("ask", "~을 요청하다");
-        addVerb("request", "~을 요청하다");
-        addVerb("require", "~을 요청하다");
-        addVerb("allow", "~을 허가하다");
-        addVerb("expect", "~을 원하다");
-        addVerb("want", "~을 원하다");
-        addVerb("encourage", "~을 격려하다");
-        addVerb("recommend", "~을 제안하다");
-        addVerb("force", "~을 강요하다");
-        addVerb("cause", "~을 유발하다");
-        addVerb("persuade", "~을 설득하다");
+        addEngVerb("make", "~을 시키다");
+        addEngVerb("have", "~을 시키다");
+        addEngVerb("let", "~을 시키다");
 
-        addVerb("make", "~을 시키다");
-        addVerb("have", "~을 시키다");
-        addVerb("let", "~을 시키다");
+        addEngVerb("return", "~을 돌려주다");
+        addEngVerb("report", "~을 제출하다");
+        addEngVerb("send", "~을 전달하다");
+        addEngVerb("submit", "~을 제출하다");
+        addEngVerb("transfer", "~을 전송하다");
+        addEngVerb("direct", "~을 이끌다");
+        addEngVerb("forward", "~을 전송하다");
+        addEngVerb("lead", "~을 이끌다");
+        addEngVerb("charge", new String[]{"~을 부과하다", "~을 부과하다"});
+        addEngVerb("contribute", "~을 헌신하다");
+        addEngVerb("attribute A to B", "A는 B때문이다");
 
-        addVerb("return", "~을 돌려주다");
-        addVerb("report", "~을 제출하다");
-        addVerb("send", "~을 전달하다");
-        addVerb("submit", "~을 제출하다");
-        addVerb("transfer", "~을 전송하다");
-        addVerb("direct", "~을 이끌다");
-        addVerb("forward", "~을 전송하다");
-        addVerb("lead", "~을 이끌다");
-        addVerb("charge", new String[]{"~을 부과하다", "~을 부과하다"});
-        addVerb("contribute", "~을 헌신하다");
-        addVerb("attribute A to B", "A는 B때문이다");
+        addEngVerb("inform", "~알리다");
+        addEngVerb("notify", "~을 통보하다");
+        addEngVerb("remind", "~을 상기시키다");
+        addEngVerb("assure", "~을 확신하다");
+        addEngVerb("convince", "~을 확신하다");
+        addEngVerb("advise", "~을 충고하다");
 
-        addVerb("inform", "~알리다");
-        addVerb("notify", "~을 통보하다");
-        addVerb("remind", "~을 상기시키다");
-        addVerb("assure", "~을 확신하다");
-        addVerb("convince", "~을 확신하다");
-        addVerb("advise", "~을 충고하다");
-
-        addVerb("talk", "말하다");
-        addVerb("speak", "~을 말하다");
-        addVerb("say", "~을 말하다");
-        addVerb("tell", "~을 말하다");
-
-        return verbList;
-    }
-
-    private void addVerb(String eng, String... kor){
-        verbList.add(createEngWord(eng, kor));
-    }
-
-    private void addVerb_phr(String eng, String... kor){
-        verbList.add(createEngWor_phrd(eng, kor));
-    }
-
-    public EngWord createEngWord(String eng, String... kor){
-        EngWord engWord = new EngWord();
-        engWord.setEng(eng);
-        engWord.setKor(EngWord.EngType.KEY_VERB, kor);
-        engWord.setChapter(EngWord.EngChapter.VERB);
-        return engWord;
-    }
-
-    public EngWord createEngWor_phrd(String eng, String... kor){
-        EngWord engWord = new EngWord();
-        engWord.setEng(eng);
-        engWord.setKor(EngWord.EngType.KEY_PHR, kor);
-        engWord.setChapter(EngWord.EngChapter.VERB);
-        return engWord;
+        addEngVerb("talk", "말하다");
+        addEngVerb("speak", "~을 말하다");
+        addEngVerb("say", "~을 말하다");
+        addEngVerb("tell", "~을 말하다");
     }
 }

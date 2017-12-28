@@ -1,21 +1,10 @@
 package com.jshstudy.allstudy.study.eng;
 
-import com.jshstudy.allstudy.data.AllStudyDB;
-import com.jshstudy.allstudy.data.engdata.EngData;
-import com.jshstudy.allstudy.data.engdata.EngWord;
-import com.jshstudy.allstudy.data.engdata.EngWordList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 /**
  * Created by shun6 on 2017-09-05.
  */
 // 수량 형용사 Ch01
-public class QuantityAdjectives {
+public class QuantityAdjectives extends EngBase{
     // the singular 단수
     // the plural 복수
 
@@ -41,6 +30,10 @@ public class QuantityAdjectives {
     // ~의 숫자(단수)/ 많은(복수)
     public static final String ADJECTIVE_TO_PLURAL_P = "ad_to_plural_p";
     public static final String ADJECTIVE_TO_PLURAL_S = "ad_to_plural_s";
+
+    public QuantityAdjectives(){
+        super(EngCommon.EngChapter.QUANTITY_ADJECTIVES);
+    }
 
     public String[] countable = new String[]{
             "many"
@@ -243,120 +236,51 @@ public class QuantityAdjectives {
         return null;
     }
 
+    @Override
+    public void setEngList() {
+        addEngAdj("many", "많은");
+        addEngAdj("a number of", "많은");
+        addEngAdj("a good number of", "많은");
+        addEngAdj("a great number of", "많은");
+        addEngAdj("a large number of", "많은");
+        addEngAdj("several", "몇몇의");
+        addEngAdj("a few", "적은");
+        addEngAdj("few", "거의 없는");
 
-    public void saveWord(){;
-        getQuantityAdjList();
-        for(EngWord word : quantityAdjList){
+        addEngAdj("much", "많은");
+        addEngAdj("a deal of", "많은");
+        addEngAdj("a great deal of", "많은");
+        addEngAdj("a amount of", "많은");
+        addEngAdj("a large amount of", "많은");
+        addEngAdj("a little", "적은");
+        addEngAdj("little", "거의 없는");
 
-        }
+        addEngAdj("a lot of", "많은");
+        addEngAdj("lots of", "많은");
+        addEngAdj("no", "없는");
+        addEngAdj("all", "모든");
+        addEngAdj("some", "몇몇");
+        addEngAdj("most", "대부분");
+
+        addEngPhr("one of the", "~중에 하나");
+        addEngPhr("all of the", "~중에 모두");
+        addEngPhr("some of the", "~중에 몇몇");
+        addEngPhr("most of the", "~중에 대부분");
+        addEngPhr("many of the", "~중에 많은 것");
+        addEngPhr("a few of the", "~중에 적은 것");
+        addEngPhr("few of the", "~중에 거의 없는");
+        addEngPhr("several of the", "~중에 몇몇");
+        addEngPhr("both of the", "~중에 둘다");
+        addEngPhr("a little of the", "~중에 적은 것");
+        addEngPhr("little of the", "~중에 거의 없는");
+
+        addEngAdj("every", "모든");
+        addEngAdj("each", "각각");
+        addEngAdj("the whole", "모든");
+
+        addEngAdj("another", "다른");
+        addEngAdj("other", "다른");
+
+        addEngPhr("the number of", "~의 숫자");
     }
-    ArrayList<EngWord> quantityAdjList = new ArrayList<>();
-    ArrayList<EngData> quantityAdjList2 = new ArrayList<>();
-
-    // base
-    public ArrayList<EngWord> getQuantityAdjList(){
-        addQuantityAdj("many", "많은");
-        addQuantityAdj("a number of", "많은");
-        addQuantityAdj("a good number of", "많은");
-        addQuantityAdj("a great number of", "많은");
-        addQuantityAdj("a large number of", "많은");
-        addQuantityAdj("several", "몇몇의");
-        addQuantityAdj("a few", "적은");
-        addQuantityAdj("few", "거의 없는");
-
-        addQuantityAdj("much", "많은");
-        addQuantityAdj("a deal of", "많은");
-        addQuantityAdj("a great deal of", "많은");
-        addQuantityAdj("a amount of", "많은");
-        addQuantityAdj("a large amount of", "많은");
-        addQuantityAdj("a little", "적은");
-        addQuantityAdj("little", "거의 없는");
-
-        addQuantityAdj("a lot of", "많은");
-        addQuantityAdj("lots of", "많은");
-        addQuantityAdj("no", "없는");
-        addQuantityAdj("all", "모든");
-        addQuantityAdj("some", "몇몇");
-        addQuantityAdj("most", "대부분");
-
-        addQuantityAdjPhr("one of the", "~중에 하나");
-        addQuantityAdjPhr("all of the", "~중에 모두");
-        addQuantityAdjPhr("some of the", "~중에 몇몇");
-        addQuantityAdjPhr("most of the", "~중에 대부분");
-        addQuantityAdjPhr("many of the", "~중에 많은 것");
-        addQuantityAdjPhr("a few of the", "~중에 적은 것");
-        addQuantityAdjPhr("few of the", "~중에 거의 없는");
-        addQuantityAdjPhr("several of the", "~중에 몇몇");
-        addQuantityAdjPhr("both of the", "~중에 둘다");
-        addQuantityAdjPhr("a little of the", "~중에 적은 것");
-        addQuantityAdjPhr("little of the", "~중에 거의 없는");
-
-        addQuantityAdj("every", "모든");
-        addQuantityAdj("each", "각각");
-        addQuantityAdj("the whole", "모든");
-
-        addQuantityAdj("another", "다른");
-        addQuantityAdj("other", "다른");
-
-        addQuantityAdjPhr("the number of", "~의 숫자");
-
-        return quantityAdjList;
-
-    }
-
-    public ArrayList<EngData> getQuantityAdjList2(){
-        getQuantityAdjList();
-        return quantityAdjList2;
-    }
-
-    private void addQuantityAdj(String eng, String... kors){
-
-    }
-
-    private void addQuantityAdj(String eng, String kor){
-        JSONObject jo = new JSONObject();
-        JSONArray ja = new JSONArray();
-        try {
-            ja.put(kor);
-            jo.put(EngCommon.EngType.KEY_ADJ, ja);
-
-            quantityAdjList.add(createEngWord(eng, kor));
-            quantityAdjList2.add(createEngData(eng, kor));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void addQuantityAdjPhr(String eng, String kor){
-        JSONObject jo = new JSONObject();
-        JSONArray ja = new JSONArray();
-        try {
-            ja.put(kor);
-            jo.put(EngCommon.EngType.KEY_PHR, ja);
-
-            quantityAdjList.add(createEngWord(eng, kor));
-            quantityAdjList2.add(createEngData(eng, kor));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public EngWord createEngWord(String eng, String kor){
-        EngWord engWord = new EngWord();
-        engWord.setEng(eng);
-        engWord.setKor(EngWord.EngType.KEY_ADJ, kor);
-        engWord.setChapter(EngWord.EngChapter.QUANTITY_ADJECTIVES);
-        return engWord;
-    }
-
-    private EngData createEngData(String eng, String kor){
-        EngData engData = new EngData();
-        engData.setEng(eng);
-        engData.setKor(kor);
-        engData.setCh(1);
-        return engData;
-    }
-
-
-
 }

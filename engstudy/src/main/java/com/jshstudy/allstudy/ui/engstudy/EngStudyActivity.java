@@ -32,33 +32,12 @@ public class EngStudyActivity extends AppCompatActivity implements View.OnClickL
         initUi();
 
         allStudyDB = new AllStudyDB(this);
-        saveBaseWord();
     }
 
     private void initUi(){
         check_eng_btn = (Button)findViewById(R.id.check_eng_btn);
 
         check_eng_btn.setOnClickListener(this);
-    }
-
-
-    private void saveBaseWord(){
-        QuantityAdjectives quantityAdjectives = new QuantityAdjectives();
-        insertWord(quantityAdjectives.getQuantityAdjList());
-
-        Verb verb = new Verb();
-        insertWord(verb.getVerbList());
-
-        Gerund gerund = new Gerund();
-        insertWord(gerund.getGerundList());
-
-
-    }
-
-    private void insertWord(ArrayList<EngWord> words){
-        for(EngWord word : words){
-            allStudyDB.insertEngWord(word);
-        }
     }
 
     private void goToChapter(int num){

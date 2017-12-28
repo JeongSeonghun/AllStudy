@@ -49,8 +49,8 @@ public class EngDataC {
         public static final int TOTAL_CH = 12;
 
         public static final int VERSION_DB = 1;
-        public static final String NAME_DB = "";
-        public static final String NAME_TABLE = "";
+        public static final String NAME_DB = "eng_study";
+        public static final String NAME_TABLE = "eng_words";
 
         public static final String COL_ENG = "eng";
         public static final String COL_KOR = "kor";
@@ -65,7 +65,7 @@ public class EngDataC {
                 ComDB.BASE_COL_IDX+", "
                         +COL_ENG+" "+ComDB.TYPE_TEXT + ", "+COL_KOR+" "+ ComDB.TYPE_TEXT+", "
                         +COL_SUCCESS+" "+ComDB.TYPE_INT+" DEFAULT 0, "+COL_FAIL+" "+ComDB.TYPE_INT + " DEFAULT 0, "
-                        +COL_NCH+ " "+ComDB.TYPE_BOOLEAN+" DEFAULT FALSE, "
+                        +COL_NCH+ " "+ComDB.TYPE_INT+" DEFAULT 0, "
                         +getColCh());
 
         private static String getColCh(){
@@ -97,15 +97,17 @@ public class EngDataC {
 
         public static final String QUERY_SELECT_ENG_OFFSET_WHERE = "";
 
+        public static final String QUERY_SELECT_ENG_CNT = String.format(ComDB.QUERY_SELECT_CNT_IDX, NAME_TABLE);
+
         public static final String QUERY_INSERT_ENG = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
-                COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "%2$s, %3$s, %4$s, true");
+                COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', %4$s, 1");
 
         public static final String QUERY_INSERT_ENG_NO_Ch = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
-                COL_ENG+ " , "+ COL_KOR, "%1$s, %2$s");
+                COL_ENG+ " , "+ COL_KOR, "'%1$s', '%2$s'");
 
 
         public static final String QUERY_UPDATE_ENG = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
-                COL_KOR+"=%1$s", ComDB.COL_IDX + "= $2$d");
+                COL_KOR+"='%1$s'", ComDB.COL_IDX + "= %2$d");
 
         public static final String QUERY_UPDATE_SUCCESS = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
                 "%1$s = %2$d", ComDB.COL_IDX +" = %3$d");

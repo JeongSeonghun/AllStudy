@@ -6,9 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.jshstudy.allstudy.data.engdata.EngAllDBHelper;
 import com.jshstudy.allstudy.data.engdata.EngData;
+import com.jshstudy.allstudy.study.eng.EngCommon;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -43,9 +45,9 @@ public class LangStudyDB {
 
             String chList = data.getWDataCh();
             String query;
-            if(chList != null && chList.isEmpty()){
+            if(chList != null && !chList.isEmpty()){
                 query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG
-                        , chList, data.getEng(), data.getKor(), chList.replace("ch",""));
+                        , chList, data.getEng(), ""+data.getKor(), chList.replace("ch",""));
             }else{
                 query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG_NO_Ch,
                         data.getEng(), data.getKor());
@@ -67,11 +69,13 @@ public class LangStudyDB {
         int idx  = -1;
 
         if(cur!=null && cur.moveToNext()){
+            LogUtil.DLog(getClass().getSimpleName(), "cnt : "+ cur.getCount());
             idx = cur.getInt(cur.getColumnIndex(ComDB.COL_IDX));
         }
 
         if(cur !=null) cur.close();
 
+        LogUtil.DLog(getClass().getSimpleName(), "check idx : "+idx);
         return idx;
     }
 
@@ -93,7 +97,57 @@ public class LangStudyDB {
 
         if(cur !=null) cur.close();
 
+        LogUtil.DLog(getClass().getSimpleName(), "select eng : "+(data!=null?data.getEng():"null"));
         return data;
+    }
+
+    public ArrayList<EngData> selectEngSearch(int page){
+        SQLiteDatabase db = engHelper.getReadableDatabase();
+
+        ArrayList<EngData> engList = new ArrayList<>();
+
+        int param = (page-1)*10;
+//        if(param==0)param=1;
+        String query = String.format(Locale.KOREA,
+                EngDataC.EngDB.QUERY_SELECT_ENG_OFFSET, 10, param);
+
+        logRawQuery(query);
+
+        Cursor cur = db.rawQuery(query,null);
+        if(cur == null) return null;
+        LogUtil.DLog(getClass().getSimpleName(), "selectEngSearch cnt : "+cur.getCount());
+        while(cur.moveToNext()){
+            EngData engData = new EngData();
+            engData.setData(cur);
+
+            if(engData.check()) engList.add(engData);
+        }
+
+        cur.close();
+
+        LogUtil.DLog(getClass().getSimpleName(), "selectEngSearch cnt : "+engList.size());
+        return engList;
+    }
+
+    public int selectEngCnt(){
+        SQLiteDatabase db = engHelper.getReadableDatabase();
+
+        int cnt = -1;
+
+        String query = EngDataC.EngDB.QUERY_SELECT_ENG_CNT;
+
+        logRawQuery(query);
+
+        Cursor cur = db.rawQuery(query, null);
+
+        if(cur != null){
+            cnt = cur.getCount();
+
+            cur.close();
+        }
+
+        LogUtil.DLog(getClass().getSimpleName(), "selectEngCnt cnt : "+cnt);
+        return cnt;
     }
 
     // kor, success, fail

@@ -25,14 +25,16 @@ public class EngCommon {
         public static final String KEY_N = "noun";
         public static final String KEY_ADV = "adverb";
         public static final String KEY_CONJ = "conjunction";
+        public static final String KEY_PROP = "proposition";
         public static final String KEY_PHR = "phrase";
 
         public static final int a = 101; // = adj
         public static final int v = 102;
         public static final int n = 103;
         public static final int adv = 104; // 부사
-        public static final int conjunction = 105; // 전치사
-        public static final int phr = 106; // 관용구, 구
+        public static final int conjunction = 105; // 접속사
+        public static final int propostion = 106; // 전치사
+        public static final int phr = 120; // 관용구, 구
 
     }
 

@@ -10,6 +10,7 @@ import com.jshstudy.allstudy.ui.engstudy.EngCheckActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngSearchActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngStudyActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngWordChkActivity;
+import com.jshstudy.allstudy.ui.engstudy.SearchEngActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -18,11 +19,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initUi();
+    }
+
+    private void initUi(){
         findViewById(R.id.btn_eng_start).setOnClickListener(this);
         findViewById(R.id.btn_db_start).setOnClickListener(this);
         findViewById(R.id.btn_eng_chk_start).setOnClickListener(this);
         findViewById(R.id.btn_word_chk_start).setOnClickListener(this);
         findViewById(R.id.btn_eng_search_start).setOnClickListener(this);
+        findViewById(R.id.btn_eng_search_start2).setOnClickListener(this);
     }
 
     @Override
@@ -42,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_eng_search_start:
                 goToAct(EngSearchActivity.class);
+                break;
+            case R.id.btn_eng_search_start2:
+                goToAct(SearchEngActivity.class);
                 break;
         }
     }

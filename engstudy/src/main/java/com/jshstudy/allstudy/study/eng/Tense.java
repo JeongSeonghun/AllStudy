@@ -4,7 +4,11 @@ package com.jshstudy.allstudy.study.eng;
  * Created by shun6 on 2017-09-05.
  */
 // 시제 Ch03
-public class Tense {
+public class Tense extends EngBase{
+
+    public Tense(){
+        super(EngCommon.EngChapter.TENSE);
+    }
 
     // 현재 시제 : 일반적 사실, 습관, 진리, 일정
     // 주어가 3인칭 단수 현재 일때 동사+s
@@ -73,4 +77,24 @@ public class Tense {
     public String getPastParticiple(String eng){
         return "";
     }
+
+    @Override
+    public void setEngList() {
+        addEngAdv("everyday", "매일");
+        addEngAdv("usually", "보통");
+        addEngAdv("always", "항상");
+        addEngAdv("every month", "매달");
+        addEngAdv("every year", "매년");
+
+        String[] curIng = new String[]{
+                "currently"
+                , "now"
+                , "presently"
+        };
+        addEngAdv("currently", "현재");
+        addEngAdv("now", "지금");
+        addEngAdv("presently", "현재");
+
+    }
+
 }
