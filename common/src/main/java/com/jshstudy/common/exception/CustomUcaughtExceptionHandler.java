@@ -1,8 +1,7 @@
 package com.jshstudy.common.exception;
 
-import com.jshstudy.common.AppConfig;
+import com.jshstudy.common.ComConfig;
 import com.jshstudy.common.util.FileLogUtil;
-import com.jshstudy.common.util.LogUtil;
 
 /**
  * Created by EMGRAM on 2017-11-02.
@@ -20,7 +19,7 @@ public class CustomUcaughtExceptionHandler implements Thread.UncaughtExceptionHa
 
                 log = "final "+e;
                 e.getStackTrace();
-                if(AppConfig.isSaveLog) FileLogUtil.getInstance().append(log);
+                if(ComConfig.isSaveLog) FileLogUtil.getInstance().append(log);
             }
         });
 

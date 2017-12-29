@@ -5,7 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 
 import com.jshstudy.allstudy.data.AllStudyDB;
-import com.jshstudy.allstudy.data.LangStudyDB;
+import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.common.util.FileLogUtil;
 
 /**
@@ -15,7 +15,7 @@ import com.jshstudy.common.util.FileLogUtil;
 public class AllStudyApp extends Application{
 
     AllStudyDB allStudyDB;
-    LangStudyDB langStudyDB;
+    EngStudyDB engStudyDB;
 
     @Override
     public void onCreate() {
@@ -28,13 +28,13 @@ public class AllStudyApp extends Application{
     }
 
     private void init(){
-        langStudyDB = new LangStudyDB(this);
+        engStudyDB = new EngStudyDB(this);
 
         registerActivityLifecycleCallbacks(lifecycleCallbacks);
     }
 
-    public LangStudyDB getLangStudyDB(){
-        return langStudyDB;
+    public EngStudyDB getEngStudyDB(){
+        return engStudyDB;
     }
 
     ActivityLifecycleCallbacks lifecycleCallbacks = new ActivityLifecycleCallbacks() {

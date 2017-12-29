@@ -17,12 +17,16 @@ import java.util.Locale;
  * Created by EMGRAM on 2017-12-26.
  */
 
-public class LangStudyDB {
+public class EngStudyDB {
 
     private EngAllDBHelper engHelper;
 
-    public LangStudyDB(Context context){
+    public EngStudyDB(Context context){
         engHelper = new EngAllDBHelper(context);
+    }
+
+    public void open(Context context){
+        if(engHelper == null) engHelper = new EngAllDBHelper(context);
     }
 
     public void close(){

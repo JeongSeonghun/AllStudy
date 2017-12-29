@@ -2,6 +2,7 @@ package com.jshstudy.allstudy.data.engdata;
 
 import android.database.Cursor;
 
+import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.allstudy.data.EngDataC;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
@@ -27,7 +28,8 @@ public class EngData {
     private ArrayList<Integer> chList;
     private int success = -1;
     private int fail = -1;
-    private HashMap<String, KorData> meanMap;
+    private HashMap<String, EngMeanData> meanMap;
+    private HashMap<Integer, JSONArray> chapMap;
 
     // eng, kor, ch, success, fail
     public EngData(){
@@ -83,8 +85,30 @@ public class EngData {
         chList.add(ch);
     }
 
+    public void setCh(int ch, String detailChapter){
+        if(detailChapter == null || detailChapter.isEmpty()) return;
+
+        if(chapMap == null) chapMap = new HashMap<>();
+
+        try {
+            chapMap.put(ch, new JSONArray(detailChapter));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCh(int ch, JSONArray detailChapter){
+        if(ch<=0 || detailChapter == null || detailChapter.length()<=0) return;
+
+        chapMap.put(ch, detailChapter);
+    }
+
     public ArrayList<Integer> getCh(){
         return chList;
+    }
+
+    public HashMap<Integer, JSONArray> getChapMap(){
+        return chapMap;
     }
 
     public void setSuccess(int success){
@@ -125,7 +149,7 @@ public class EngData {
 
             if(col.equals(EngDataC.EngDB.COL_KOR)){
                 setKor(cur.getString(cur.getColumnIndex(col)));
-                setKorData();
+                setMeanData();
             }
 
             if(col.equals(EngDataC.EngDB.COL_SUCCESS)){
@@ -138,18 +162,32 @@ public class EngData {
 
             LogUtil.DLog("setData chk chapter : "+col.matches(colChMatch));
             if(col.matches(colChMatch)){
-                setCh(cur.getInt(cur.getColumnIndex(col)));
+                if(AppConfig.isPaid){
+                    setCh(Integer.valueOf(col.substring(2)), cur.getString(cur.getColumnIndex(col)));
+                }else{
+                    setCh(cur.getInt(cur.getColumnIndex(col)));
+                }
+
             }
         }
     }
 
     public boolean merge(EngData data){
         if(kor == null || kor.equals(data.getKor())) return false;
-        if(meanMap == null || meanMap.size()<=0) setKorData();
+
+        boolean changeMean = mergeMean(data);
+        boolean changeChap = AppConfig.isPaid ? mergeChDetail(data) : mergeCh(data);
+
+        return changeMean || changeChap;
+    }
+
+    private boolean mergeMean(EngData data){
+
+        if(meanMap == null || meanMap.size()<=0) setMeanData();
 
         LogUtil.DLog(getClass().getSimpleName(), "merge comp : "+kor+"/"+data.getKor());
 
-        HashMap<String, KorData> chkMap = data.getMeanMap();
+        HashMap<String, EngMeanData> chkMap = data.getMeanMap();
         Set<String> set = chkMap.keySet();
 
         boolean chkChange = false;
@@ -157,7 +195,7 @@ public class EngData {
         for(String type : set){
             LogUtil.DLog(getClass().getSimpleName(), "merge contain : "+type+"->"+(meanMap.containsKey(type)));
             if(meanMap.containsKey(type)){
-                KorData data1 = meanMap.get(type);
+                EngMeanData data1 = meanMap.get(type);
                 if(data1.merge(chkMap.get(type))){
                     meanMap.remove(type);
                     meanMap.put(type, data1);
@@ -169,27 +207,77 @@ public class EngData {
             }
         }
 
-        mergech(data);
-
         if(chkChange){
             kor = getWDataKor();
         }
 
-        return true;
+        return chkChange;
     }
 
-    private void mergech(EngData data){
-        if(chList !=null && chList.equals(data.getCh())) return;
+    private boolean mergeCh(EngData data){
+        if(chList !=null && chList.equals(data.getCh())) return false;
 
+        boolean change = false;
         for(int chapter : data.getCh()){
             if(!chList.contains(chapter)){
                 chList.add(chapter);
+                change = true;
             }
         }
+
+        return change;
     }
 
-    public HashMap<String, KorData> getMeanMap(){
-        if(meanMap == null || meanMap.size()<=0) setKorData();
+    public boolean mergeChDetail(EngData data){
+        HashMap<Integer, JSONArray> chkMap = data.getChapMap();
+        if(chkMap == null || chkMap.size()<=0 || chkMap.equals(chapMap)) return false;
+        boolean change = false;
+
+        Set<Integer> set = chkMap.keySet();
+
+        for(int chap : set){
+            JSONArray chk = chkMap.get(chap);
+            if(chapMap.containsKey(chap)){
+
+                ArrayList<String> chkList = createArrayS(chk);
+                JSONArray base = chapMap.get(chap);
+                ArrayList<String> baseList = createArrayS(base);
+
+                for(String detail : chkList){
+                    if(!baseList.contains(detail)){
+                        change = true;
+                        base.put(detail);
+                    }
+                }
+
+                if(change){
+                    chapMap.remove(chap);
+                    chapMap.put(chap, base);
+                }
+
+            }else{
+                chapMap.put(chap, chk);
+                change = true;
+            }
+        }
+
+        return change;
+    }
+
+    public ArrayList<String> createArrayS(JSONArray ja){
+        ArrayList<String> list = new ArrayList<>();
+        for(int cnt =0 ; cnt < ja.length() ; cnt++){
+            try {
+                list.add(ja.getString(cnt));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    public HashMap<String, EngMeanData> getMeanMap(){
+        if(meanMap == null || meanMap.size()<=0) setMeanData();
         return meanMap;
     }
 
@@ -232,7 +320,7 @@ public class EngData {
 
     // kor {type1:[mean1, mean2...], type2:[mean...]...}
 
-    private void setKorData(){
+    private void setMeanData(){
         meanMap = new HashMap<>();
         JSONObject jo;
         try {
@@ -243,53 +331,18 @@ public class EngData {
                 String type = iterator.next();
                 JSONArray ja = jo.getJSONArray(type);
 
-                KorData korData = new KorData();
-                korData.setType(type);
+                EngMeanData meanData = new EngMeanData();
+                meanData.setType(type);
 
                 for(int idx = 0; idx<ja.length() ; idx++){
-                    korData.setMean(ja.getString(idx));
+                    meanData.setMean(ja.getString(idx));
                 }
 
-                meanMap.put(type, korData);
+                meanMap.put(type, meanData);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-    public class KorData{
-        String type = null;
-        ArrayList<String> means;
-
-        public void setType(String type){
-            this.type = type;
-        }
-
-        public String getType(){
-            return type;
-        }
-
-        public void setMean(String mean){
-            if(means == null) means = new ArrayList<>();
-
-            means.add(mean);
-        }
-
-        public ArrayList<String> getMeans(){
-            return means;
-        }
-
-        public boolean merge(KorData data){
-            LogUtil.DLog(getClass().getSimpleName(), "merge equal: "+(this.equals(data)));
-            if(this.equals(data)) return false;
-
-            for(String mean : data.getMeans()){
-                LogUtil.DLog(getClass().getSimpleName(), "merge contain: "+mean+"->"+!means.contains(mean));
-                if(!means.contains(mean)) means.add(mean);
-            }
-
-            return true;
         }
     }
 

@@ -238,6 +238,24 @@ public class QuantityAdjectives extends EngBase{
 
     @Override
     public void setEngList() {
+        setEngCountable();
+
+        setEngUncountable();
+
+        setEngAllCountable();
+
+        setEngAllOfThe();
+
+        setEngEvery();
+
+        setEngOther();
+
+        setEngNumber();
+    }
+
+    private void setEngCountable(){
+        setDetailChap("1.1.1");
+
         addEngAdj("many", "많은");
         addEngAdj("a number of", "많은");
         addEngAdj("a good number of", "많은");
@@ -247,6 +265,12 @@ public class QuantityAdjectives extends EngBase{
         addEngAdj("a few", "적은");
         addEngAdj("few", "거의 없는");
 
+        initDetailChap();
+    }
+
+    private void setEngUncountable(){
+        setDetailChap("1.1.2");
+
         addEngAdj("much", "많은");
         addEngAdj("a deal of", "많은");
         addEngAdj("a great deal of", "많은");
@@ -255,12 +279,24 @@ public class QuantityAdjectives extends EngBase{
         addEngAdj("a little", "적은");
         addEngAdj("little", "거의 없는");
 
+        initDetailChap();
+    }
+
+    private void setEngAllCountable(){
+        setDetailChap("1.1.3");
+
         addEngAdj("a lot of", "많은");
         addEngAdj("lots of", "많은");
         addEngAdj("no", "없는");
         addEngAdj("all", "모든");
         addEngAdj("some", "몇몇");
         addEngAdj("most", "대부분");
+
+        initDetailChap();
+    }
+
+    private void setEngAllOfThe(){
+        setDetailChap("1.1.4");
 
         addEngPhr("one of the", "~중에 하나");
         addEngPhr("all of the", "~중에 모두");
@@ -274,13 +310,35 @@ public class QuantityAdjectives extends EngBase{
         addEngPhr("a little of the", "~중에 적은 것");
         addEngPhr("little of the", "~중에 거의 없는");
 
+        initDetailChap();
+    }
+
+    private void setEngEvery(){
+        setDetailChap("1.1.5");
+
         addEngAdj("every", "모든");
         addEngAdj("each", "각각");
         addEngAdj("the whole", "모든");
 
+        initDetailChap();
+    }
+
+    private void setEngOther(){
+        setDetailChap("1.1.6");
+
         addEngAdj("another", "다른");
         addEngAdj("other", "다른");
 
-        addEngPhr("the number of", "~의 숫자");
+        initDetailChap();
     }
+
+    private void setEngNumber(){
+        setDetailChap("1.1.7");
+
+        addEngAdj("a number of", "많은");
+        addEngPhr("the number of", "~의 숫자");
+
+        initDetailChap();
+    }
+
 }

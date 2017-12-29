@@ -5,12 +5,14 @@ package com.jshstudy.allstudy.constant;
  */
 
 public class C {
-    public static class EngType{
-        public String n = "N";      // 명사
-        public String v = "V";      // 동사
-        public String a = "A";      // 형용사
-        public String adj = "adj";  // ???
-        public String phr = "phr";  // ???
+
+    public class Config{
+        public static final String BUILD_TYPE_DEBUG = "debug";
+        public static final String BUILD_TYPE_DEV = "dev";
+        public static final String BUILD_TYPE_RELEASE = "release";
+
+        public static final String FRAVOR_FREE = "free";
+        public static final String FRABOR_PAID = "paid";
     }
 
     /*

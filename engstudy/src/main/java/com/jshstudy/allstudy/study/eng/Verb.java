@@ -152,6 +152,32 @@ public class Verb extends EngBase{
     // base
     @Override
     public void setEngList() {
+        setEngOneType();
+
+        setEngTwoType();
+
+        setEngOneTypePhr();
+
+        setEngThreeType();
+
+        setEngFourType();
+
+        setEngFiveType();
+
+        setEngEnableType();
+
+        setEngCausativeType();
+
+        setEngReturnType();
+
+        setEngInformType();
+
+        setEngTalkType();
+    }
+
+    private void setEngOneType(){
+        setDetailChap("2.3.1");
+
         addEngVerb("rise", "오르다");
         addEngVerb("remain", "남다");
         addEngVerb("last", "지속되다");
@@ -175,11 +201,23 @@ public class Verb extends EngBase{
         addEngVerb("resign", "은퇴하다");
         addEngVerb("retire", "은퇴하다");
 
+        initDetailChap();
+    }
+
+    private void setEngTwoType(){
+        setDetailChap("2.1.2");
+
         addEngVerb("become", "~이 되다");
         addEngVerb("get", "~하다");
         addEngVerb("seem", "~하다");
         addEngVerb("remain", "~하다");
         addEngVerb("stay", "~하다");
+
+        initDetailChap();
+    }
+
+    private void setEngOneTypePhr(){
+        setDetailChap("2.3.1.3");
 
         addEngPhr("concentrate on", "~에 집중하다");
         addEngPhr("focus on", "~에 집중하다");
@@ -201,6 +239,12 @@ public class Verb extends EngBase{
         addEngPhr("interfere with", "~을 방해하다");
         addEngPhr("object to", "~을 반대하다");
 
+        initDetailChap();
+    }
+
+    private void setEngThreeType(){
+        setDetailChap("2.3.2.1");
+
         addEngVerb("suggest", "~을 제안하다");
         addEngVerb("recommend", "~을 제안하다");
         addEngVerb("introduce", new String[]{"~을 소개하다", "~을 도입하다"});
@@ -218,6 +262,12 @@ public class Verb extends EngBase{
         addEngVerb("explain", "~을 설명하다");
         addEngVerb("announce", "~을 발표하다");
 
+        initDetailChap();
+    }
+
+    private void setEngFourType(){
+        setDetailChap("2.3.2.2");
+
         addEngVerb("give", "~을 주다");
         addEngVerb("offer", "~을 주다");
         addEngVerb("send", "~를 주다");
@@ -225,12 +275,24 @@ public class Verb extends EngBase{
         addEngVerb("bring", "~을 주다");
         addEngVerb("award", "~을 주다");
 
+        initDetailChap();
+    }
+
+    private void setEngFiveType(){
+        setDetailChap("2.3.2.4");
+
         addEngVerb("make", "~라고 생각하다");
         addEngVerb("find", "~라고 생각하다");
         addEngVerb("consider", "~라고 생각하다");
         addEngVerb("keep", "~라고 생각하다");
         addEngVerb("deem", "~라고 생각하다");
         addEngVerb("hold", "~라고 생각하다");
+
+        initDetailChap();
+    }
+
+    private void setEngEnableType(){
+        setDetailChap("2.3.2.5");
 
         addEngVerb("enable", "~을 가능하게하다");
         addEngVerb("ask", "~을 요청하다");
@@ -245,9 +307,21 @@ public class Verb extends EngBase{
         addEngVerb("cause", "~을 유발하다");
         addEngVerb("persuade", "~을 설득하다");
 
+        initDetailChap();
+    }
+
+    private void setEngCausativeType(){
+        setDetailChap("2.3.2.6");
+
         addEngVerb("make", "~을 시키다");
         addEngVerb("have", "~을 시키다");
         addEngVerb("let", "~을 시키다");
+
+        initDetailChap();
+    }
+
+    private void setEngReturnType(){
+        setDetailChap("2.3.2.7");
 
         addEngVerb("return", "~을 돌려주다");
         addEngVerb("report", "~을 제출하다");
@@ -261,6 +335,12 @@ public class Verb extends EngBase{
         addEngVerb("contribute", "~을 헌신하다");
         addEngVerb("attribute A to B", "A는 B때문이다");
 
+        initDetailChap();
+    }
+
+    private void setEngInformType(){
+        setDetailChap("2.3.2.8");
+
         addEngVerb("inform", "~알리다");
         addEngVerb("notify", "~을 통보하다");
         addEngVerb("remind", "~을 상기시키다");
@@ -268,9 +348,17 @@ public class Verb extends EngBase{
         addEngVerb("convince", "~을 확신하다");
         addEngVerb("advise", "~을 충고하다");
 
+        initDetailChap();
+    }
+
+    private void setEngTalkType(){
+        setDetailChap("2.3.2.9");
+
         addEngVerb("talk", "말하다");
         addEngVerb("speak", "~을 말하다");
         addEngVerb("say", "~을 말하다");
         addEngVerb("tell", "~을 말하다");
+
+        initDetailChap();
     }
 }

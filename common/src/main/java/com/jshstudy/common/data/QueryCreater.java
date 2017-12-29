@@ -1,4 +1,4 @@
-package com.jshstudy.allstudy.data;
+package com.jshstudy.common.data;
 
 import java.util.ArrayList;
 

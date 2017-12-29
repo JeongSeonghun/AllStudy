@@ -1,5 +1,6 @@
 package com.jshstudy.allstudy.data;
 
+import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.common.data.ComDB;
 
 import java.util.Locale;
@@ -45,12 +46,14 @@ public class EngDataC {
     // final eng data
     // idx(int), eng(text), kor(text), chXX(boolean), success(int), fail(int)
     // kor {type1 : [kor1, kor2], type2...}
+
+    public static final String NAME_DB_DEFAULT_ENG = "eng_study";
+    public static final int VERSION_DB_DEFAULT_ENG = 1;
+
     public static final class EngDB{
         public static final int TOTAL_CH = 12;
 
-        public static final int VERSION_DB = 1;
-        public static final String NAME_DB = "eng_study";
-        public static final String NAME_TABLE = "eng_words";
+        public static final String NAME_TABLE = AppConfig.isPaid?"eng_words_paid":"eng_words";
 
         public static final String COL_ENG = "eng";
         public static final String COL_KOR = "kor";
@@ -72,8 +75,14 @@ public class EngDataC {
             StringBuilder sb = new StringBuilder();
 
             for(int idx=0; idx < TOTAL_CH ; idx++){
-                sb.append(String.format(Locale.KOREA, COL_CH, (idx + 1))).append(" ")
-                        .append(ComDB.TYPE_INT).append(" DEFAULT -1");
+                sb.append(String.format(Locale.KOREA, COL_CH, (idx + 1))).append(" ");
+
+                if(!AppConfig.isPaid){
+                    sb.append(ComDB.TYPE_INT).append(" DEFAULT -1");
+                }else{
+                    sb.append(ComDB.TYPE_TEXT);
+                }
+
 
                 if(idx<TOTAL_CH-1){
                     sb.append(", ");
@@ -113,5 +122,26 @@ public class EngDataC {
                 "%1$s = %2$d", ComDB.COL_IDX +" = %3$d");
     }
 
+    public static final class EngDetailChapterDB{
+        public static final String NAME_TABLE = "eng_chapter";
 
+        public static final String COL_CHAPTER = "chapter";
+        public static final String COL_DETAIL = "detail";
+        public static final String COL_TEXT = "text";
+
+        public static final String QUERY_CREATE_TABLE = String.format(ComDB.QUERY_CREATE_TABLE_N, NAME_TABLE,
+                ComDB.BASE_COL_IDX + ", "
+                +COL_CHAPTER + " "+ ComDB.TYPE_INT + ", "
+                +COL_DETAIL + " "+ ComDB.TYPE_TEXT + ", "
+                +COL_TEXT + " "+ ComDB.TYPE_TEXT);
+
+        public static final String QUERY_INSERT = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
+                COL_CHAPTER+", "+COL_DETAIL+", "+COL_TEXT, "%1$d, '%2$s', '%3$s'");
+
+        public static final String QUERY_SELECT = String.format(ComDB.QUERY_SELECT, NAME_TABLE);
+        public static final String QUERY_SELECT_CNT = String.format(ComDB.QUERY_SELECT_CNT_IDX, NAME_TABLE);
+        public static final String QUERY_SELECT_CHAP_LIST = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_CHAPTER+"=%1$d";
+        public static final String QUERY_SELECT_CHAP = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_DETAIL+"=%1$s";
+        public static final String QUERY_SELECT_TEXT = "SELECT "+COL_TEXT+" FROM "+NAME_TABLE+" WHERE "+COL_DETAIL + "=%1$s";
+    }
 }

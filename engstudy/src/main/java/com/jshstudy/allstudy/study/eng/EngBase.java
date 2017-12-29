@@ -1,6 +1,10 @@
 package com.jshstudy.allstudy.study.eng;
 
+import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.allstudy.data.engdata.EngData;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -11,6 +15,7 @@ import java.util.ArrayList;
 public abstract class EngBase {
     private int chapter = -1;
     private ArrayList<EngData> engList = new ArrayList<>();
+    private String detailChap = null;
 
     public EngBase(){
         setEngList();
@@ -31,8 +36,33 @@ public abstract class EngBase {
         this.chapter = chapter;
     }
 
+    public void setChapter(int chapter, String detailChap){
+        this.chapter = chapter;
+        this.detailChap = detailChap;
+    }
+
+    public void setDetailChap(String detailChap){
+        this.detailChap = detailChap;
+    }
+
+    public void initDetailChap(){
+        detailChap = null;
+    }
+
     public void addEngWord(String type, String eng, String... means){
-        engList.add(createEng(type, eng, means));
+
+        if(!AppConfig.isPaid || detailChap == null || detailChap.isEmpty()){
+            engList.add(createEng(type, eng, means));
+        }else{
+            JSONArray ja = null;
+            try {
+                ja = new JSONArray(detailChap);
+                engList.add(createEng(ja, type, eng, means));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void addEngPhr(String eng, String... means){
@@ -70,4 +100,13 @@ public abstract class EngBase {
         engData.setCh(chapter);
         return engData;
     }
+
+    private EngData createEng(JSONArray detailChap, String type, String eng, String... means){
+        EngData engData = new EngData();
+        engData.setEng(eng);
+        engData.setKor(type, means);
+        engData.setCh(chapter, detailChap);
+        return engData;
+    }
+
 }
