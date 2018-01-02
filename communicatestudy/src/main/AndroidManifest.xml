@@ -21,6 +21,7 @@
         <activity android:name=".ui.ComAct2Activity" />
         <activity android:name=".ui.ComServActivity" />
         <activity android:name=".ui.ComFragActivity"></activity>
+        <service android:name=".service.ComService"/>
     </application>
 
 </manifest>
