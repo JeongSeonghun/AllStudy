@@ -14,6 +14,7 @@ public class ComDB {
     BLOB 이진 데이터 그대로 저장합니다. 예를 들면 zip이나 exe같은 바이너리 화일의 데이터를 그대로 저장합니다.
 
     boolean -> integer 0 or 1
+    모든 data null 가능 (java int = null 불가능과 차이 있음)
      */
 
     public static final String COL_IDX = "idx";

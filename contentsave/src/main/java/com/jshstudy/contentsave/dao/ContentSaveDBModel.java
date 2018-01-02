@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.jshstudy.common.util.LogUtil;
 import com.jshstudy.contentsave.dao.db.DBStudyDBHelper;
-import com.jshstudy.contentsave.dao.db.SaveContracts;
+import com.jshstudy.contentsave.vo.SaveContracts;
 import com.jshstudy.contentsave.dto.TB1Data;
 
 import java.util.ArrayList;
@@ -15,12 +15,20 @@ import java.util.ArrayList;
  * Created by EMGRAM on 2017-11-07.
  */
 
-public class DBData {
+public class ContentSaveDBModel {
     // DAO(Data Access Object) : database select, insert ...
     private DBStudyDBHelper dbHelper;
+    private static ContentSaveDBModel contentSaveDBModel = null;
 
+    public ContentSaveDBModel getInst(Context context){
+        if(contentSaveDBModel == null){
+            contentSaveDBModel = new ContentSaveDBModel(context);
+        }
 
-    public DBData(Context ctx){
+        return contentSaveDBModel;
+    }
+
+    public ContentSaveDBModel(Context ctx){
         dbHelper = new DBStudyDBHelper(ctx);
     }
 

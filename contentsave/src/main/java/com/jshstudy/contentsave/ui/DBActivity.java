@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.jshstudy.common.util.PatternUtil;
 import com.jshstudy.contentsave.R;
-import com.jshstudy.contentsave.dao.DBData;
+import com.jshstudy.contentsave.dao.ContentSaveDBModel;
 
 public class DBActivity extends Activity implements View.OnClickListener{
 
@@ -19,14 +19,14 @@ public class DBActivity extends Activity implements View.OnClickListener{
     private EditText et_update_msg;
     private EditText et_delete_idx;
 
-    private DBData dbData;
+    private ContentSaveDBModel dbData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
 
-        dbData = new DBData(this);
+        dbData = new ContentSaveDBModel(this);
 
         init();
     }

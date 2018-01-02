@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.jshstudy.contentsave.R;
-import com.jshstudy.contentsave.dao.DBData;
+import com.jshstudy.contentsave.dao.ContentSaveDBModel;
 import com.jshstudy.contentsave.dto.TB1Data;
 
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ public class SelectResultActivity extends Activity {
 
     private TextView tv_select_result;
 
-    private DBData dbData;
+    private ContentSaveDBModel dbData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_result);
 
-        dbData = new DBData(this);
+        dbData = new ContentSaveDBModel(this);
 
         init();
     }
