@@ -14,4 +14,9 @@ public class CmData {
         public static final int REQ_CODE_ACT2SEND = 100;
 
     }
+
+    public static class IntentValue{
+        public static final String KEY_SEND_SERI = "data.serializable";
+        public static final String KEY_SEND_PARC = "data.parcelable";
+    }
 }

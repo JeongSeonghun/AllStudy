@@ -1,6 +1,7 @@
 package com.jshstudy.communicatestudy.ui;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jshstudy.common.util.PatternUtil;
+import com.jshstudy.common.util.StringUtil;
 import com.jshstudy.communicatestudy.R;
 import com.jshstudy.communicatestudy.data.CmData;
+import com.jshstudy.communicatestudy.data.ParcData;
+import com.jshstudy.communicatestudy.data.SeriData;
 
 public class ComAct1Activity extends AppCompatActivity implements View.OnClickListener{
 
@@ -63,8 +67,26 @@ public class ComAct1Activity extends AppCompatActivity implements View.OnClickLi
 
         intentAct.putExtra(CmData.CmActData.KEY_SEND_INT, sendInt);
         intentAct.putExtra(CmData.CmActData.KEY_SEND_STRING, sendStr);
+        intentAct.putExtra(CmData.IntentValue.KEY_SEND_SERI, createSeriData(sendInt, sendStr));
+        intentAct.putExtra(CmData.IntentValue.KEY_SEND_PARC, createParcData(sendInt, sendStr));
 
         startActivityForResult(intentAct, req);
+    }
+
+    private SeriData createSeriData(int num, String str){
+        SeriData seriData = new SeriData();
+        seriData.setsNum(num);
+        if(StringUtil.isEmpty(str)) str = "empty";
+        seriData.setsStr(str);
+        return seriData;
+    }
+
+    private Parcelable createParcData(int num, String str){
+        ParcData parcData = new ParcData();
+        parcData.setPNum(num);
+        if(StringUtil.isEmpty(str)) str = "empty";
+        parcData.setPStr(str);
+        return parcData;
     }
 
     // Standard activity result: operation canceled. RESULT_CANCELED    = 0;

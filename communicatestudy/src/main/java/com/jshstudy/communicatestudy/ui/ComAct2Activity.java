@@ -8,9 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jshstudy.common.util.LogUtil;
 import com.jshstudy.common.util.PatternUtil;
 import com.jshstudy.communicatestudy.R;
 import com.jshstudy.communicatestudy.data.CmData;
+import com.jshstudy.communicatestudy.data.ParcData;
+import com.jshstudy.communicatestudy.data.SeriData;
 
 public class ComAct2Activity extends AppCompatActivity implements View.OnClickListener{
 
@@ -49,6 +52,20 @@ public class ComAct2Activity extends AppCompatActivity implements View.OnClickLi
         if(recString !=null&&!recString.isEmpty()){
             str_act2rec_tv.setText(recString);
         }
+
+        SeriData seriData = null;
+        ParcData parcData = null;
+
+        if(intentRec.hasExtra(CmData.IntentValue.KEY_SEND_SERI)){
+            seriData = (SeriData)intentRec.getSerializableExtra(CmData.IntentValue.KEY_SEND_SERI);
+        }
+
+        if(intentRec.hasExtra(CmData.IntentValue.KEY_SEND_PARC)){
+            parcData = intentRec.getParcelableExtra(CmData.IntentValue.KEY_SEND_PARC);
+        }
+
+        LogUtil.DLog("seriData : "+seriData);
+        LogUtil.DLog("parcData : "+parcData);
 
     }
 
