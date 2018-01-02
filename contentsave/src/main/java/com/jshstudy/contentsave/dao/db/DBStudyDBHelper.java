@@ -1,11 +1,9 @@
-package com.jshstudy.contentsave.db;
+package com.jshstudy.contentsave.dao.db;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.jshstudy.contentsave.R;
 
 /**
  * Created by EMGRAM on 2017-11-07.

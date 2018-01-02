@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.jshstudy.common.util.PatternUtil;
 import com.jshstudy.contentsave.R;
-import com.jshstudy.contentsave.data.DBData;
+import com.jshstudy.contentsave.dao.DBData;
 
 public class DBActivity extends Activity implements View.OnClickListener{
 

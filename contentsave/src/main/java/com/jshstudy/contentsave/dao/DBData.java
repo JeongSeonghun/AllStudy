@@ -1,12 +1,13 @@
-package com.jshstudy.contentsave.data;
+package com.jshstudy.contentsave.dao;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jshstudy.common.util.LogUtil;
-import com.jshstudy.contentsave.db.DBStudyDBHelper;
-import com.jshstudy.contentsave.db.SaveContracts;
+import com.jshstudy.contentsave.dao.db.DBStudyDBHelper;
+import com.jshstudy.contentsave.dao.db.SaveContracts;
+import com.jshstudy.contentsave.dto.TB1Data;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  */
 
 public class DBData {
+    // DAO(Data Access Object) : database select, insert ...
     private DBStudyDBHelper dbHelper;
 
 

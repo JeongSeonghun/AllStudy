@@ -1,4 +1,4 @@
-package com.jshstudy.contentsave.db;
+package com.jshstudy.contentsave.dao.db;
 
 import android.provider.BaseColumns;
 

@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.jshstudy.contentsave.R;
-import com.jshstudy.contentsave.data.DBData;
-import com.jshstudy.contentsave.data.TB1Data;
+import com.jshstudy.contentsave.dao.DBData;
+import com.jshstudy.contentsave.dto.TB1Data;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class SelectResultActivity extends Activity {
 

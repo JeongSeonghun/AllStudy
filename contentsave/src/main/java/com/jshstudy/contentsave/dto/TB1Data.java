@@ -1,10 +1,11 @@
-package com.jshstudy.contentsave.data;
+package com.jshstudy.contentsave.dto;
 
 /**
  * Created by EMGRAM on 2017-11-07.
  */
 
 public class TB1Data {
+    // DTO(Data Transfer Object) : get, set, toString, equal(property).
     private int idx;
     private int num;
     private String msg;
