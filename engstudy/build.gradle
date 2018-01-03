@@ -45,12 +45,12 @@ android {
     productFlavors {
         free {
             applicationId "com.jshstudy.allstudy.free"
-            versionName defaultConfig.versionName +"-free"
+            versionName defaultConfig.versionName + "-free"
         }
 
         paid {
             applicationId "com.jshstudy.allstudy.paid"
-            versionName defaultConfig.versionName +"-paid"
+            versionName defaultConfig.versionName + "-paid"
         }
     }
 

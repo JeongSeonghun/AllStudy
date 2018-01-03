@@ -46,6 +46,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
     private Spinner sel_lang_search;
     private EditText lang_search;
     private Button eng_search;
+    private Button reset_search;
 
     private ArrayAdapter<String> selLangAdapter;
     private ChapterAdapter chapterAdapter;
@@ -70,10 +71,12 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         sel_lang_search = (Spinner)findViewById(R.id.sel_lang_search);
         lang_search = (EditText)findViewById(R.id.lang_search);
         eng_search = (Button)findViewById(R.id.eng_search);
+        reset_search = (Button)findViewById(R.id.reset_search);
 
         pre_eng_search.setOnClickListener(this);
         next_eng_search.setOnClickListener(this);
         eng_search.setOnClickListener(this);
+        reset_search.setOnClickListener(this);
 
         list_eng_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
