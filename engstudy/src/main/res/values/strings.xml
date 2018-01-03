@@ -25,6 +25,13 @@
     <string name="sq_clear_btn">clear</string>
     <string name="sq_result" formatted="false">idx : %d, str : %s, i : %d</string>
 
+    <!-- SearchEngActivity -->
+    <string name="search">search</string>
+    <string name="init">init</string>
+    <string name="reset">reset</string>
+    <string name="key_item_cb">chap</string>
+    <string name="chapter">chapter</string>
+
     <!-- EngCheckActivity -->
     <string name="eng_check_act">EngCheckAct</string>
     <string name="fill_data">fill data</string>

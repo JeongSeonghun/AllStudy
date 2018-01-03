@@ -16,10 +16,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
+import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
 import com.jshstudy.allstudy.data.EngDataC;
 import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
+import com.jshstudy.allstudy.data.engdata.EngSearchData;
 import com.jshstudy.common.util.LogUtil;
+import com.jshstudy.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -29,6 +32,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
     private int page = 1;
     private int totalCnt = 0;
     private int totalPage = 0;
+
     private ArrayList<EngData> dataList;
     private EngStudyDB engStudyDB;
     private SearchListAdapter listAdapter;
@@ -43,8 +47,9 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
     private EditText lang_search;
     private Button eng_search;
 
-    private ArrayAdapter<String> selChapterAdapter;
     private ArrayAdapter<String> selLangAdapter;
+    private ChapterAdapter chapterAdapter;
+    private EngSearchData engSearchData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,35 +86,21 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void setAdapter(){
+        // result
         listAdapter = new SearchListAdapter();
         list_eng_search.setAdapter(listAdapter);
 
+        // chapter list
+        chapterAdapter = new ChapterAdapter(this);
+        sel_ch_search.setAdapter(chapterAdapter);
 
-
-        selChapterAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        selChapterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        selChapterAdapter.addAll(createChList());
-
-        sel_ch_search.setAdapter(selChapterAdapter);
-
-
+        // selectable word type
         selLangAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         selLangAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         selLangAdapter.addAll(createLangList());
 
         sel_lang_search.setAdapter(selLangAdapter);
-    }
-
-    private ArrayList<String> createChList(){
-        ArrayList<String> chList = new ArrayList<>();
-        chList.add("all");
-        chList.add("no");
-        for(int cnt = 1; cnt<= EngDataC.EngDB.TOTAL_CH ; cnt++){
-            chList.add(String.format(Locale.KOREA, EngDataC.EngDB.COL_CH, cnt));
-        }
-        return chList;
     }
 
     private ArrayList<String> createLangList(){
@@ -135,26 +126,12 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
 
     private Handler mHandler = new Handler();
 
-    private void searchEng(){
-        String selCh = (String)sel_ch_search.getSelectedItem();
-        if("all".equals(selCh)){
-
-        }else if("no".equals(selCh)){
-
-        }else{
-
-        }
-
-        String selLang = (String)sel_lang_search.getSelectedItem();
-        if("eng".equals(selLang)){
-
-        }else{
-
-        }
-    }
-
     private void searchEng(final int page){
-        dataList = engStudyDB.selectEngSearch(page);
+        if(engSearchData != null){
+            dataList = engStudyDB.selectEngSearch(page, engSearchData);
+        }else{
+            dataList = engStudyDB.selectEngSearch(page);
+        }
 
         LogUtil.DLog("search page : "+page);
 
@@ -196,6 +173,63 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         listAdapter.notifyDataSetChanged();
     }
 
+    private void searchEng(){
+        engSearchData = createEngSearchData();
+
+        if(engSearchData == null){
+            return;
+        }
+        engStudyDB.selectEngSearchCnt(engSearchData);
+//        totalCnt = engStudyDB.selectEngSearchCnt(engSearchData);
+//
+//        totalPage = totalCnt/10 + 1;
+//
+//        String title = "Eng Search -> total : "+totalCnt;
+//        title_eng_search.setText(title);
+//
+//        page = 1;
+//        searchEng(page);
+
+    }
+
+    private EngSearchData createEngSearchData(){
+        String word = null;
+        String selLang = null;
+        boolean isEng = false;
+        ArrayList<ChapterAdapter.Chapter> chapList = new ArrayList<>();
+
+        word = lang_search.getText().toString();
+
+        selLang = (String)sel_lang_search.getSelectedItem();
+        if("eng".equals(selLang)){
+            isEng = true;
+        }
+
+        for(ChapterAdapter.Chapter chapter : chapterAdapter.getChapList()){
+            if(chapter.isCheck()) chapList.add(chapter);
+        }
+
+        LogUtil.DLog("createEngSearchData : "+isEng+"/"+word +"/"+chapList.size());
+
+        EngSearchData searchData = new EngSearchData();
+        searchData.setWord(isEng, word);
+        searchData.setChapters(chapList);
+
+        if(!searchData.check()) return null;
+
+        return searchData;
+    }
+
+    private void reset(){
+        chapterAdapter.init();
+        chapterAdapter.notifyDataSetChanged();
+        sel_lang_search.setSelection(0);
+        lang_search.setText("");
+        engSearchData = null;
+        page = 1;
+        initData();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -204,6 +238,12 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.next_eng_search:
                 movePageNext(true);
+                break;
+            case R.id.eng_search:
+                searchEng();
+                break;
+            case R.id.reset_search:
+                reset();
                 break;
         }
     }

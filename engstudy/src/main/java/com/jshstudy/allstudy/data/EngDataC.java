@@ -52,6 +52,7 @@ public class EngDataC {
 
     public static final class EngDB{
         public static final int TOTAL_CH = 12;
+        public static final int LIMIT_SEARCH = 10;
 
         public static final String NAME_TABLE = AppConfig.isPaid?"eng_words_paid":"eng_words";
 
@@ -104,15 +105,16 @@ public class EngDataC {
         public static final String QUERY_SELECT_ENG_OFFSET = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+
                 " LIMIT %1$d OFFSET %2$d";
 
-        public static final String QUERY_SELECT_ENG_OFFSET_WHERE = "";
+        public static final String QUERY_SELECT_ENG_OFFSET_WHERE = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+
+                " WHERE %1$s LIMIT %2$d OFFSET %3$d";
 
         public static final String QUERY_SELECT_ENG_CNT = String.format(ComDB.QUERY_SELECT_CNT_IDX, NAME_TABLE);
 
         public static final String QUERY_INSERT_ENG = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
-                COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', %4$s, 1");
+                COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', %4$s, 0");
 
         public static final String QUERY_INSERT_ENG_NO_Ch = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
-                COL_ENG+ " , "+ COL_KOR, "'%1$s', '%2$s'");
+                COL_ENG+ " , "+ COL_KOR+", "+COL_NCH, "'%1$s', '%2$s', 1");
 
 
         public static final String QUERY_UPDATE_ENG = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
@@ -143,5 +145,10 @@ public class EngDataC {
         public static final String QUERY_SELECT_CHAP_LIST = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_CHAPTER+"=%1$d";
         public static final String QUERY_SELECT_CHAP = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_DETAIL+"=%1$s";
         public static final String QUERY_SELECT_TEXT = "SELECT "+COL_TEXT+" FROM "+NAME_TABLE+" WHERE "+COL_DETAIL + "=%1$s";
+    }
+
+    public static class Chapter{
+        public static int CHAPTER_ALL = -1;
+        public static int CHAPTER_NO = 0;
     }
 }
