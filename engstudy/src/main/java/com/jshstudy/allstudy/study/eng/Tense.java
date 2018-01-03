@@ -80,21 +80,66 @@ public class Tense extends EngBase{
 
     @Override
     public void setEngList() {
+        setEngCurrent();
+
+        setEngCurrentIng();
+
+        setEngCurrentComplete();
+
+        setEngPast();
+
+        setEngWill();
+    }
+
+    private void setEngCurrent(){
+        setDetailChap("3.1.1");
+
         addEngAdv("everyday", "매일");
         addEngAdv("usually", "보통");
         addEngAdv("always", "항상");
         addEngAdv("every month", "매달");
         addEngAdv("every year", "매년");
 
-        String[] curIng = new String[]{
-                "currently"
-                , "now"
-                , "presently"
-        };
+        initDetailChap();
+    }
+
+    private void setEngCurrentIng(){
+        setDetailChap("3.1.2");
+
         addEngAdv("currently", "현재");
         addEngAdv("now", "지금");
         addEngAdv("presently", "현재");
 
+        initDetailChap();
     }
 
+    private void setEngCurrentComplete(){
+        setDetailChap("3.1.3");
+
+        addEngAdv("recently", "최근에");
+
+        initDetailChap();
+    }
+
+    private void setEngPast(){
+        setDetailChap("3.2.1");
+
+        addEngAdv("last", "지난");
+        addEngAdv("agoo", "전에");
+        addEngAdv("yesterday", "어제");
+        addEngAdv("지난", "최근에");
+
+        initDetailChap();
+    }
+
+    private void setEngWill(){
+
+        setDetailChap("3.3.1");
+
+        addEngAdv("next", "이후");
+        addEngAdv("tomorrow", "내일");
+        addEngAdv("shortly", "곧");
+
+        initDetailChap();
+    }
 }

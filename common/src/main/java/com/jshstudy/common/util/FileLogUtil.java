@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import com.jshstudy.common.AppConfig;
+import com.jshstudy.common.ComConfig;
 import com.jshstudy.common.R;
 import com.jshstudy.common.manager.FileManager;
 import com.jshstudy.common.manager.LogFileManager;
@@ -75,7 +75,7 @@ public class FileLogUtil {
 
     public void append(String msg){
 
-        if(!AppConfig.isSaveLog) return;
+        if(!ComConfig.isSaveLog) return;
 
         //if(fileManager != null) fileManager.addExternal(saveFile, msg.getBytes());
 

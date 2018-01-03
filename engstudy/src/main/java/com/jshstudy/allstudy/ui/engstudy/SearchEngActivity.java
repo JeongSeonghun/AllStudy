@@ -16,10 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
-import com.jshstudy.allstudy.data.AllStudyDB;
 import com.jshstudy.allstudy.data.EngDataC;
-import com.jshstudy.allstudy.data.LangStudyDB;
-import com.jshstudy.allstudy.data.engdata.EngCheckData;
+import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.common.util.LogUtil;
 
@@ -32,7 +30,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
     private int totalCnt = 0;
     private int totalPage = 0;
     private ArrayList<EngData> dataList;
-    private LangStudyDB engStudyDB;
+    private EngStudyDB engStudyDB;
     private SearchListAdapter listAdapter;
 
     private ListView list_eng_search;
@@ -123,7 +121,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initData(){
-        engStudyDB = new LangStudyDB(this);
+        engStudyDB = new EngStudyDB(this);
 
         totalCnt = engStudyDB.selectEngCnt();
         totalPage = totalCnt/10 + 1;

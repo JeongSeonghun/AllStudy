@@ -10,18 +10,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.jshstudy.allstudy.R;
-import com.jshstudy.allstudy.data.LangStudyDB;
+import com.jshstudy.allstudy.data.EngStudyDB;
+import com.jshstudy.allstudy.data.engdata.EngBaseInput;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.study.eng.EngBase;
 import com.jshstudy.allstudy.study.eng.QuantityAdjectives;
 import com.jshstudy.allstudy.study.eng.Tense;
 import com.jshstudy.allstudy.study.eng.Verb;
 import com.jshstudy.common.util.LogUtil;
-
-import java.util.ArrayList;
 
 public class IntroActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -119,23 +117,12 @@ public class IntroActivity extends AppCompatActivity {
         introTimer.start();
     }
 
-    private LangStudyDB langStudyDB;
     private void init(){
 
-        langStudyDB = new LangStudyDB(getApplicationContext());
-        int cnt = langStudyDB.selectEngCnt();
-        if(cnt>0)return;
+        EngBaseInput engBaseInput = new EngBaseInput();
 
-        insertBaseEng(new QuantityAdjectives());
-        insertBaseEng(new Verb());
-        insertBaseEng(new Tense());
-
-    }
-
-    private void insertBaseEng(EngBase engClass){
-        for(EngData data : engClass.getEngList()){
-            langStudyDB.insertEng(data);
-        }
+        engBaseInput.init(this);
+        
     }
 
     @Override

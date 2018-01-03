@@ -14,13 +14,13 @@ public class EngAllDBHelper extends SQLiteOpenHelper{
 
 
     public EngAllDBHelper(Context context) {
-        super(context, EngDataC.EngDB.NAME_DB, null, EngDataC.EngDB.VERSION_DB);
+        super(context, EngDataC.NAME_DB_DEFAULT_ENG, null, EngDataC.VERSION_DB_DEFAULT_ENG);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(EngDataC.EngDB.QUERY_CREATE_TABLE);
-
+        db.execSQL(EngDataC.EngDetailChapterDB.QUERY_CREATE_TABLE);
     }
 
     @Override
