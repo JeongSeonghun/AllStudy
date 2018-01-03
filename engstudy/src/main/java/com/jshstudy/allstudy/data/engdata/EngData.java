@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.allstudy.data.EngDataC;
+import com.jshstudy.allstudy.manager.EngDataManager;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
 
@@ -25,7 +26,6 @@ public class EngData {
     private int idx;
     private String kor;
     private String eng;
-    private ArrayList<Integer> chList;
     private int success = -1;
     private int fail = -1;
     private HashMap<String, EngMeanData> meanMap;
@@ -80,12 +80,17 @@ public class EngData {
     public void setCh(int ch){
         if(ch <= 0) return;
 
-        if(chList == null) chList = new ArrayList<>();
+        if(chapMap == null) chapMap = new HashMap<>();
 
-        chList.add(ch);
+        JSONArray ja = new JSONArray();
+        ja.put(String.valueOf(ch));
+
+        chapMap.put(ch, ja);
     }
 
+    // JSONArray text
     public void setCh(int ch, String detailChapter){
+        LogUtil.DLog("setCh data : "+ch+" / "+detailChapter);
         if(detailChapter == null || detailChapter.isEmpty()) return;
 
         if(chapMap == null) chapMap = new HashMap<>();
@@ -98,13 +103,21 @@ public class EngData {
     }
 
     public void setCh(int ch, JSONArray detailChapter){
-        if(ch<=0 || detailChapter == null || detailChapter.length()<=0) return;
+        LogUtil.DLog("setChap data : "+ch+" / "+detailChapter);
+        if(ch<=0 || detailChapter ==null || detailChapter.length()<=0) return;
 
+        if(chapMap == null) chapMap = new HashMap<>();
         chapMap.put(ch, detailChapter);
     }
 
-    public ArrayList<Integer> getCh(){
-        return chList;
+    public ArrayList<Integer> getChapList(){
+        if(chapMap == null || chapMap.size()<=0) return null;
+
+        ArrayList<Integer> list = new ArrayList<>();
+
+        list.addAll(chapMap.keySet());
+
+        return list;
     }
 
     public HashMap<Integer, JSONArray> getChapMap(){
@@ -136,7 +149,7 @@ public class EngData {
     }
 
     public void setData(Cursor cur){
-        String colChMatch = "^ch[0-9]$";
+        String colChMatch = "^ch[0-9]+$";
         for(String col : cur.getColumnNames()){
 
             if(col.equals(ComDB.COL_IDX)){
@@ -160,14 +173,8 @@ public class EngData {
                 setFail(cur.getInt(cur.getColumnIndex(col)));
             }
 
-            LogUtil.DLog("setData chk chapter : "+col.matches(colChMatch));
             if(col.matches(colChMatch)){
-                if(AppConfig.isPaid){
-                    setCh(Integer.valueOf(col.substring(2)), cur.getString(cur.getColumnIndex(col)));
-                }else{
-                    setCh(cur.getInt(cur.getColumnIndex(col)));
-                }
-
+                setCh(Integer.valueOf(col.substring(2)), cur.getString(cur.getColumnIndex(col)));
             }
         }
     }
@@ -176,7 +183,7 @@ public class EngData {
         if(kor == null || kor.equals(data.getKor())) return false;
 
         boolean changeMean = mergeMean(data);
-        boolean changeChap = AppConfig.isPaid ? mergeChDetail(data) : mergeCh(data);
+        boolean changeChap = mergeChDetail(data);
 
         return changeMean || changeChap;
     }
@@ -208,24 +215,11 @@ public class EngData {
         }
 
         if(chkChange){
-            kor = getWDataKor();
+            EngDataManager dataManager = new EngDataManager();
+            kor = dataManager.makeMeanMapToJSON(meanMap).toString();
         }
 
         return chkChange;
-    }
-
-    private boolean mergeCh(EngData data){
-        if(chList !=null && chList.equals(data.getCh())) return false;
-
-        boolean change = false;
-        for(int chapter : data.getCh()){
-            if(!chList.contains(chapter)){
-                chList.add(chapter);
-                change = true;
-            }
-        }
-
-        return change;
     }
 
     public boolean mergeChDetail(EngData data){
@@ -281,43 +275,6 @@ public class EngData {
         return meanMap;
     }
 
-    public String getWDataKor(){
-        if(meanMap == null || meanMap.size()<=0) return null;
-
-        JSONObject jo = new JSONObject();
-
-        Set<String> set = meanMap.keySet();
-
-        for(String type : set){
-            JSONArray ja = new JSONArray();
-            try {
-                for(String mean : meanMap.get(type).getMeans()){
-                    ja.put(mean);
-                }
-                jo.put(type, ja);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return jo.toString();
-    }
-
-    public String getWDataCh(){
-        if(chList == null || chList.size()<=0) return null;
-
-        StringBuilder sb = new StringBuilder();
-        int lastCh = chList.get(chList.size()-1);
-
-        for(int ch : chList){
-            sb.append(String.format(Locale.KOREA, EngDataC.EngDB.COL_CH, ch));
-
-            if(lastCh != ch) sb.append(",");
-        }
-
-        return sb.toString();
-    }
-
     // kor {type1:[mean1, mean2...], type2:[mean...]...}
 
     private void setMeanData(){
@@ -352,9 +309,10 @@ public class EngData {
     }
 
     public String toString(){
+        EngDataManager dataManager = new EngDataManager();
         return "idx : " + idx + "\n" +
                 "eng : " + eng + "\n" +
-                "kor : " + getWDataKor() + "\n" +
-                "chapter : " + getWDataCh() + "\n";
+                "kor : " + dataManager.makeMeanMapToJSON(meanMap).toString() + "\n" +
+                "chapter : " + getChapList().toString() + "\n";
     }
 }

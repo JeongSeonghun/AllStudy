@@ -299,7 +299,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
             holder.idx_eng_search.setText(String.valueOf(data.getIdx()));
             holder.eng_eng_search.setText(data.getEng());
             holder.kor_eng_search.setText(data.getKor());
-            holder.type_eng_search.setText(data.getWDataCh());
+            holder.type_eng_search.setText(data.getChapList().toString());
 
             String result = String.valueOf(data.getSuccess())+":"+String.valueOf(data.getFail());
             holder.result_eng_search.setText(result);
