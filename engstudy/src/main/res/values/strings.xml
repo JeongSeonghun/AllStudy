@@ -29,11 +29,14 @@
     <string name="eng_check_act">EngCheckAct</string>
     <string name="fill_data">fill data</string>
     <string name="add">add</string>
+    <string name="edite">edit</string>
     <string name="check">check</string>
     <string name="success">success</string>
     <string name="fail">fail</string>
     <string name="eng">eng</string>
     <string name="kor">kor</string>
+    <string name="mean">mean</string>
+    <string name="chap">chap</string>
     <string name="type">type</string>
     <string name="help_type">type value\n
         1.1.1 가산 수량 a\n

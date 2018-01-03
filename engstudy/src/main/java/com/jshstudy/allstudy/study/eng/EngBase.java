@@ -1,10 +1,9 @@
 package com.jshstudy.allstudy.study.eng;
 
-import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.allstudy.data.engdata.EngData;
+import com.jshstudy.allstudy.util.StringUtil;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public abstract class EngBase {
     private ArrayList<EngData> engList = new ArrayList<>();
     private String detailChap = null;
 
-    public EngBase(){
+    private EngBase(){
         setEngList();
     }
 
@@ -50,19 +49,7 @@ public abstract class EngBase {
     }
 
     public void addEngWord(String type, String eng, String... means){
-
-        if(!AppConfig.isPaid || detailChap == null || detailChap.isEmpty()){
-            engList.add(createEng(type, eng, means));
-        }else{
-            JSONArray ja = null;
-            try {
-                ja = new JSONArray(detailChap);
-                engList.add(createEng(ja, type, eng, means));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
+        engList.add(createEng(type, eng, means));
     }
 
     public void addEngPhr(String eng, String... means){
@@ -97,15 +84,16 @@ public abstract class EngBase {
         EngData engData = new EngData();
         engData.setEng(eng);
         engData.setKor(type, means);
-        engData.setCh(chapter);
-        return engData;
-    }
+        if(chapter>0){
+            JSONArray ja = new JSONArray();
+            if(!StringUtil.isEmpty(detailChap)){
+                ja.put(detailChap);
+                engData.setCh(chapter, ja.toString());
+            }else{
 
-    private EngData createEng(JSONArray detailChap, String type, String eng, String... means){
-        EngData engData = new EngData();
-        engData.setEng(eng);
-        engData.setKor(type, means);
-        engData.setCh(chapter, detailChap);
+            }
+
+        }
         return engData;
     }
 

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.allstudy.data.engdata.EngAllDBHelper;
 import com.jshstudy.allstudy.data.engdata.EngData;
+import com.jshstudy.allstudy.manager.EngDataManager;
 import com.jshstudy.allstudy.study.eng.EngCommon;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
@@ -47,15 +49,8 @@ public class EngStudyDB {
 
         }else{
 
-            String chList = data.getWDataCh();
-            String query;
-            if(chList != null && !chList.isEmpty()){
-                query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG
-                        , chList, data.getEng(), ""+data.getKor(), chList.replace("ch",""));
-            }else{
-                query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG_NO_Ch,
-                        data.getEng(), data.getKor());
-            }
+            EngDataManager dataManager = new EngDataManager();
+            String query = dataManager.makeEngDataInsertQuery(data);
 
             logExecSQL(query);
 

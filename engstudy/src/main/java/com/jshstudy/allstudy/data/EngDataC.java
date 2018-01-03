@@ -109,7 +109,7 @@ public class EngDataC {
         public static final String QUERY_SELECT_ENG_CNT = String.format(ComDB.QUERY_SELECT_CNT_IDX, NAME_TABLE);
 
         public static final String QUERY_INSERT_ENG = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
-                COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', %4$s, 1");
+                COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', %4$s, 1"); // col_chapList, eng, kor, val_chapLIst
 
         public static final String QUERY_INSERT_ENG_NO_Ch = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
                 COL_ENG+ " , "+ COL_KOR, "'%1$s', '%2$s'");
