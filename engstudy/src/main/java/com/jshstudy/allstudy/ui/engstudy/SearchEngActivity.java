@@ -182,16 +182,16 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         if(engSearchData == null){
             return;
         }
-        engStudyDB.selectEngSearchCnt(engSearchData);
-//        totalCnt = engStudyDB.selectEngSearchCnt(engSearchData);
-//
-//        totalPage = totalCnt/10 + 1;
-//
-//        String title = "Eng Search -> total : "+totalCnt;
-//        title_eng_search.setText(title);
-//
-//        page = 1;
-//        searchEng(page);
+
+        totalCnt = engStudyDB.selectEngSearchCnt(engSearchData);
+
+        totalPage = totalCnt/10 + 1;
+
+        String title = "Eng Search -> total : "+totalCnt;
+        title_eng_search.setText(title);
+
+        page = 1;
+        searchEng(page);
 
     }
 
@@ -299,6 +299,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
             holder.idx_eng_search.setText(String.valueOf(data.getIdx()));
             holder.eng_eng_search.setText(data.getEng());
             holder.kor_eng_search.setText(data.getKor());
+            if(data.getChapMap() !=null && data.getChapMap().size()>0)
             holder.type_eng_search.setText(data.getChapList().toString());
 
             String result = String.valueOf(data.getSuccess())+":"+String.valueOf(data.getFail());

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -41,7 +42,7 @@ public class EngDataManager {
         if(chapList == null || chapList.size()<=0) return null;
 
         for(int chap : chapList){
-            sb.append(String.valueOf(chap)).append(",");
+            sb.append(String.format(Locale.KOREA, EngDataC.EngDB.COL_CH, chap)).append(",");
         }
 
         sb.deleteCharAt(sb.lastIndexOf(","));

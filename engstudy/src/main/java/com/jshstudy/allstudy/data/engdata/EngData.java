@@ -313,6 +313,6 @@ public class EngData {
         return "idx : " + idx + "\n" +
                 "eng : " + eng + "\n" +
                 "kor : " + dataManager.makeMeanMapToJSON(meanMap).toString() + "\n" +
-                "chapter : " + getChapList().toString() + "\n";
+                "chapter : " + chapMap + "\n";
     }
 }
