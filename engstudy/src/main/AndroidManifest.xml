@@ -21,7 +21,6 @@
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.engstudy.QuantityAdjectivesActivity" />
         <activity android:name=".ui.engstudy.EngStudyActivity" />
-        <activity android:name=".ui.DBStudyActivity" />
 
         <receiver android:name=".receiver.JBroadcastReceiver">
             <intent-filter>
@@ -32,8 +31,7 @@
         <activity android:name=".ui.engstudy.EngCheckActivity" />
         <activity android:name=".ui.engstudy.EngCheckAddActivity" />
         <activity android:name=".ui.engstudy.QuantityAdjActivity" />
-        <activity android:name=".ui.engstudy.EngWordChkActivity" />
-        <activity android:name=".ui.engstudy.EngSearchActivity" />
+        <activity android:name=".ui.engstudy.EngChkWordActivity" />
         <activity android:name=".ui.engstudy.SearchEngActivity" />
         <activity android:name=".ui.SettingActivity"></activity>
         <activity android:name=".ui.engstudy.EngEditWordActivity"/>

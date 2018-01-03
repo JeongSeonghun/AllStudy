@@ -1,4 +1,4 @@
-package com.jshstudy.allstudy.data.engdata;
+package com.jshstudy.allstudy.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

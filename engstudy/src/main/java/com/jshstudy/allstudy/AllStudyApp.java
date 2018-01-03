@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.jshstudy.allstudy.data.AllStudyDB;
+
 import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.common.util.FileLogUtil;
 
@@ -14,7 +14,6 @@ import com.jshstudy.common.util.FileLogUtil;
 
 public class AllStudyApp extends Application{
 
-    AllStudyDB allStudyDB;
     EngStudyDB engStudyDB;
 
     @Override

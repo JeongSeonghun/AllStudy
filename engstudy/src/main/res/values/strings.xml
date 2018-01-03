@@ -14,6 +14,7 @@
     <string name="eng_chk_start">Eng chk start</string>
     <string name="eng_word_start">Eng word chk start</string>
     <string name="eng_search">Eng Search</string>
+    <string name="setting">Setting</string>
 
     <!-- SQLite study -->
     <string name="sq_study_title">SQLite Study</string>
@@ -94,4 +95,9 @@
     </string>
 
     <string name="version">version</string>
+
+    <string name="save">save</string>
+    <string name="edit">edit</string>
+    <string name="plus">+</string>
+    <string name="del">del</string>
 </resources>

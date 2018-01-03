@@ -1,5 +1,6 @@
 package com.jshstudy.allstudy.ui.engstudy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
+import com.jshstudy.allstudy.data.CommonData;
 import com.jshstudy.allstudy.data.EngDataC;
 import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
@@ -82,10 +84,19 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtil.DLog("click position: "+ position);
+                goEdit(position);
             }
         });
 
         setAdapter();
+    }
+
+    private void goEdit(int pos){
+        Intent intentAct = new Intent(getApplicationContext(), EngEditWordActivity.class);
+        intentAct.putExtra(CommonData.IntentData.KEY_MOD, CommonData.IntentData.VALUE_MOD_EDIT);
+        intentAct.putExtra(CommonData.IntentData.KEY_IDX, dataList.get(pos).getIdx());
+
+        startActivity(intentAct);
     }
 
     private void setAdapter(){

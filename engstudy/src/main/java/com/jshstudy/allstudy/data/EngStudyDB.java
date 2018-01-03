@@ -5,11 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
-import com.jshstudy.allstudy.data.engdata.EngAllDBHelper;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngSearchData;
 import com.jshstudy.allstudy.manager.EngDataManager;
-import com.jshstudy.allstudy.study.eng.EngCommon;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
 import com.jshstudy.common.util.StringUtil;

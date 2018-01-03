@@ -12,13 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.jshstudy.allstudy.R;
-import com.jshstudy.allstudy.data.EngStudyDB;
-import com.jshstudy.allstudy.data.engdata.EngBaseInput;
-import com.jshstudy.allstudy.data.engdata.EngData;
-import com.jshstudy.allstudy.study.eng.EngBase;
-import com.jshstudy.allstudy.study.eng.QuantityAdjectives;
-import com.jshstudy.allstudy.study.eng.Tense;
-import com.jshstudy.allstudy.study.eng.Verb;
+import com.jshstudy.allstudy.data.EngBaseInput;
 import com.jshstudy.common.util.LogUtil;
 
 public class IntroActivity extends AppCompatActivity {

@@ -1,10 +1,10 @@
 package com.jshstudy.allstudy.ui;
 
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.jshstudy.allstudy.BuildConfig;
 import com.jshstudy.allstudy.R;
 
 public class SettingActivity extends AppCompatActivity {
@@ -25,6 +25,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        tv_version_setting.setText("");
+        String version = BuildConfig.VERSION_NAME+"("+BuildConfig.BUILD_TYPE+")";
+        tv_version_setting.setText(version);
     }
 }

@@ -30,7 +30,6 @@ public class EngCheckAddActivity extends AppCompatActivity implements View.OnCli
         initUi();
         initData();
 
-
     }
 
     private void initUi(){

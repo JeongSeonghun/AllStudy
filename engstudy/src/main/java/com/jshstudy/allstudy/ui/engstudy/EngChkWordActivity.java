@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import com.jshstudy.allstudy.R;
 
-public class EngWordChkActivity extends AppCompatActivity {
+public class EngChkWordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eng_word_chk);
     }
+
+
 }

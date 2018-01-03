@@ -1,8 +1,9 @@
-package com.jshstudy.allstudy.data.engdata;
+package com.jshstudy.allstudy.data;
 
 import android.content.Context;
 
 import com.jshstudy.allstudy.data.EngStudyDB;
+import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.study.eng.EngBase;
 import com.jshstudy.allstudy.study.eng.EngCommon;
 import com.jshstudy.allstudy.study.eng.Gerund;

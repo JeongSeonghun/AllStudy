@@ -6,23 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
 import com.jshstudy.allstudy.R;
-
-import com.jshstudy.allstudy.data.AllStudyDB;
-import com.jshstudy.allstudy.data.engdata.EngWord;
-import com.jshstudy.allstudy.study.eng.Gerund;
-import com.jshstudy.allstudy.study.eng.QuantityAdjectives;
-import com.jshstudy.allstudy.study.eng.Verb;
-import com.jshstudy.allstudy.util.StringUtil;
-import com.jshstudy.common.util.LogUtil;
 
 public class EngStudyActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button check_eng_btn;
-
-    private AllStudyDB allStudyDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +18,6 @@ public class EngStudyActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_eng_study);
 
         initUi();
-
-        allStudyDB = new AllStudyDB(this);
     }
 
     private void initUi(){
