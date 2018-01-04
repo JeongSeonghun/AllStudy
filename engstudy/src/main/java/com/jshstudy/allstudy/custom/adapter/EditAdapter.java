@@ -116,7 +116,7 @@ public class EditAdapter extends BaseAdapter implements View.OnClickListener{
     }
 
     public interface EditAdapterListener{
-        void onClick(int pos, boolean isAdd);
+        void onClick(int pos, boolean isEdit);
         void onClickPlus();
     }
 }

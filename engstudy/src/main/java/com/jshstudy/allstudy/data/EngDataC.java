@@ -25,7 +25,7 @@ public class EngDataC {
         public static final int TOTAL_CH = 12;
         public static final int LIMIT_SEARCH = 10;
 
-        public static final String NAME_TABLE = AppConfig.isPaid?"eng_words_paid":"eng_words";
+        public static final String NAME_TABLE = "eng_words";
 
         public static final String COL_ENG = "eng";
         public static final String COL_KOR = "kor";
@@ -49,12 +49,7 @@ public class EngDataC {
             for(int idx=0; idx < TOTAL_CH ; idx++){
                 sb.append(String.format(Locale.KOREA, COL_CH, (idx + 1))).append(" ");
 
-                if(!AppConfig.isPaid){
-                    sb.append(ComDB.TYPE_INT).append(" DEFAULT -1");
-                }else{
-                    sb.append(ComDB.TYPE_TEXT);
-                }
-
+                sb.append(ComDB.TYPE_TEXT);
 
                 if(idx<TOTAL_CH-1){
                     sb.append(", ");

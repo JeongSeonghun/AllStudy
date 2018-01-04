@@ -90,4 +90,6 @@
     <string name="edit">edit</string>
     <string name="plus">+</string>
     <string name="del">del</string>
+    <string name="apply">apply</string>
+    <string name="cancel">cancel</string>
 </resources>

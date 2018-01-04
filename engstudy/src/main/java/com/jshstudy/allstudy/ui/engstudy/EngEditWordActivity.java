@@ -12,6 +12,7 @@ import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.custom.adapter.EditAdapter;
 import com.jshstudy.allstudy.data.CommonData;
 import com.jshstudy.allstudy.data.EngStudyDB;
+import com.jshstudy.allstudy.data.engdata.EditSubData;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngMeanData;
 import com.jshstudy.common.util.LogUtil;
@@ -20,6 +21,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class EngEditWordActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,6 +38,9 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     private EngStudyDB engStudyDB;
     private EngData engData;
+
+    private ArrayList<String> meanParamList;
+    private ArrayList<String> chapParamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +87,37 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
             HashMap<String, EngMeanData> meanMap = engData.getMeanMap();
             HashMap<Integer, JSONArray> chapMap = engData.getChapMap();
 
-            testMean.add(meanMap.toString());
-            meansAdapter.setTextList1(testMean);
+//            testMean.add(meanMap.toString());
+//            meansAdapter.setTextList1(testMean);
+//
+//            if(chapMap!=null && chapMap.size()>0){
+//                testChap.add(chapMap.toString());
+//                chapsAdapter.setTextList1(testChap);
+//            }
+//
+            meanParamList = new ArrayList<>();
+            ArrayList<String> meanValue = new ArrayList<>();
 
-            if(chapMap!=null && chapMap.size()>0){
-                testChap.add(chapMap.toString());
-                chapsAdapter.setTextList1(testChap);
+            chapParamList = new ArrayList<>();
+            ArrayList<String> chapValue = new ArrayList<>();
+
+            Set<String> setMean = meanMap.keySet();
+            for(String meanP : setMean){
+                meanParamList.add(meanP);
+                meanValue.add(meanMap.get(meanP).getMeans().toString());
             }
+
+            Set<Integer> setChap = chapMap.keySet();
+            for(int chapP : setChap){
+                chapParamList.add(String.valueOf(chapP));
+                chapValue.add(chapMap.get(chapP).toString());
+            }
+
+            meansAdapter.setTextList1(meanParamList);
+            meansAdapter.setTextList2(meanValue);
+
+            chapsAdapter.setTextList1(chapParamList);
+            chapsAdapter.setTextList2(chapValue);
 
             meansAdapter.notifyDataSetChanged();
             chapsAdapter.notifyDataSetChanged();
@@ -119,9 +148,9 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     private EditAdapter.EditAdapterListener meansListener = new EditAdapter.EditAdapterListener() {
         @Override
-        public void onClick(int pos, boolean isAdd) {
-            LogUtil.DLog("mean onClick : "+pos+"/"+isAdd);
-            setMeanData(pos, isAdd);
+        public void onClick(int pos, boolean isEdit) {
+            LogUtil.DLog("mean onClick : "+pos+"/"+isEdit);
+            setMeanData(pos, isEdit);
         }
 
         @Override
@@ -133,9 +162,9 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     private EditAdapter.EditAdapterListener chapsListener = new EditAdapter.EditAdapterListener() {
         @Override
-        public void onClick(int pos, boolean isAdd) {
-            LogUtil.DLog("chap onClick : "+pos+"/"+isAdd);
-            setChapData(pos, isAdd);
+        public void onClick(int pos, boolean isEdit) {
+            LogUtil.DLog("chap onClick : "+pos+"/"+isEdit);
+            setChapData(pos, isEdit);
         }
 
         @Override
@@ -145,11 +174,18 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         }
     };
 
-    private void setMeanData(int pos, boolean isAdd){
+    private void setMeanData(int pos, boolean isEdit){
+        EngMeanData meanData = engData.getMeanMap().get(meanParamList.get(pos));
 
+        EditSubData subData = new EditSubData();
+
+        subData.setTitle(meanData.getType());
+        subData.setList(meanData.getMeans());
+
+        startSubEdit(subData, isEdit);
     }
 
-    private void setChapData(int pos, boolean isAdd){
+    private void setChapData(int pos, boolean isEdit){
 
     }
 
@@ -161,7 +197,21 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    private void startSubEdit(EditSubData subData, boolean isEdit){
+        Intent intentAct = new Intent(this, EngEditSubActivity.class);
+        intentAct.putExtra(CommonData.IntentData.KEY_SUB_DATA, subData);
+
+        int reqCode;
+        if(isEdit){
+            reqCode = CommonData.REQ_CODE_EDIT;
+        }else{
+            reqCode = CommonData.REQ_CODE_ADD;
+        }
+        startActivityForResult(intentAct, reqCode);
+    }
+
     public void save(){
+        LogUtil.DLog("save");
         String eng = et_value_eng_edit_eng.getText().toString();
         engData.setEng(eng);
     }

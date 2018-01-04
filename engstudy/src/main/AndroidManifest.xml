@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <receiver android:name=".receiver.JBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.jshstudy.allstudy.wakeup" />
@@ -30,8 +29,10 @@
         <activity android:name=".ui.engstudy.EngStudyActivity" />
         <activity android:name=".ui.engstudy.EngChkWordActivity" />
         <activity android:name=".ui.engstudy.SearchEngActivity" />
-        <activity android:name=".ui.SettingActivity"/>
-        <activity android:name=".ui.engstudy.EngEditWordActivity"/>
+        <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".ui.engstudy.EngEditWordActivity" />
+        <activity android:name=".ui.engstudy.EngEditSubActivity"
+            android:theme="@style/Base.V7.Theme.AppCompat.Dialog"></activity>
     </application>
 
 </manifest>
