@@ -92,4 +92,6 @@
     <string name="del">del</string>
     <string name="apply">apply</string>
     <string name="cancel">cancel</string>
+    <string name="next">next</string>
+
 </resources>

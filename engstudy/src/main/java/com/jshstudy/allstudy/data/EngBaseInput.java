@@ -8,6 +8,7 @@ import com.jshstudy.allstudy.data.engdata.EngCommon;
 import com.jshstudy.allstudy.study.eng.Gerund;
 import com.jshstudy.allstudy.study.eng.QuantityAdjectives;
 import com.jshstudy.allstudy.study.eng.Tense;
+import com.jshstudy.allstudy.study.eng.ToInfinitive;
 import com.jshstudy.allstudy.study.eng.Verb;
 
 /**
@@ -34,7 +35,7 @@ public class EngBaseInput {
         insertBaseEng(new Verb());
         insertBaseEng(new Tense());
         insertBaseEng(new Gerund());
-//        insertBaseEng(new ToInfinitive());
+        insertBaseEng(new ToInfinitive());
 //        insertBaseEng(new Inversion());
 //        insertBaseEng(new Participle());
 //        insertBaseEng(new Preposition());

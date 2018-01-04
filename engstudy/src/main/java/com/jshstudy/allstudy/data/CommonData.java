@@ -16,4 +16,10 @@ public class CommonData {
         public static final int VALUE_MOD_EDIT = 100;
         public static final int VALUE_MOD_ADD = 101;
     }
+
+    public static class StringFormat{
+        public static final String FORMAT_SIMPLE_CHAPTER = "ch%1$d";
+        public static final String FORMAT_WORD_TRY_CNT = "%1$d / 3";
+        public static final String FORMAT_WORD_RESULT_CNT = "Success %1$d / Fail %2$d";
+    }
 }

@@ -231,7 +231,7 @@ public class Verb extends EngBase{
         addEngPhr("observe to", "~에 따르다");
         addEngPhr("respond to","~에 따르다");
         addEngPhr("account for", "~을 설명하다");
-        addEngPhr("explain", "~을 설명하다");
+        addEngVerb("explain", "~을 설명하다");
         addEngPhr("deal with", "~을 다루다");
         addEngVerb("handle", "~을 다루다");
         addEngPhr("reply to", "~에 응답하다");
