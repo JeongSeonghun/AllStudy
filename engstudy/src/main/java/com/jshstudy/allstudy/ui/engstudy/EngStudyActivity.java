@@ -74,7 +74,7 @@ public class EngStudyActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.check_eng_btn:
-                startEngAct(EngCheckActivity.class);
+                startEngAct(EngChkWordActivity.class);
                 break;
         }
     }

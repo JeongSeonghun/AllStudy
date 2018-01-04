@@ -16,16 +16,6 @@
     <string name="eng_search">Eng Search</string>
     <string name="setting">Setting</string>
 
-    <!-- SQLite study -->
-    <string name="sq_study_title">SQLite Study</string>
-    <string name="sq_insert_tv">sq_table insert</string>
-    <string name="sq_insert_col1">str</string>
-    <string name="sq_insert_col2">i</string>
-    <string name="sq_clear_tv">sq_table clear</string>
-    <string name="sq_insert_btn">insert</string>
-    <string name="sq_clear_btn">clear</string>
-    <string name="sq_result" formatted="false">idx : %d, str : %s, i : %d</string>
-
     <!-- SearchEngActivity -->
     <string name="search">search</string>
     <string name="init">init</string>

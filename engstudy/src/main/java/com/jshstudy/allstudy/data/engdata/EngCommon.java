@@ -1,23 +1,10 @@
-package com.jshstudy.allstudy.study.eng;
+package com.jshstudy.allstudy.data.engdata;
 
 /**
  * Created by shun6 on 2017-10-03.
  */
 
 public class EngCommon {
-
-    public String[] num = new String[]{
-            "zero"
-            , "one"
-            , "two"
-            , "three"
-            , "fore"
-            , "five"
-            , "six"
-            , "seven"
-            , "nine"
-            , "ten"
-    };
 
     public class EngType{
         public static final String KEY_ADJ = "adjective";

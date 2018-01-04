@@ -2,18 +2,12 @@ package com.jshstudy.allstudy.data;
 
 import android.content.Context;
 
-import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.study.eng.EngBase;
-import com.jshstudy.allstudy.study.eng.EngCommon;
+import com.jshstudy.allstudy.data.engdata.EngCommon;
 import com.jshstudy.allstudy.study.eng.Gerund;
-import com.jshstudy.allstudy.study.eng.Inversion;
-import com.jshstudy.allstudy.study.eng.Participle;
-import com.jshstudy.allstudy.study.eng.Preposition;
 import com.jshstudy.allstudy.study.eng.QuantityAdjectives;
-import com.jshstudy.allstudy.study.eng.RelationshipPronounAdverb;
 import com.jshstudy.allstudy.study.eng.Tense;
-import com.jshstudy.allstudy.study.eng.ToInfinitive;
 import com.jshstudy.allstudy.study.eng.Verb;
 
 /**
@@ -39,7 +33,7 @@ public class EngBaseInput {
         insertBaseEng(new QuantityAdjectives());
         insertBaseEng(new Verb());
         insertBaseEng(new Tense());
-//        insertBaseEng(new Gerund());
+        insertBaseEng(new Gerund());
 //        insertBaseEng(new ToInfinitive());
 //        insertBaseEng(new Inversion());
 //        insertBaseEng(new Participle());

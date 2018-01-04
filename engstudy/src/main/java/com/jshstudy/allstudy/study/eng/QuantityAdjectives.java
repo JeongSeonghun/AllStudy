@@ -1,5 +1,7 @@
 package com.jshstudy.allstudy.study.eng;
 
+import com.jshstudy.allstudy.data.engdata.EngCommon;
+
 /**
  * Created by shun6 on 2017-09-05.
  */

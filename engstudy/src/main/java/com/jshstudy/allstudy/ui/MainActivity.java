@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jshstudy.allstudy.R;
-import com.jshstudy.allstudy.ui.engstudy.EngCheckActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngStudyActivity;
 import com.jshstudy.allstudy.ui.engstudy.EngChkWordActivity;
 import com.jshstudy.allstudy.ui.engstudy.SearchEngActivity;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initUi(){
         findViewById(R.id.btn_eng_start).setOnClickListener(this);
-        findViewById(R.id.btn_eng_chk_start).setOnClickListener(this);
         findViewById(R.id.btn_word_chk_start).setOnClickListener(this);
         findViewById(R.id.btn_eng_search_start).setOnClickListener(this);
         findViewById(R.id.btn_setting_start).setOnClickListener(this);
@@ -33,10 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_eng_start:
-                goToEng();
-                break;
-            case R.id.btn_eng_chk_start:
-                goToAct(EngCheckActivity.class);
+                goToAct(EngStudyActivity.class);
                 break;
             case R.id.btn_word_chk_start:
                 goToAct(EngChkWordActivity.class);
@@ -53,11 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void goToAct(Class act){
         Intent intentAct = new Intent(this, act);
         startActivity(intentAct);
-    }
-
-    private void goToEng(){
-        Intent intent = new Intent(this, EngStudyActivity.class);
-        startActivity(intent);
     }
 
 }

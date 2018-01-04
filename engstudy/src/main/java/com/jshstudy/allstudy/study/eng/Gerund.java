@@ -1,19 +1,21 @@
 package com.jshstudy.allstudy.study.eng;
 
-import com.jshstudy.allstudy.data.engdata.EngWord;
-
-import java.util.ArrayList;
+import com.jshstudy.allstudy.data.engdata.EngCommon;
 
 /**
  * Created by shun6 on 2017-09-05.
  */
 // 동명사 Ch04
-public class Gerund {
+public class Gerund extends EngBase{
     /*
     ~하는 것
     명사자리 주어 목적어 보어 전치사 뒤
     동사 성격 : 타동사면 뒤에 목적어, 앞의 부사 꾸밈
      */
+
+    public Gerund() {
+        super(EngCommon.EngChapter.GERUND);
+    }
 
     // 동명사를 목적어로 취하는 동사
     String[] o = new String[]{
@@ -44,76 +46,60 @@ public class Gerund {
             , "bo loyal to", "bo equal to"
     };
 
-
     // base
-    ArrayList<EngWord> gerundList = new ArrayList<>();
 
-    public ArrayList<EngWord> getGerundList(){
+    @Override
+    public void setEngList() {
+        setVerbToHaveOGerund();
 
-        addGerund("suggest", "~을 제안하다");
-        addGerund("finish", "~을 마치다");
-        addGerund("enjoy", "~을 즐기다");
-        addGerund("envy", "~을 부러워하다");
-        addGerund("deny", "~을 거부하다");
-        addGerund("give up", "~을 포기하다");
-        addGerund("avoid", "~을 회피하다");
-        addGerund("consider", "~을 고려하다");
-        addGerund("keep", "~을 유지하다");
-        addGerund("postpone", "~을 연기하다");
-        addGerund("recommend", "~을 추천하다");
-        addGerund("mind", "~을 꺼리다");
-        addGerund("discontinue", "~을 중단하다");
-
-
-        addGerund_phr("look forward to", "~을 기대하다");
-        addGerund_phr("be accustomed to", "~에 익숙해지다");
-        addGerund_phr("be used to", "~에 익숙해지다");
-        addGerund_phr("be committed to", "~을 헌신하다");
-        addGerund_phr("be dedicated to", "~을 헌신하다");
-        addGerund_phr("devoted to", "~을 헌신하다");
-        addGerund_phr("react to ", "~에 반응하다");
-        addGerund_phr("respond to", "~에 응답하다");
-        addGerund_phr("reply to", "~에 응답하다");
-        addGerund_phr("attribute A to B", "A는 B때문이다");
-        addGerund_phr("be opposed to", "~에 반대하다");
-        addGerund_phr("object to", "~을 반대하다");
-        addGerund_phr("contribute A to B", "A를 B에 헌신하다");
-        addGerund_phr("contribute to A", "A를 헌신하다");
-        addGerund_phr("be superior to", "상위이다??");
-        addGerund_phr("be inferior to", "열등하다???");
-        addGerund_phr("prior to", "~전에");
-        addGerund_phr("previous to", "~전에");
-        addGerund_phr("be subject to", new String[]{"~당하기 쉽다", });
-        addGerund_phr("be loyal to", "~에 복종하다");
-        addGerund_phr("be equal to", "동등하다");
-
-
-        return gerundList;
+        setToOAndGerund();
     }
 
+    private void setVerbToHaveOGerund(){
+        setDetailChap("4.2");
 
+        addEngVerb("suggest", "~을 제안하다");
+        addEngVerb("finish", "~을 마치다");
+        addEngVerb("enjoy", "~을 즐기다");
+        addEngVerb("envy", "~을 부러워하다");
+        addEngVerb("deny", "~을 거부하다");
+        addEngVerb("give up", "~을 포기하다");
+        addEngVerb("avoid", "~을 회피하다");
+        addEngVerb("consider", "~을 고려하다");
+        addEngVerb("keep", "~을 유지하다");
+        addEngVerb("postpone", "~을 연기하다");
+        addEngVerb("recommend", "~을 추천하다");
+        addEngVerb("mind", "~을 꺼리다");
+        addEngVerb("discontinue", "~을 중단하다");
 
-    private void addGerund(String eng, String... kor){
-        gerundList.add(createEngWord(eng, kor));
+        initDetailChap();
     }
 
-    public EngWord createEngWord(String eng, String... kor){
-        EngWord engWord = new EngWord();
-        engWord.setEng(eng);
-        engWord.setKor(EngWord.EngType.KEY_VERB, kor);
-        engWord.setChapter(EngWord.EngChapter.GERUND);
-        return engWord;
-    }
+    private void setToOAndGerund(){
+        setDetailChap("4.6");
 
-    private void addGerund_phr(String eng, String... kor){
-        gerundList.add(createEngWord_phr(eng, kor));
-    }
+        addEngPhr("look forward to", "~을 기대하다");
+        addEngPhr("be accustomed to", "~에 익숙해지다");
+        addEngPhr("be used to", "~에 익숙해지다");
+        addEngPhr("be committed to", "~을 헌신하다");
+        addEngPhr("be dedicated to", "~을 헌신하다");
+        addEngPhr("devoted to", "~을 헌신하다");
+        addEngPhr("react to ", "~에 반응하다");
+        addEngPhr("respond to", "~에 응답하다");
+        addEngPhr("reply to", "~에 응답하다");
+        addEngPhr("attribute A to B", "A는 B때문이다");
+        addEngPhr("be opposed to", "~에 반대하다");
+        addEngPhr("object to", "~을 반대하다");
+        addEngPhr("contribute A to B", "A를 B에 헌신하다");
+        addEngPhr("contribute to A", "A를 헌신하다");
+        addEngPhr("be superior to", "상위이다??");
+        addEngPhr("be inferior to", "열등하다???");
+        addEngPhr("prior to", "~전에");
+        addEngPhr("previous to", "~전에");
+        addEngPhr("be subject to", new String[]{"~당하기 쉽다", });
+        addEngPhr("be loyal to", "~에 복종하다");
+        addEngPhr("be equal to", "동등하다");
 
-    public EngWord createEngWord_phr(String eng, String... kor){
-        EngWord engWord = new EngWord();
-        engWord.setEng(eng);
-        engWord.setKor(EngWord.EngType.KEY_PHR, kor);
-        engWord.setChapter(EngWord.EngChapter.GERUND);
-        return engWord;
+        initDetailChap();
     }
 }

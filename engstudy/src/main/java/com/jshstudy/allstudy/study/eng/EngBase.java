@@ -1,5 +1,6 @@
 package com.jshstudy.allstudy.study.eng;
 
+import com.jshstudy.allstudy.data.engdata.EngCommon;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.util.StringUtil;
 
