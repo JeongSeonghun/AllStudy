@@ -8,9 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
+import com.jshstudy.common.util.LogUtil;
+import com.jshstudy.common.util.StringUtil;
 
 import java.util.ArrayList;
 
@@ -22,10 +23,11 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
 
     private Context context;
     private ArrayList<String> list = new ArrayList<>();
-    private EditSubListener listener;
 
-    private int posFocus = 0;
     private boolean isGetView = false;
+
+    private boolean isAdd = false;
+    private int posAdd = -1;
 
     public EditSubAdapter(Context context){
         this.context = context;
@@ -35,13 +37,16 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
         this.list = list;
     }
 
-    public void setListener(EditSubListener listener){
-        this.listener = listener;
+    public ArrayList<String> getList(){
+        return list;
     }
 
     @Override
     public int getCount() {
-        if(list != null) return list.size()+1;
+        if(list != null){
+            posAdd = isAdd?list.size():-1;
+            return isAdd?list.size()+2:list.size()+1;
+        }
         return 1;
     }
 
@@ -68,78 +73,99 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
             convertView = inflater.inflate(R.layout.item_edit_sub, null);
 
             ViewHolder holder = new ViewHolder();
+            holder.pos = position;
 
-            holder.tv_text_sub_edit = (TextView)convertView.findViewById(R.id.tv_text_sub_edit);
             holder.lil_sub_edit = (LinearLayout)convertView.findViewById(R.id.lil_sub_edit);
             holder.et_text_sub_edit = (EditText)convertView.findViewById(R.id.et_text_sub_edit);
             holder.lil_btn_sub_edit = (LinearLayout)convertView.findViewById(R.id.lil_btn_sub_edit);
             holder.btn_apply_sub_edit = (Button)convertView.findViewById(R.id.btn_apply_sub_edit);
             holder.btn_cancel_sub_edit = (Button)convertView.findViewById(R.id.btn_cancel_sub_edit);
+            holder.btn_del_edit_sub = (Button)convertView.findViewById(R.id.btn_del_edit_sub);
 
             holder.btn_apply_sub_edit.setOnClickListener(this);
             holder.btn_cancel_sub_edit.setOnClickListener(this);
+            holder.btn_del_edit_sub.setOnClickListener(this);
 
-            if(posFocus == position){
-                isGetView = false;
-                //holder.tv_text_sub_edit.setVisibility(View.GONE);
-                holder.lil_btn_sub_edit.setVisibility(View.VISIBLE);
+            if(position == posAdd){
+                holder.et_text_sub_edit.setText("");
             }else{
-                //holder.tv_text_sub_edit.setVisibility(View.VISIBLE);
-                holder.lil_btn_sub_edit.setVisibility(View.GONE);
-
                 holder.et_text_sub_edit.setText(list.get(position));
-                //holder.et_text_sub_edit.requestFocus();
-
             }
 
             holder.et_text_sub_edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!isGetView){
-                        posFocus = (int)v.getTag();
-                        notifyDataSetChanged();
+                        ViewHolder holder = (ViewHolder)v.getTag();
+                        if(hasFocus){
+                            holder.lil_btn_sub_edit.setVisibility(View.VISIBLE);
+                            holder.btn_del_edit_sub.setVisibility(View.GONE);
+                        }else{
+                            holder.lil_btn_sub_edit.setVisibility(View.GONE);
+                            holder.btn_del_edit_sub.setVisibility(View.VISIBLE);
+                        }
                     }else{
                         isGetView = false;
                     }
                 }
             });
 
-            holder.et_text_sub_edit.setTag(position);
-            holder.btn_apply_sub_edit.setTag(position);
-            holder.btn_cancel_sub_edit.setTag(position);
+            holder.et_text_sub_edit.setTag(holder);
+            holder.btn_apply_sub_edit.setTag(holder);
+            holder.btn_cancel_sub_edit.setTag(holder);
+            holder.btn_del_edit_sub.setTag(position);
         }
         return convertView;
     }
 
     private class ViewHolder{
-        TextView tv_text_sub_edit;
+        int pos = 0;
         LinearLayout lil_sub_edit;
         EditText et_text_sub_edit;
         LinearLayout lil_btn_sub_edit;
         Button btn_apply_sub_edit;
         Button btn_cancel_sub_edit;
-    }
-
-    public interface EditSubListener{
-        void onClick(int pos, boolean isEdit);
-        void onClickPlus();
+        Button btn_del_edit_sub;
     }
 
     @Override
     public void onClick(View v) {
-        if(listener == null) return;
+        ViewHolder holder;
         int pos;
         switch(v.getId()){
             case R.id.btn_add_edit_plus:
-                listener.onClickPlus();
+                isAdd = true;
+                notifyDataSetChanged();
                 break;
             case R.id.btn_apply_sub_edit:
-                pos = (int)v.getTag();
-                listener.onClick(pos, true);
+                holder = (ViewHolder)v.getTag();
+                String edit = holder.et_text_sub_edit.getText().toString();
+                LogUtil.dLog("click "+holder.pos+"/"+isAdd+"/"+posAdd);
+                if(holder.pos == posAdd){
+                    isAdd = false;
+                    if(!StringUtil.isEmpty(edit)){
+                        list.add(edit);
+                    }
+                }else if(StringUtil.isEmpty(edit)){
+                    list.remove(holder.pos);
+                }else{
+                    list.set(holder.pos, edit);
+                }
+                notifyDataSetChanged();
                 break;
             case R.id.btn_cancel_sub_edit:
+                holder = (ViewHolder)v.getTag();
+                String before = list.get(holder.pos);
+                holder.et_text_sub_edit.setText(before);
+                break;
+            case R.id.btn_del_edit_sub:
                 pos = (int)v.getTag();
-                listener.onClick(pos, false);
+                if(pos == posAdd){
+                    isAdd = false;
+                }else{
+                    list.remove(pos);
+                }
+                notifyDataSetChanged();
                 break;
         }
     }

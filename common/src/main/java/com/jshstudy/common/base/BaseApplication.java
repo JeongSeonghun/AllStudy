@@ -28,36 +28,36 @@ public class BaseApplication extends Application implements Application.Activity
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        LogUtil.DLog("onActivityCreated : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivityCreated : "+ activity.getClass().getName());
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-        LogUtil.DLog("onActivityStarted : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivityStarted : "+ activity.getClass().getName());
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        LogUtil.DLog("onActivityResumed : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivityResumed : "+ activity.getClass().getName());
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        LogUtil.DLog("onActivityPaused : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivityPaused : "+ activity.getClass().getName());
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        LogUtil.DLog("onActivityStopped : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivityStopped : "+ activity.getClass().getName());
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        LogUtil.DLog("onActivitySaveInstanceState : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivitySaveInstanceState : "+ activity.getClass().getName());
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        LogUtil.DLog("onActivityDestroyed : "+ activity.getClass().getName());
+        LogUtil.dLog("onActivityDestroyed : "+ activity.getClass().getName());
     }
 }

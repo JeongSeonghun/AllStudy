@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            LogUtil.DLog("service connected");
+            LogUtil.dLog("service connected");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            LogUtil.DLog("service disconnected");
+            LogUtil.dLog("service disconnected");
         }
     };
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent autoSend = new Intent(this, AutoSendService.class);
         autoSend.putExtra("time", time);
 
-        LogUtil.DLog("service bind start");
+        LogUtil.dLog("service bind start");
         bindService(autoSend, connection, Context.BIND_AUTO_CREATE);
     }
 

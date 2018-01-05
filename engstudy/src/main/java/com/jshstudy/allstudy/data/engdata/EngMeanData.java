@@ -31,11 +31,11 @@ public class EngMeanData {
     }
 
     public boolean merge(EngMeanData data){
-        LogUtil.DLog(getClass().getSimpleName(), "merge equal: "+(this.equals(data)));
+        LogUtil.dLog(getClass().getSimpleName(), "merge equal: "+(this.equals(data)));
         if(this.equals(data)) return false;
 
         for(String mean : data.getMeans()){
-            LogUtil.DLog(getClass().getSimpleName(), "merge contain: "+mean+"->"+!means.contains(mean));
+            LogUtil.dLog(getClass().getSimpleName(), "merge contain: "+mean+"->"+!means.contains(mean));
             if(!means.contains(mean)) means.add(mean);
         }
 

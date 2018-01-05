@@ -31,7 +31,7 @@ public class LogFileManager {
 
         if(!logFile.exists()){
             if(!logFile.mkdirs()){
-                LogUtil.DLog("fail make log file");
+                LogUtil.dLog("fail make log file");
             }
         }
     }
@@ -71,7 +71,7 @@ public class LogFileManager {
             char[] chars = new char[length];
             while((size =br.read(chars)) != -1){
                 String temp = new String(chars, 0, size);
-                LogUtil.DLog(temp + "\n");
+                LogUtil.dLog(temp + "\n");
             }
 
             // --- 2 한줄 씩 ---
@@ -79,7 +79,7 @@ public class LogFileManager {
             // 보내는 쪽에어 개행 문자 추가...
 //            String line;
 //            while((line = br.readLine()) != null){
-//                LogUtil.DLog(line +"\n");
+//                LogUtil.dLog(line +"\n");
 //            }
 
             // fw 사용 1

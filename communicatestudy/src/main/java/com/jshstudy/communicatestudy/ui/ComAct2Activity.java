@@ -64,8 +64,8 @@ public class ComAct2Activity extends AppCompatActivity implements View.OnClickLi
             parcData = intentRec.getParcelableExtra(CmData.IntentValue.KEY_SEND_PARC);
         }
 
-        LogUtil.DLog("seriData : "+seriData);
-        LogUtil.DLog("parcData : "+parcData);
+        LogUtil.dLog("seriData : "+seriData);
+        LogUtil.dLog("parcData : "+parcData);
 
     }
 

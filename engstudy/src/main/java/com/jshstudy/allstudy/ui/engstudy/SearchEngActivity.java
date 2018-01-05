@@ -18,16 +18,13 @@ import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
-import com.jshstudy.allstudy.data.CommonData;
-import com.jshstudy.allstudy.data.EngDataC;
+import com.jshstudy.allstudy.data.common.CommonData;
 import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngSearchData;
 import com.jshstudy.common.util.LogUtil;
-import com.jshstudy.common.util.StringUtil;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class SearchEngActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -83,7 +80,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         list_eng_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogUtil.DLog("click position: "+ position);
+                LogUtil.dLog("click position: "+ position);
                 goEdit(position);
             }
         });
@@ -147,9 +144,9 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
             dataList = engStudyDB.selectEngSearch(page);
         }
 
-        LogUtil.DLog("search page : "+page);
+        LogUtil.dLog("search page : "+page);
 
-        if(dataList != null) LogUtil.DLog("search cnt : "+dataList.size());
+        if(dataList != null) LogUtil.dLog("search cnt : "+dataList.size());
 
         listAdapter.setList(dataList);
         mHandler.post(new Runnable() {
@@ -223,7 +220,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
             if(chapter.isCheck()) chapList.add(chapter);
         }
 
-        LogUtil.DLog("createEngSearchData : "+isEng+"/"+word +"/"+chapList.size());
+        LogUtil.dLog("createEngSearchData : "+isEng+"/"+word +"/"+chapList.size());
 
         EngSearchData searchData = new EngSearchData();
         searchData.setWord(isEng, word);
@@ -293,7 +290,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             EngData data = (EngData)getItem(position);
-            LogUtil.DLog(getClass().getSimpleName(), "view eng : "+data.toString());
+            LogUtil.dLog(getClass().getSimpleName(), "view eng : "+data.toString());
             Holder holder;
             if(convertView == null){
                 convertView = inflater.inflate(R.layout.item_eng_search, null);
@@ -309,7 +306,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
 
             holder.idx_eng_search.setText(String.valueOf(data.getIdx()));
             holder.eng_eng_search.setText(data.getEng());
-            holder.kor_eng_search.setText(data.getKor());
+            holder.kor_eng_search.setText(data.getMean());
             if(data.getChapMap() !=null && data.getChapMap().size()>0)
             holder.type_eng_search.setText(data.getChapList().toString());
 

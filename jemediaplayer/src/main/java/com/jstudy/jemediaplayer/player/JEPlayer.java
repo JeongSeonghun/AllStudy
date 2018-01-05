@@ -150,7 +150,7 @@ public class JEPlayer {
             // media type ex video, audio
             String mimeType = format.getString(MediaFormat.KEY_MIME);
             // display all information of format
-            LogUtil.DLog(TAG,format.toString());
+            LogUtil.dLog(TAG,format.toString());
 
             if(mimeType.startsWith(Type)){
                 trackList.add(idx);
@@ -226,8 +226,8 @@ public class JEPlayer {
                 int width = format.getInteger(MediaFormat.KEY_WIDTH);
                 int height = format.getInteger(MediaFormat.KEY_HEIGHT);
                 long duration = format.getLong(MediaFormat.KEY_DURATION);
-                LogUtil.DLog("video width / height : "+ width + "/"+ height);
-                LogUtil.DLog("video duration : "+ duration);
+                LogUtil.dLog("video width / height : "+ width + "/"+ height);
+                LogUtil.dLog("video duration : "+ duration);
 
                 if(listener != null) listener.prepare(width, height, duration);
 
@@ -342,14 +342,14 @@ public class JEPlayer {
 
                 if(decoderStatus == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED){
                     // buffer 정보 1번 바뀜??. api >= 21 deprecated. ByteBuffer 배열 변화, 21아래 필수
-                    LogUtil.DLog("change ByteBuffer array");
+                    LogUtil.dLog("change ByteBuffer array");
                 }else if(decoderStatus == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED){
                     // MediaFormat 변경된 정보. encoder에서 주로 사용
                     MediaFormat newFormat = codec.getOutputFormat();
-                    LogUtil.DLog("change format : "+newFormat);
+                    LogUtil.dLog("change format : "+newFormat);
                 }else if(decoderStatus == MediaCodec.INFO_TRY_AGAIN_LATER){
                     // 현재 output 사용 불가????
-                    LogUtil.DLog("disable current output");
+                    LogUtil.dLog("disable current output");
                 }else if(decoderStatus>=0){
                     // data
 
@@ -360,7 +360,7 @@ public class JEPlayer {
 
                 }else if(decoderStatus<0){
                     // 이 상황이 발생하긴 하는지...
-                    LogUtil.DLog("unexpected result dequeOutputBuffer");
+                    LogUtil.dLog("unexpected result dequeOutputBuffer");
                 }
             }
 

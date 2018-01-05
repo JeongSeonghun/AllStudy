@@ -18,7 +18,7 @@ public class JBroadcastReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        LogUtil.DLog("receive : "+ intent.getAction());
+        LogUtil.dLog("receive : "+ intent.getAction());
         if(intent.getAction().equals(WAKEUP_ENGSTUDY)){
 
             AppUtil.wakeup(context);

@@ -70,7 +70,7 @@ public class AppUtil {
             for (ActivityManager.RunningAppProcessInfo info : am.getRunningAppProcesses()) {
                 if (info.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                     String foregroundPackage = info.pkgList[0];
-                    LogUtil.DLog(getClass().getSimpleName(), String.format("Forground App Package=%s - My Package=%s", foregroundPackage, packageName));
+                    LogUtil.dLog(getClass().getSimpleName(), String.format("Forground App Package=%s - My Package=%s", foregroundPackage, packageName));
 
                     return StringUtil.isEqual(packageName, foregroundPackage);
                 }

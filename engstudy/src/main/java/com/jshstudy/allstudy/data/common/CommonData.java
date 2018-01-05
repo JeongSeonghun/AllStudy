@@ -1,4 +1,4 @@
-package com.jshstudy.allstudy.data;
+package com.jshstudy.allstudy.data.common;
 
 /**
  * Created by shun6 on 2018-01-03.
@@ -7,6 +7,11 @@ package com.jshstudy.allstudy.data;
 public class CommonData {
     public static final int REQ_CODE_EDIT = 100;
     public static final int REQ_CODE_ADD = 101;
+
+    public static final int REQ_CODE_EDIT_MEAN = 201;
+    public static final int REQ_CODE_EDIT_CHAP = 202;
+    public static final int REQ_CODE_ADD_MEAN = 203;
+    public static final int REQ_CODE_ADD_CHAP = 204;
 
     public static class IntentData{
         public static final String KEY_MOD = "mode";
@@ -17,9 +22,10 @@ public class CommonData {
         public static final int VALUE_MOD_ADD = 101;
     }
 
-    public static class StringFormat{
+    public static class Format{
         public static final String FORMAT_SIMPLE_CHAPTER = "ch%1$d";
         public static final String FORMAT_WORD_TRY_CNT = "%1$d / 3";
         public static final String FORMAT_WORD_RESULT_CNT = "Success %1$d / Fail %2$d";
+        public static final String FORMAT_TEMP_VALUE = " : %1$s";
     }
 }

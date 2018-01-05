@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(!BLEDeviceScanner.checkBleSupport(this)){
-            LogUtil.DLog("ble not support");
+            LogUtil.dLog("ble not support");
             return;
         }
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mBluetoothAdapter = manager.getAdapter();
 
         if(mBluetoothAdapter == null){
-            LogUtil.DLog("bluetooth not support");
+            LogUtil.dLog("bluetooth not support");
         }
     }
 

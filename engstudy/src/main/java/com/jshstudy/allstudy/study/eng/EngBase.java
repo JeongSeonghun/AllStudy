@@ -84,7 +84,7 @@ public abstract class EngBase {
     private EngData createEng(String type, String eng, String... means){
         EngData engData = new EngData();
         engData.setEng(eng);
-        engData.setKor(type, means);
+        engData.setMean(type, means);
         if(chapter>0){
             JSONArray ja = new JSONArray();
             if(!StringUtil.isEmpty(detailChap)){

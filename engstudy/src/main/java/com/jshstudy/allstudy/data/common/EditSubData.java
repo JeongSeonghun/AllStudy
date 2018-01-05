@@ -1,4 +1,4 @@
-package com.jshstudy.allstudy.data.engdata;
+package com.jshstudy.allstudy.data.common;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,24 +13,31 @@ import java.util.ArrayList;
 
 public class EditSubData implements Parcelable{
 
-    private String title;
+    private ArrayList<String> titleList;
     private ArrayList<String> list;
+    private int postTitle;
 
     public EditSubData(){
 
     }
 
-    public void setTitle(String title){
-        LogUtil.DLog("sub setTitle : "+ title);
-        this.title = title;
+    public void setPostTitle(int postTitle){
+        this.postTitle = postTitle;
     }
 
-    public String getTitle(){
-        return title;
+    public int getPostTitle(){
+        return postTitle;
+    }
+
+    public void setTitleList(ArrayList<String> titleList){
+        this.titleList = titleList;
+    }
+
+    public ArrayList<String> getTitleList(){
+        return titleList;
     }
 
     public void setList(ArrayList<String> list){
-        LogUtil.DLog("sub setList : "+ list);
         this.list = list;
     }
 
@@ -39,11 +46,15 @@ public class EditSubData implements Parcelable{
     }
 
     protected EditSubData(Parcel in) {
-        setTitle(in.readString());
         list = new ArrayList<>();
         in.readStringList(list);
+        titleList = new ArrayList<>();
+        in.readStringList(titleList);
+        setPostTitle(in.readInt());
 
-        LogUtil.DLog("parcel list : "+list);
+        LogUtil.dLog("parcel list : "+list);
+        LogUtil.dLog("parcel title list : "+titleList);
+        LogUtil.dLog("parcel pos title : "+postTitle);
     }
 
     public static final Creator<EditSubData> CREATOR = new Creator<EditSubData>() {
@@ -65,7 +76,12 @@ public class EditSubData implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
         dest.writeStringList(list);
+        dest.writeStringList(titleList);
+        dest.writeInt(postTitle);
+
+        LogUtil.dLog("parcel dest list : "+list);
+        LogUtil.dLog("parcel dest title list : "+titleList);
+        LogUtil.dLog("parcel dest pos title : "+postTitle);
     }
 }

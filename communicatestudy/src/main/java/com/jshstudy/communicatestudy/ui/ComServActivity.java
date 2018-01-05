@@ -33,7 +33,7 @@ public class ComServActivity extends AppCompatActivity implements View.OnClickLi
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            LogUtil.DLog("service onServiceConnected()");
+            LogUtil.dLog("service onServiceConnected()");
             ComService.MyBinder binder = (ComService.MyBinder)service;
             binder.getService().setMsgRecieveListener(listener);
 
@@ -41,7 +41,7 @@ public class ComServActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            LogUtil.DLog("service onServiceDisconnected()");
+            LogUtil.dLog("service onServiceDisconnected()");
             isFlag = false;
         }
     };
@@ -49,19 +49,19 @@ public class ComServActivity extends AppCompatActivity implements View.OnClickLi
     private ComService.onMsgReceiveListener listener = new ComService.onMsgReceiveListener() {
         @Override
         public void receiveMessage(String msg) {
-            LogUtil.DLog("receiveMassage : "+msg);
+            LogUtil.dLog("receiveMassage : "+msg);
         }
     };
 
     private void bind(){
-        LogUtil.DLog("bind()");
+        LogUtil.dLog("bind()");
         Intent intentServie = new Intent(this, ComService.class);
 
         bindService(intentServie, connection, Context.BIND_AUTO_CREATE);
     }
 
     private void unBind(){
-        LogUtil.DLog("unBind()");
+        LogUtil.dLog("unBind()");
         unbindService(connection);
     }
 

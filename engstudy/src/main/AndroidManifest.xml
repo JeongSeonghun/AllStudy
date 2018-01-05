@@ -32,7 +32,7 @@
         <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.engstudy.EngEditWordActivity" />
         <activity android:name=".ui.engstudy.EngEditSubActivity"
-            android:theme="@style/Base.V7.Theme.AppCompat.Dialog"></activity>
+            android:theme="@style/Base.V7.Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>

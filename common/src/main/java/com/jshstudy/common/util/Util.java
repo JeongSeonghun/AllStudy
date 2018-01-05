@@ -27,7 +27,7 @@ public class Util {
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        LogUtil.DLog("window width / height : "+ width + " / "+ height);
+        LogUtil.dLog("window width / height : "+ width + " / "+ height);
         return size;
     }
 

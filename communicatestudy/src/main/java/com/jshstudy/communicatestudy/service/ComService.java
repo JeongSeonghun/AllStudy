@@ -35,7 +35,7 @@ public class ComService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        LogUtil.DLog("service onBind()");
+        LogUtil.dLog("service onBind()");
         return mBinder;
     }
 
@@ -47,7 +47,7 @@ public class ComService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtil.DLog("service onCreate()");
+        LogUtil.dLog("service onCreate()");
         LoopTimer.start();
     }
 
@@ -65,7 +65,7 @@ public class ComService extends Service {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                LogUtil.DLog("service cnt -> "+cnt);
+                LogUtil.dLog("service cnt -> "+cnt);
                 if(cnt<10){
                     cnt++;
                 }else{
@@ -82,7 +82,7 @@ public class ComService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LogUtil.DLog("service onDestroy()");
+        LogUtil.dLog("service onDestroy()");
         if(LoopTimer != null){
             loop = false;
             LoopTimer = null;

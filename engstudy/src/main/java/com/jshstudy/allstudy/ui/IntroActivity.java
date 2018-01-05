@@ -22,7 +22,7 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.DLog(TAG, "onCreate()");
+        LogUtil.dLog(TAG, "onCreate()");
 
         // 잠금화면 만들기 에도 사용??
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED // 잠금화면 위에 표시, full 스크린만 지원
@@ -122,13 +122,13 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.DLog(TAG, "onStart()");
+        LogUtil.dLog(TAG, "onStart()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.DLog(TAG, "onStop()");
+        LogUtil.dLog(TAG, "onStop()");
     }
 
     // ensure onPause(), onStop()
@@ -136,31 +136,31 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.DLog(TAG, "onDestroy()");
+        LogUtil.dLog(TAG, "onDestroy()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.DLog(TAG, "onPause()");
+        LogUtil.dLog(TAG, "onPause()");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.DLog(TAG, "onResume()");
+        LogUtil.dLog(TAG, "onResume()");
     }
 
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        LogUtil.DLog(TAG, "onUserLeaveHint()");
+        LogUtil.dLog(TAG, "onUserLeaveHint()");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LogUtil.DLog(TAG, "onBackPressed()");
+        LogUtil.dLog(TAG, "onBackPressed()");
     }
 
     // before destroy. state save

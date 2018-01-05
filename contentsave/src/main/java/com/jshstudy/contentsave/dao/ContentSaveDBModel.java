@@ -123,7 +123,7 @@ public class ContentSaveDBModel {
             }
 
         }catch (Exception e){
-            LogUtil.DLog("selectTb1 error : "+ e);
+            LogUtil.dLog("selectTb1 error : "+ e);
         }finally {
             if(cur != null) cur.close();
         }

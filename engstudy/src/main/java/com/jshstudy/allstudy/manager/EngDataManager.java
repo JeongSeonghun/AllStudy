@@ -26,10 +26,10 @@ public class EngDataManager {
 
         if(StringUtil.isEmpty(rowChap)){
             query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG_NO_Ch,
-                    data.getEng(), data.getKor());
+                    data.getEng(), data.getMean());
         }else{
             query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG
-                    , rowChap, data.getEng(), data.getKor(), makeInsertChapValue(data));
+                    , rowChap, data.getEng(), data.getMean(), makeInsertChapValue(data));
         }
 
         return query;

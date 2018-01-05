@@ -34,7 +34,7 @@ public class FileManager {
 
         if(!tempDir.exists()){
             if(tempDir.mkdir()){
-                LogUtil.DLog("dir make fail!");
+                LogUtil.dLog("dir make fail!");
             }
         }
     }

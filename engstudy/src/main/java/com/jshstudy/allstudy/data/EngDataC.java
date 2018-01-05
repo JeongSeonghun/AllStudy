@@ -94,23 +94,23 @@ public class EngDataC {
         public static final String NAME_TABLE = "eng_chapter";
 
         public static final String COL_CHAPTER = "chapter";
-        public static final String COL_DETAIL = "detail";
-        public static final String COL_TEXT = "text";
+        public static final String COL_SUB = "sub";
+        public static final String COL_DESC = "desc";
 
         public static final String QUERY_CREATE_TABLE = String.format(ComDB.QUERY_CREATE_TABLE_N, NAME_TABLE,
                 ComDB.BASE_COL_IDX + ", "
                 +COL_CHAPTER + " "+ ComDB.TYPE_INT + ", "
-                +COL_DETAIL + " "+ ComDB.TYPE_TEXT + ", "
-                +COL_TEXT + " "+ ComDB.TYPE_TEXT);
+                +COL_SUB + " "+ ComDB.TYPE_TEXT + ", "
+                +COL_DESC + " "+ ComDB.TYPE_TEXT);
 
         public static final String QUERY_INSERT = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
-                COL_CHAPTER+", "+COL_DETAIL+", "+COL_TEXT, "%1$d, '%2$s', '%3$s'");
+                COL_CHAPTER+", "+COL_SUB+", "+COL_DESC, "%1$d, '%2$s', '%3$s'");
 
         public static final String QUERY_SELECT = String.format(ComDB.QUERY_SELECT, NAME_TABLE);
         public static final String QUERY_SELECT_CNT = String.format(ComDB.QUERY_SELECT_CNT_IDX, NAME_TABLE);
         public static final String QUERY_SELECT_CHAP_LIST = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_CHAPTER+"=%1$d";
-        public static final String QUERY_SELECT_CHAP = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_DETAIL+"=%1$s";
-        public static final String QUERY_SELECT_TEXT = "SELECT "+COL_TEXT+" FROM "+NAME_TABLE+" WHERE "+COL_DETAIL + "=%1$s";
+        public static final String QUERY_SELECT_CHAP = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_SUB+"=%1$s";
+        public static final String QUERY_SELECT_TEXT = "SELECT "+COL_DESC+" FROM "+NAME_TABLE+" WHERE "+COL_SUB + "=%1$s";
     }
 
     public static class Chapter{

@@ -16,49 +16,49 @@ public class BaseActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LogUtil.DLog(TAG, "onCreate");
+        LogUtil.dLog(TAG, "onCreate");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.DLog(TAG, "onStart");
+        LogUtil.dLog(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.DLog(TAG, "onResume");
+        LogUtil.dLog(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.DLog(TAG, "onPause");
+        LogUtil.dLog(TAG, "onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.DLog(TAG, "onStop");
+        LogUtil.dLog(TAG, "onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.DLog(TAG, "onDestroy");
+        LogUtil.dLog(TAG, "onDestroy");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LogUtil.DLog(TAG, "onBackPressed");
+        LogUtil.dLog(TAG, "onBackPressed");
     }
 
     // device home , app list, etc buttons
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        LogUtil.DLog(TAG, "onUserLeaveHint");
+        LogUtil.dLog(TAG, "onUserLeaveHint");
     }
 }

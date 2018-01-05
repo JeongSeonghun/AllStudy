@@ -68,13 +68,13 @@ public class EngStudyDB {
         int idx  = -1;
 
         if(cur!=null && cur.moveToNext()){
-            LogUtil.DLog(getClass().getSimpleName(), "cnt : "+ cur.getCount());
+            LogUtil.dLog(getClass().getSimpleName(), "cnt : "+ cur.getCount());
             idx = cur.getInt(cur.getColumnIndex(ComDB.COL_IDX));
         }
 
         if(cur !=null) cur.close();
 
-        LogUtil.DLog(getClass().getSimpleName(), "check idx : "+idx);
+        LogUtil.dLog(getClass().getSimpleName(), "check idx : "+idx);
         return idx;
     }
 
@@ -96,7 +96,7 @@ public class EngStudyDB {
 
         if(cur !=null) cur.close();
 
-        LogUtil.DLog(getClass().getSimpleName(), "select eng : "+(data!=null?data.getEng():"null"));
+        LogUtil.dLog(getClass().getSimpleName(), "select eng : "+(data!=null?data.getEng():"null"));
         return data;
     }
 
@@ -114,7 +114,7 @@ public class EngStudyDB {
 
         Cursor cur = db.rawQuery(query,null);
         if(cur == null) return null;
-        LogUtil.DLog(getClass().getSimpleName(), "selectEngSearch cnt : "+cur.getCount());
+        LogUtil.dLog(getClass().getSimpleName(), "selectEngSearch cnt : "+cur.getCount());
         while(cur.moveToNext()){
             EngData engData = new EngData();
             engData.setData(cur);
@@ -124,7 +124,7 @@ public class EngStudyDB {
 
         cur.close();
 
-        LogUtil.DLog(getClass().getSimpleName(), "selectEngSearch cnt : "+engList.size());
+        LogUtil.dLog(getClass().getSimpleName(), "selectEngSearch cnt : "+engList.size());
         return engList;
     }
 
@@ -145,7 +145,7 @@ public class EngStudyDB {
             cur.close();
         }
 
-        LogUtil.DLog(getClass().getSimpleName(), "selectEngCnt cnt : "+cnt);
+        LogUtil.dLog(getClass().getSimpleName(), "selectEngCnt cnt : "+cnt);
         return cnt;
     }
 
@@ -165,7 +165,7 @@ public class EngStudyDB {
 
             cur.close();
         }
-        LogUtil.DLog(getClass().getSimpleName(), "selectEngCnt cnt : "+cnt);
+        LogUtil.dLog(getClass().getSimpleName(), "selectEngCnt cnt : "+cnt);
 
         return cnt;
     }
@@ -237,7 +237,7 @@ public class EngStudyDB {
 
         Cursor cur = db.rawQuery(query,null);
         if(cur == null) return null;
-        LogUtil.DLog(getClass().getSimpleName(), "selectEngSearch cnt : "+cur.getCount());
+        LogUtil.dLog(getClass().getSimpleName(), "selectEngSearch cnt : "+cur.getCount());
         while(cur.moveToNext()){
             EngData engData = new EngData();
             engData.setData(cur);
@@ -247,14 +247,14 @@ public class EngStudyDB {
 
         cur.close();
 
-        LogUtil.DLog(getClass().getSimpleName(), "selectEngSearch cnt : "+engList.size());
+        LogUtil.dLog(getClass().getSimpleName(), "selectEngSearch cnt : "+engList.size());
         return engList;
     }
 
     // kor, success, fail
     public void updateEng(EngData data){
 
-        String query = String.format(EngDataC.EngDB.QUERY_UPDATE_ENG, data.getKor(), data.getIdx());
+        String query = String.format(EngDataC.EngDB.QUERY_UPDATE_ENG, data.getMean(), data.getIdx());
 
         logExecSQL(query);
 
@@ -280,12 +280,12 @@ public class EngStudyDB {
     }
 
     private void logRawQuery(String query){
-        LogUtil.DLog(getClass().getSimpleName(), "raw query : "+query);
+        LogUtil.dLog(getClass().getSimpleName(), "raw query : "+query);
     }
 
     private void logExecSQL(String query){
         SQLiteDatabase db = engHelper.getWritableDatabase();
-        LogUtil.DLog(getClass().getSimpleName(), "exec query : "+query);
+        LogUtil.dLog(getClass().getSimpleName(), "exec query : "+query);
 
         db.execSQL(query);
     }

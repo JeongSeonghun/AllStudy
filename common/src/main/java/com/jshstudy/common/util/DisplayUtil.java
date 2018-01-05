@@ -24,18 +24,18 @@ public class DisplayUtil {
 		try {
 			int mode = Settings.System.getInt(cr, Settings.System.SCREEN_BRIGHTNESS_MODE);
 
-			LogUtil.DLog(DisplayUtil.class.getSimpleName(), "Current Settings.System.SCREEN_BRIGHTNESS_MODE = " + mode);
+			LogUtil.dLog(DisplayUtil.class.getSimpleName(), "Current Settings.System.SCREEN_BRIGHTNESS_MODE = " + mode);
 
 			if(mode != Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL){
 				boolean setMode = Settings.System.putInt(cr, Settings.System.SCREEN_BRIGHTNESS_MODE,
 						Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
 
-				LogUtil.DLog(DisplayUtil.class.getSimpleName(), "Set Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL "+setMode);
+				LogUtil.dLog(DisplayUtil.class.getSimpleName(), "Set Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL "+setMode);
 			}
 
 			int currBrightness = Settings.System.getInt(cr, Settings.System.SCREEN_BRIGHTNESS);
 
-			LogUtil.DLog(DisplayUtil.class.getSimpleName(), "Current Settings.System.SCREEN_BRIGHTNESS = " + currBrightness);
+			LogUtil.dLog(DisplayUtil.class.getSimpleName(), "Current Settings.System.SCREEN_BRIGHTNESS = " + currBrightness);
 
 			if(currBrightness != brightness){
 				if(brightness < 0 ) {
@@ -46,7 +46,7 @@ public class DisplayUtil {
 
 				boolean setBrightness = Settings.System.putInt(cr, Settings.System.SCREEN_BRIGHTNESS, brightness);
 
-				LogUtil.DLog(DisplayUtil.class.getSimpleName(), "Set Settings.System.SCREEN_BRIGHTNESS = "+setBrightness + "/"+ brightness);
+				LogUtil.dLog(DisplayUtil.class.getSimpleName(), "Set Settings.System.SCREEN_BRIGHTNESS = "+setBrightness + "/"+ brightness);
 			}
 		} catch (Settings.SettingNotFoundException e) {
 			e.printStackTrace();

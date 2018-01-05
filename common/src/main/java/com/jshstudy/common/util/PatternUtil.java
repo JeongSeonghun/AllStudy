@@ -11,7 +11,7 @@ public class PatternUtil
 	 */
 	public static boolean checkPattern(String pattern, String s){
 		if(StringUtil.isEmpty(pattern)) {
-			LogUtil.DLog("","Pattern String is Empty");
+			LogUtil.dLog("","Pattern String is Empty");
 			return false;
 		}
 

@@ -16,11 +16,11 @@ public class LogUtil {
 
     private static boolean isSave = ComConfig.isSaveLog;
 
-    public static void DLog(String msg){
-        DLog(TAG, msg);
+    public static void dLog(String msg){
+        dLog(TAG, msg);
     }
 
-    public static void DLog(String target, String msg){
+    public static void dLog(String target, String msg){
         if(isDebug){
             Log.d(target, msg);
         }
@@ -32,7 +32,7 @@ public class LogUtil {
             FileLogUtil.getInstance().append("D:"+target+" :: "+msg);
         }
 
-        DLog(target, msg);
+        dLog(target, msg);
     }
 
     public static void ELog(String msg){

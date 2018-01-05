@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
     <Button
-        android:id="@+id/btn_add_edit"
+        android:id="@+id/btn_edit_edit"
         android:text="@string/edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

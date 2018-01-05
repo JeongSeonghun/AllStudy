@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
-import com.jshstudy.allstudy.data.CommonData;
+import com.jshstudy.allstudy.data.common.CommonData;
 import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngMeanData;
@@ -71,17 +71,17 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
 
     private void setWord(){
         totalNum = engStudyDB.selectEngCnt();
-        LogUtil.DLog("setWord total : "+ totalNum);
+        LogUtil.dLog("setWord total : "+ totalNum);
 
         engData = engStudyDB.selectEng(getRandomIdx(totalNum)+1);
 
         tv_value_eng_word_chk.setText(engData.getEng());
 
         tryCnt = 0;
-        tv_cnt_try_chk_word.setText(String.format(Locale.KOREA, CommonData.StringFormat.FORMAT_WORD_TRY_CNT, tryCnt));
+        tv_cnt_try_chk_word.setText(String.format(Locale.KOREA, CommonData.Format.FORMAT_WORD_TRY_CNT, tryCnt));
 
         tv_result_cnt_chk_word.setText(String.format(Locale.KOREA,
-                CommonData.StringFormat.FORMAT_WORD_RESULT_CNT, engData.getSuccess(), engData.getFail()));
+                CommonData.Format.FORMAT_WORD_RESULT_CNT, engData.getSuccess(), engData.getFail()));
 
         setQuestMean();
 
@@ -116,7 +116,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        LogUtil.DLog("setQuestMean : "+typeQuest+"/"+meanQuest);
+        LogUtil.dLog("setQuestMean : "+typeQuest+"/"+meanQuest);
         tv_show_mean_chk_word.setText(sb.toString());
         tv_quest_mean_type_word.setText(typeQuest);
     }
@@ -131,14 +131,14 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
         int num2 = (int) Math.floor(ran);
         rIdx = num2%limit;
 
-        LogUtil.DLog("random idx = "+rIdx);
+        LogUtil.dLog("random idx = "+rIdx);
 
 
         return rIdx;
     }
 
     private void check(){
-        LogUtil.DLog("check : "+tryCnt);
+        LogUtil.dLog("check : "+tryCnt);
         tryCnt++;
         if(tryCnt>3){
             //...
@@ -147,7 +147,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
 
         String answerMean = et_quest_mean_chk_word.getText().toString();
 
-        tv_cnt_try_chk_word.setText(String.format(Locale.KOREA, CommonData.StringFormat.FORMAT_WORD_TRY_CNT, tryCnt));
+        tv_cnt_try_chk_word.setText(String.format(Locale.KOREA, CommonData.Format.FORMAT_WORD_TRY_CNT, tryCnt));
 
         boolean isSuccess = answerMean.equals(meanQuest);
 
@@ -159,9 +159,9 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
             engData.updateSuccess(false);
             tv_result_chk_word.setText(R.string.fail);
         }
-        LogUtil.DLog("check result a/q: "+answerMean+"/"+meanQuest+"->"+isSuccess);
+        LogUtil.dLog("check result a/q: "+answerMean+"/"+meanQuest+"->"+isSuccess);
         tv_result_cnt_chk_word.setText(String.format(Locale.KOREA,
-                CommonData.StringFormat.FORMAT_WORD_RESULT_CNT, engData.getSuccess(), engData.getFail()));
+                CommonData.Format.FORMAT_WORD_RESULT_CNT, engData.getSuccess(), engData.getFail()));
 
         updateResult(isSuccess);
     }

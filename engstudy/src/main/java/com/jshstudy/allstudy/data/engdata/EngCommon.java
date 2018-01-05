@@ -1,5 +1,9 @@
 package com.jshstudy.allstudy.data.engdata;
 
+import com.jshstudy.allstudy.data.common.CommonData;
+
+import java.util.Locale;
+
 /**
  * Created by shun6 on 2017-10-03.
  */
@@ -22,7 +26,66 @@ public class EngCommon {
         public static final int conjunction = 105; // 접속사
         public static final int propostion = 106; // 전치사
         public static final int phr = 120; // 관용구, 구
+    }
 
+    public enum Type{
+        verb("v", 1),
+        adjective("adj", 2),
+        noun("n", 3),
+        adverb("adv", 4),
+        conjunction("conj", 5),
+        proposition("prop", 6),
+        phrase("phr", 7);
+
+        private String simple;
+        private int code;
+        Type(String simple, int code){
+            this.simple = simple;
+            this.code = code;
+        }
+
+        public String simpleName(){
+            return simple;
+        }
+
+        public int code(){
+            return code;
+        }
+    }
+
+    public enum Chapter{
+        chapter1(1, "QUANTITY_ADJECTIVES"),
+        chapter2(2, "VERB"),
+        chapter3(3, "TENSE"),
+        chapter4(4, "GERUND"),
+        chapter5(5, "TO_INFINITIVE"),
+        chapter6(6, "PARTICIPLE"),
+        chapter7(7, "CONJUNCTION"),
+        chapter8(8, "RELATIONSHIP_PRONOUN_ADVERB"),
+        chapter9(9, "O_CONJUNCTION"),
+        chapter10(10, "PREPOSITION"),
+        chapter11(11, "INVERSION");
+
+        private int num;
+        private String desc;
+        private String simple;
+        Chapter(int num, String desc){
+            this.num = num;
+            this.desc = desc;
+            simple = String.format(Locale.KOREA, CommonData.Format.FORMAT_SIMPLE_CHAPTER, num);
+        }
+
+        public int num(){
+            return num;
+        }
+
+        public String desc(){
+            return desc;
+        }
+
+        public String simpleName(){
+            return simple;
+        }
     }
 
     public class EngPosType{

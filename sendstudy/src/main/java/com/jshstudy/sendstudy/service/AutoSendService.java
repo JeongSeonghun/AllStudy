@@ -42,7 +42,7 @@ public class AutoSendService extends Service{
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        LogUtil.DLog("service onBind");
+        LogUtil.dLog("service onBind");
 //        return null;
         return mBinder;
     }
@@ -50,7 +50,7 @@ public class AutoSendService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtil.DLog("service onCreate");
+        LogUtil.dLog("service onCreate");
         sendHandler.sendEmptyMessageDelayed(0, time);
     }
 
@@ -90,7 +90,7 @@ public class AutoSendService extends Service{
 
     private void sendWakeUp(){
 
-        LogUtil.DLog("sendBroadcast wakeup");
+        LogUtil.dLog("sendBroadcast wakeup");
         Intent isEngencyOpen= new Intent(WAKEUP_ENGSTUDY);
         sendBroadcast(isEngencyOpen);
     }
