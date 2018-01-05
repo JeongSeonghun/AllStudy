@@ -16,6 +16,7 @@ public class EditSubData implements Parcelable{
     private ArrayList<String> titleList;
     private ArrayList<String> list;
     private int postTitle;
+    private int pos;
 
     public EditSubData(){
 
@@ -27,6 +28,14 @@ public class EditSubData implements Parcelable{
 
     public int getPostTitle(){
         return postTitle;
+    }
+
+    public void setPos(int pos){
+        this.pos = pos;
+    }
+
+    public int getPos(){
+        return pos;
     }
 
     public void setTitleList(ArrayList<String> titleList){
@@ -51,6 +60,7 @@ public class EditSubData implements Parcelable{
         titleList = new ArrayList<>();
         in.readStringList(titleList);
         setPostTitle(in.readInt());
+        setPos(in.readInt());
 
         LogUtil.dLog("parcel list : "+list);
         LogUtil.dLog("parcel title list : "+titleList);
@@ -79,6 +89,7 @@ public class EditSubData implements Parcelable{
         dest.writeStringList(list);
         dest.writeStringList(titleList);
         dest.writeInt(postTitle);
+        dest.writeInt(pos);
 
         LogUtil.dLog("parcel dest list : "+list);
         LogUtil.dLog("parcel dest title list : "+titleList);

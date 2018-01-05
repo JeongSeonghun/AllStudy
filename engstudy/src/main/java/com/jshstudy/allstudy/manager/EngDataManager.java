@@ -1,6 +1,8 @@
 package com.jshstudy.allstudy.manager;
 
 import com.jshstudy.allstudy.data.EngDataC;
+import com.jshstudy.allstudy.data.common.EditData;
+import com.jshstudy.allstudy.data.engdata.EngChapterData;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngMeanData;
 import com.jshstudy.allstudy.util.StringUtil;
@@ -84,4 +86,23 @@ public class EngDataManager {
 
         return jo;
     }
+
+    public JSONObject makeMeanMapToJSON(ArrayList<EditData> meanEditList){
+        if(meanEditList == null || meanEditList.size()<=0) return null;
+
+        JSONObject jo = new JSONObject();
+
+        for(EditData data : meanEditList){
+            JSONArray ja = new JSONArray(data.getValues());
+            try {
+                jo.put(data.getParam(), ja);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jo;
+    }
+
+
 }

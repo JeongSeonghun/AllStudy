@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.allstudy.data.EngDataC;
+import com.jshstudy.allstudy.data.common.EditData;
 import com.jshstudy.allstudy.manager.EngDataManager;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
@@ -47,19 +48,25 @@ public class EngData {
 
     public void setMean(String mean){
         this.mean = mean;
+        setMeanData();
     }
-    public void setMean(String type, String... kor){
+    public void setMean(JSONObject means){
+        this.mean = means.toString();
+        setMeanData();
+    }
+    public void setMean(String type, String... means){
         JSONObject jo = new JSONObject();
         JSONArray ja = new JSONArray();
 
         try {
-            for(String mean : kor){
+            for(String mean : means){
                 ja.put(mean);
             }
 
             jo.put(type, ja);
 
             this.mean = jo.toString();
+            setMeanData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -181,7 +188,6 @@ public class EngData {
 
             if(col.equals(EngDataC.EngDB.COL_KOR)){
                 setMean(cur.getString(cur.getColumnIndex(col)));
-                setMeanData();
             }
 
             if(col.equals(EngDataC.EngDB.COL_SUCCESS)){
@@ -331,7 +337,7 @@ public class EngData {
         EngDataManager dataManager = new EngDataManager();
         return "idx : " + idx + "\n" +
                 "eng : " + eng + "\n" +
-                "kor : " + dataManager.makeMeanMapToJSON(meanMap).toString() + "\n" +
+                "mean : " + dataManager.makeMeanMapToJSON(meanMap).toString() + "\n" +
                 "chapter : " + chapMap + "\n";
     }
 }

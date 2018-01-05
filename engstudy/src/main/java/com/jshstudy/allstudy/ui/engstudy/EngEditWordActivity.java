@@ -18,6 +18,7 @@ import com.jshstudy.allstudy.data.engdata.EngChapterData;
 import com.jshstudy.allstudy.data.engdata.EngCommon;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngMeanData;
+import com.jshstudy.allstudy.manager.EngDataManager;
 import com.jshstudy.common.util.LogUtil;
 
 import org.json.JSONArray;
@@ -43,9 +44,6 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     private EngStudyDB engStudyDB;
     private EngData engData;
-
-    private ArrayList<String> meanParamList;
-    private ArrayList<String> chapParamList;
 
     private ArrayList<EditData> meanEditList;
     private ArrayList<EditData> chapEditList;
@@ -84,42 +82,6 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         lv_chap_edit_eng.setAdapter(chapsAdapter);
     }
 
-    private void setLIstData(){
-        if(isEditMode){
-
-            HashMap<String, EngMeanData> meanMap = engData.getMeanMap();
-            HashMap<Integer, JSONArray> chapMap = engData.getChapMap();
-
-            meanParamList = new ArrayList<>();
-            ArrayList<String> meanValue = new ArrayList<>();
-
-            chapParamList = new ArrayList<>();
-            ArrayList<String> chapValue = new ArrayList<>();
-
-            Set<String> setMean = meanMap.keySet();
-            for(String meanP : setMean){
-                meanParamList.add(meanP);
-                meanValue.add(meanMap.get(meanP).getMeans().toString());
-            }
-
-            Set<Integer> setChap = chapMap.keySet();
-            for(int chapP : setChap){
-                chapParamList.add(String.valueOf(chapP));
-                chapValue.add(chapMap.get(chapP).toString());
-            }
-
-            meansAdapter.setTextList1(meanParamList);
-            meansAdapter.setTextList2(meanValue);
-
-            chapsAdapter.setTextList1(chapParamList);
-            chapsAdapter.setTextList2(chapValue);
-
-            meansAdapter.notifyDataSetChanged();
-            chapsAdapter.notifyDataSetChanged();
-
-        }
-    }
-
     private void initData(){
         Intent intentRec = getIntent();
 
@@ -135,7 +97,6 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
                 et_value_eng_edit_eng.setText(engData.getEng());
 
-                //setLIstData();
                 setListData();
             }
         }
@@ -153,7 +114,7 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
             for(String type : meanMap.keySet()){
                 EditData editData = new EditData();
-                editData.setData(type, meanMap.get(type).getMeans().toString());
+                editData.setData(type, meanMap.get(type).getMeans());
                 meanEditList.add(editData);
             }
 
@@ -161,7 +122,7 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
                 EditData editData = new EditData();
                 editData.setParam(String.format(Locale.KOREA
                         , CommonData.Format.FORMAT_SIMPLE_CHAPTER, chapterData.getChapter()));
-                editData.setValue(chapterData.getSubList().toString());
+                editData.setValues(chapterData.getSubList());
                 chapEditList.add(editData);
             }
 
@@ -211,6 +172,7 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         subData.setList(meanData.getMeans());
         subData.setTitleList(meanTypes);
         subData.setPostTitle(meanTypes.indexOf(meanData.getType()));
+        subData.setPos(pos);
 
         startSubEdit(subData, CommonData.REQ_CODE_EDIT_MEAN);
     }
@@ -224,6 +186,7 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         subData.setList(chapterData.getSubList());
         subData.setTitleList(chapList);
         subData.setPostTitle(chapList.indexOf(String.valueOf(chapterData.getChapter())));
+        subData.setPos(pos);
 
         startSubEdit(subData, CommonData.REQ_CODE_EDIT_CHAP);
     }
@@ -231,7 +194,17 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
     private void addMean(){
         EditSubData subData = new EditSubData();
 
-        subData.setTitleList(getMeanTypes());
+        ArrayList<String> types = getMeanTypes();
+
+        if(meanEditList.size() == EngCommon.Type.values().length) return;
+
+        for(EditData data : meanEditList){
+            if(types.contains(data.getParam())){
+                types.remove(data.getParam());
+            }
+        }
+
+        subData.setTitleList(types);
 
         startSubEdit(subData, CommonData.REQ_CODE_ADD_MEAN);
     }
@@ -239,7 +212,17 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
     private void addChapter(){
         EditSubData subData = new EditSubData();
 
-        subData.setTitleList(getChapList());
+        ArrayList<String> chaps = getChapList();
+
+        if(meanEditList.size() == EngCommon.Type.values().length) return;
+
+        for(EditData data : chapEditList){
+            if(chaps.contains(data.getParam())){
+                chaps.remove(data.getParam());
+            }
+        }
+
+        subData.setTitleList(chaps);
 
         startSubEdit(subData, CommonData.REQ_CODE_ADD_CHAP);
     }
@@ -270,16 +253,49 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
     public void save(){
         LogUtil.dLog("save");
         String eng = et_value_eng_edit_eng.getText().toString();
+        EngDataManager dataManager = new EngDataManager();
 
+        EngData changeData = new EngData();
+        changeData.setEng(eng);
+        changeData.setMean(dataManager.makeMeanMapToJSON(meanEditList));
+        for(EditData editData : chapEditList){
+            changeData.setCh(Integer.valueOf(editData.getParam().substring(2)), new JSONArray(editData.getValues()));
+        }
 
-        engData.setEng(eng);
-
+        LogUtil.dLog("save before data : "+engData.toString());
+        compare(engData, changeData);
+        LogUtil.dLog("save after data : "+engData.toString());
+        // insert or update
         //finish();
+    }
+
+    public boolean compare(EngData base, EngData data){
+        boolean change = false;
+        if(!base.getEng().equals(data.getEng())){
+            change = true;
+            base.setEng(data.getEng());
+        }
+        return change || base.merge(data);
     }
 
     private void reset(){
         et_value_eng_edit_eng.setText(engData.getEng());
-        setLIstData();
+        setListData();
+    }
+
+    private void changEditData(int reqCode){
+        switch (reqCode){
+            case CommonData.REQ_CODE_ADD_MEAN:
+            case CommonData.REQ_CODE_EDIT_MEAN:
+                meansAdapter.setDataList(meanEditList);
+                meansAdapter.notifyDataSetChanged();
+                break;
+            case CommonData.REQ_CODE_ADD_CHAP:
+            case CommonData.REQ_CODE_EDIT_CHAP:
+                chapsAdapter.setDataList(chapEditList);
+                chapsAdapter.notifyDataSetChanged();
+                break;
+        }
     }
 
     @Override
@@ -287,39 +303,28 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             EditSubData subData = data.getParcelableExtra(CommonData.IntentData.KEY_SUB_DATA);
-            LogUtil.dLog("onActivityResult subData : "+subData.getTitleList()+"/"+subData.getList());
+            LogUtil.dLog("onActivityResult "+requestCode+" subData : "+subData.getTitleList()+"/"+subData.getList());
 
             EditData editData = new EditData();
             editData.setData(subData);
+            LogUtil.dLog("onActivityResult editData : "+editData.getParam());
 
             switch (requestCode){
                 case CommonData.REQ_CODE_ADD_MEAN:
                     meanEditList.add(editData);
                     break;
                 case CommonData.REQ_CODE_EDIT_MEAN:
-                    meanEditList.set(subData.getPostTitle(), editData);
+                    meanEditList.set(subData.getPos(), editData);
                     break;
                 case CommonData.REQ_CODE_ADD_CHAP:
                     chapEditList.add(editData);
                     break;
                 case CommonData.REQ_CODE_EDIT_CHAP:
-                    chapEditList.set(subData.getPostTitle(), editData);
+                    chapEditList.set(subData.getPos(), editData);
                     break;
             }
 
-            switch (requestCode){
-                case CommonData.REQ_CODE_ADD_MEAN:
-                case CommonData.REQ_CODE_EDIT_MEAN:
-                    meansAdapter.setDataList(meanEditList);
-                    meansAdapter.notifyDataSetChanged();
-                    break;
-                case CommonData.REQ_CODE_ADD_CHAP:
-                case CommonData.REQ_CODE_EDIT_CHAP:
-                    chapsAdapter.setDataList(chapEditList);
-                    chapsAdapter.notifyDataSetChanged();
-                    break;
-            }
-
+            changEditData(requestCode);
 
         }
     }

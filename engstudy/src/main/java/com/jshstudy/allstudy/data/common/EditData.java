@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class EditData {
     private String param;
     private String value;
+    private ArrayList<String> values;
 
     public void setData(String param){
         this.param  = param;
@@ -19,12 +20,17 @@ public class EditData {
         this.value = value;
     }
 
+    public void setData(String param, ArrayList<String> values){
+        setParam(param);
+        setValues(values);
+    }
+
     public void setData(EditSubData subData){
         int pos = subData.getPostTitle();
-        ArrayList<String> list = subData.getList();
+        values = subData.getList();
 
         setParam(subData.getTitleList().get(pos));
-        if(list !=null && list.size()>0){
+        if(values !=null && values.size()>0){
             setValue(subData.getList().toString());
         }
 
@@ -46,5 +52,12 @@ public class EditData {
         this.value = value;
     }
 
+    public ArrayList<String> getValues() {
+        return values;
+    }
 
+    public void setValues(ArrayList<String> values) {
+        this.values = values;
+        if(values != null && values.size()>0) value = values.toString();
+    }
 }
