@@ -31,8 +31,10 @@
         <activity android:name=".ui.engstudy.SearchEngActivity" />
         <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.engstudy.EngEditWordActivity" />
-        <activity android:name=".ui.engstudy.EngEditSubActivity"
-            android:theme="@style/Base.V7.Theme.AppCompat.Dialog"/>
+        <activity
+            android:name=".ui.engstudy.EngEditSubActivity"
+            android:theme="@style/Base.V7.Theme.AppCompat.Dialog" />
+        <activity android:name=".ui.UserInfoActivity"></activity>
     </application>
 
 </manifest>

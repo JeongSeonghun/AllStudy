@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jshstudy.allstudy.R;
+import com.jshstudy.allstudy.data.common.CommonData;
 
 public class EngStudyActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button check_eng_btn;
+    private Button btn_add_word_study;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +24,10 @@ public class EngStudyActivity extends AppCompatActivity implements View.OnClickL
 
     private void initUi(){
         check_eng_btn = (Button)findViewById(R.id.check_eng_btn);
+        btn_add_word_study = (Button)findViewById(R.id.btn_add_word_study);
 
         check_eng_btn.setOnClickListener(this);
+        btn_add_word_study.setOnClickListener(this);
     }
 
     private void goToChapter(int num){
@@ -76,6 +80,10 @@ public class EngStudyActivity extends AppCompatActivity implements View.OnClickL
             case R.id.check_eng_btn:
                 startEngAct(EngChkWordActivity.class);
                 break;
+            case R.id.btn_add_word_study:
+                Intent intentAct = new Intent(this, EngEditWordActivity.class);
+                intentAct.putExtra(CommonData.IntentData.KEY_MOD, CommonData.IntentData.VALUE_MOD_ADD);
+                startActivity(intentAct);
         }
     }
 }

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_word_chk_start).setOnClickListener(this);
         findViewById(R.id.btn_eng_search_start).setOnClickListener(this);
         findViewById(R.id.btn_setting_start).setOnClickListener(this);
+        findViewById(R.id.btn_user_info_start).setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_setting_start:
                 goToAct(SettingActivity.class);
+                break;
+            case R.id.btn_user_info_start:
+                goToAct(UserInfoActivity.class);
                 break;
         }
     }

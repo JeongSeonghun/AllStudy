@@ -36,7 +36,15 @@ public class ComDB {
 
     public static final String QUERY_INSERT = "INSERT INTO %1$s (%2$s) VALUES(%3$s)";
 
-    public static final String QUERY_UPDATE = "UPDATE %1$s SET %2$s WHERE %3$s";
+    public static final String QUERY_UPDATE = "UPDATE %1$s SET %2$s";
+
+    public static final String QUERY_UPDATE_WHERE = "UPDATE %1$s SET %2$s WHERE %3$s";
+
+    public static final String FORMAT_FUNC_FORMAT_SUM = "SUM(%1$s)";
+    public static final String FORMAT_FUNC_FORMAT_AVG = "AVG(%1$s)";
+    public static final String FORMAT_FUNC_FORMAT_COUNT = "COUNT(%1$s)";
+    public static final String FORMAT_FUNC_FORMAT_MAX = "MAX(%1$s)";
+    public static final String FORMAT_FUNC_FORMAT_MIN = "MIN(%1$s)";
 
 
 }

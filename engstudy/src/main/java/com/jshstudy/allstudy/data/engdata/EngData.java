@@ -8,6 +8,7 @@ import com.jshstudy.allstudy.data.common.EditData;
 import com.jshstudy.allstudy.manager.EngDataManager;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
+import com.jshstudy.common.util.StringUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,8 @@ public class EngData {
 
     // eng, kor, ch, success, fail
     public EngData(){
-
+        eng = "";
+        mean = "";
     }
 
     public void setIdx(int idx){
@@ -204,8 +206,9 @@ public class EngData {
         }
     }
 
+    // not compare eng
     public boolean merge(EngData data){
-        if(mean == null || mean.equals(data.getMean())) return false;
+        LogUtil.dLog("merge()");
 
         boolean changeMean = mergeMean(data);
         boolean changeChap = mergeChDetail(data);
@@ -214,12 +217,20 @@ public class EngData {
     }
 
     private boolean mergeMean(EngData data){
-
-        if(meanMap == null || meanMap.size()<=0) setMeanData();
-
         LogUtil.dLog(getClass().getSimpleName(), "merge comp : "+mean+"/"+data.getMean());
-
         HashMap<String, EngMeanData> chkMap = data.getMeanMap();
+        if(meanMap == null || meanMap.size()<=0){
+            if(chkMap == null || chkMap.size()<=0) return false;
+            LogUtil.dLog("merge add");
+            meanMap = chkMap;
+            EngDataManager dataManager = new EngDataManager();
+            mean = dataManager.makeMeanMapToJSON(meanMap).toString();
+            return true;
+        }else if(meanMap.equals(chkMap)){
+            LogUtil.dLog("merge equal");
+            return false;
+        }
+
         Set<String> set = chkMap.keySet();
 
         boolean chkChange = false;
@@ -248,8 +259,18 @@ public class EngData {
     }
 
     public boolean mergeChDetail(EngData data){
+        LogUtil.dLog(getClass().getSimpleName(), "merge comp : "+chapMap+"/"+data.getChapMap());
         HashMap<Integer, JSONArray> chkMap = data.getChapMap();
-        if(chkMap == null || chkMap.size()<=0 || chkMap.equals(chapMap)) return false;
+        if(chapMap == null || chapMap.size()<=0){
+            if(chkMap == null || chkMap.size()<=0) return false;
+            LogUtil.dLog("merge add");
+            chapMap = chkMap;
+            return true;
+        }else if(chapMap.equals(chkMap)){
+            LogUtil.dLog("merge equal");
+            return false;
+        }
+
         boolean change = false;
 
         Set<Integer> set = chkMap.keySet();
@@ -304,8 +325,11 @@ public class EngData {
 
     private void setMeanData(){
         meanMap = new HashMap<>();
+        if(StringUtil.isEmpty(mean)) return;
+
         JSONObject jo;
         try {
+            LogUtil.dLog("setMeanData mean : "+mean);
             jo = new JSONObject(mean);
 
             Iterator<String> iterator = jo.keys();
@@ -335,9 +359,10 @@ public class EngData {
 
     public String toString(){
         EngDataManager dataManager = new EngDataManager();
+        JSONObject jo = dataManager.makeMeanMapToJSON(meanMap);
         return "idx : " + idx + "\n" +
                 "eng : " + eng + "\n" +
-                "mean : " + dataManager.makeMeanMapToJSON(meanMap).toString() + "\n" +
+                "mean : " + (jo==null?"":jo.toString()) + "\n" +
                 "chapter : " + chapMap + "\n";
     }
 }

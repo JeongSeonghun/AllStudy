@@ -22,6 +22,7 @@ import java.util.Locale;
 public class EngStudyDB {
 
     private EngAllDBHelper engHelper;
+    private SQLiteDatabase db;
 
     public EngStudyDB(Context context){
         engHelper = new EngAllDBHelper(context);
@@ -58,7 +59,7 @@ public class EngStudyDB {
     }
 
     public int selectEngCheck(EngData data){
-        SQLiteDatabase db = engHelper.getReadableDatabase();
+        db = engHelper.getReadableDatabase();
 
         String query = String.format(EngDataC.EngDB.QUERY_SELECT_ENG_CHECK, data.getEng());
 
@@ -79,7 +80,7 @@ public class EngStudyDB {
     }
 
     public EngData selectEng(int idx){
-        SQLiteDatabase db = engHelper.getReadableDatabase();
+        db = engHelper.getReadableDatabase();
 
         EngData data = null;
 
@@ -101,7 +102,7 @@ public class EngStudyDB {
     }
 
     public ArrayList<EngData> selectEngSearch(int page){
-        SQLiteDatabase db = engHelper.getReadableDatabase();
+        db = engHelper.getReadableDatabase();
 
         ArrayList<EngData> engList = new ArrayList<>();
 
@@ -129,7 +130,7 @@ public class EngStudyDB {
     }
 
     public int selectEngCnt(){
-        SQLiteDatabase db = engHelper.getReadableDatabase();
+        db = engHelper.getReadableDatabase();
 
         int cnt = -1;
 
@@ -150,7 +151,7 @@ public class EngStudyDB {
     }
 
     public int selectEngSearchCnt(EngSearchData searchData){
-        SQLiteDatabase db = engHelper.getReadableDatabase();
+        db = engHelper.getReadableDatabase();
 
         int cnt = -1;
 
@@ -224,7 +225,7 @@ public class EngStudyDB {
 
     public ArrayList<EngData> selectEngSearch(int page, EngSearchData searchData){
 
-        SQLiteDatabase db = engHelper.getReadableDatabase();
+        db = engHelper.getReadableDatabase();
 
         ArrayList<EngData> engList = new ArrayList<>();
 
@@ -251,10 +252,49 @@ public class EngStudyDB {
         return engList;
     }
 
+    public SuccessData selectSuccessSum(){
+        db = engHelper.getReadableDatabase();
+
+        String query = EngDataC.EngDB.QUERY_SELECT_ENG_SUCCESS_SUM;
+
+        logRawQuery(query);
+
+        Cursor cur = db.rawQuery(query, null);
+
+        if(cur == null) return null;
+
+        cur.moveToNext();
+        SuccessData data = new SuccessData();
+        for(String col : cur.getColumnNames()){
+            LogUtil.dLog("selectSuccessSum col: "+col);
+            if(col.equals(String.format(ComDB.FORMAT_FUNC_FORMAT_SUM,EngDataC.EngDB.COL_SUCCESS))){
+                data.setCntSuccess(cur.getInt(cur.getColumnIndex(col)));
+            }
+            if(col.equals(String.format(ComDB.FORMAT_FUNC_FORMAT_SUM,EngDataC.EngDB.COL_FAIL))){
+                data.setCntFail(cur.getInt(cur.getColumnIndex(col)));
+            }
+        }
+        LogUtil.dLog("selectSuccessSum : "+data.getCntSuccess()+"/"+data.getCntFail());
+
+        cur.close();
+
+        return data;
+    }
+
     // kor, success, fail
     public void updateEng(EngData data){
 
         String query = String.format(EngDataC.EngDB.QUERY_UPDATE_ENG, data.getMean(), data.getIdx());
+
+        logExecSQL(query);
+
+    }
+
+    public void updateEngAll(EngData data){
+
+        EngDataManager dataManager = new EngDataManager();
+
+        String query = dataManager.makeUdateEngDatQuery(data);
 
         logExecSQL(query);
 
@@ -277,6 +317,12 @@ public class EngStudyDB {
 
         logExecSQL(query);
 
+    }
+
+    public void updateSuccessInit(){
+        String query = EngDataC.EngDB.QUERY_UPDATE_SUCCESS_INIT;
+
+        logExecSQL(query);
     }
 
     private void logRawQuery(String query){

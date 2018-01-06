@@ -66,7 +66,7 @@ public class EditAdapter extends BaseAdapter implements View.OnClickListener{
     public int getCount() {
         //if(textList1 != null && textList1.size()>0) return textList1.size()+1;
         if(dataList != null && dataList.size()>0) return dataList.size()+1;
-        return 0;
+        return 1;
     }
 
     @Override

@@ -76,6 +76,9 @@ public class EngDataC {
 
         public static final String QUERY_SELECT_ENG_CNT = String.format(ComDB.QUERY_SELECT_CNT_IDX, NAME_TABLE);
 
+        public static final String QUERY_SELECT_ENG_SUCCESS_SUM = "SELECT SUM("+COL_SUCCESS+"), SUM("+COL_FAIL+") "+
+                "FROM "+NAME_TABLE;
+
         public static final String QUERY_INSERT_ENG = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
                 COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', '%4$s', 0");// col_chapList, eng, kor, val_chapLIst
 
@@ -83,11 +86,17 @@ public class EngDataC {
                 COL_ENG+ " , "+ COL_KOR+", "+COL_NCH, "'%1$s', '%2$s', 1");
 
 
-        public static final String QUERY_UPDATE_ENG = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
+        public static final String QUERY_UPDATE_ENG = String.format(ComDB.QUERY_UPDATE_WHERE, NAME_TABLE,
                 COL_KOR+"='%1$s'", ComDB.COL_IDX + "= %2$d");
 
-        public static final String QUERY_UPDATE_SUCCESS = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
+        public static final String QUERY_UPDATE_ENG_ALL = String.format(ComDB.QUERY_UPDATE_WHERE, NAME_TABLE,
+                COL_ENG+"='%1$s', "+COL_KOR+"='%2$s'"+", %3$s, "+COL_NCH+"=%4$d", ComDB.COL_IDX + "= %5$d");
+
+        public static final String QUERY_UPDATE_SUCCESS = String.format(ComDB.QUERY_UPDATE_WHERE, NAME_TABLE,
                 "%1$s = %2$d", ComDB.COL_IDX +" = %3$d");
+
+        public static final String QUERY_UPDATE_SUCCESS_INIT = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
+                COL_SUCCESS+"=0,"+COL_FAIL+"=0");
     }
 
     public static final class EngDetailChapterDB{

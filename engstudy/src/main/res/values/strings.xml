@@ -93,5 +93,10 @@
     <string name="apply">apply</string>
     <string name="cancel">cancel</string>
     <string name="next">next</string>
+    <string name="s_count">success count</string>
+    <string name="user">user</string>
+    <string name="study">study</string>
+    <string name="word_success">word success</string>
+    <string name="user_info">user info</string>
 
 </resources>

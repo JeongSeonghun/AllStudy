@@ -84,33 +84,37 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     private void initData(){
         Intent intentRec = getIntent();
+        engStudyDB = new EngStudyDB(this);
 
         if(intentRec.hasExtra(CommonData.IntentData.KEY_MOD)){
             int mode = intentRec.getIntExtra(CommonData.IntentData.KEY_MOD, -1);
-            if(CommonData.IntentData.VALUE_MOD_ADD == mode){
-                isEditMode = false;
-                engData = new EngData();
-            }else{
+            LogUtil.dLog("edit mode : "+mode);
+            if(CommonData.IntentData.VALUE_MOD_EDIT == mode){
                 idxEngWord = intentRec.getIntExtra(CommonData.IntentData.KEY_IDX, 1);
-                engStudyDB = new EngStudyDB(this);
+
                 engData = engStudyDB.selectEng(idxEngWord);
 
                 et_value_eng_edit_eng.setText(engData.getEng());
 
-                setListData();
+            }else{
+                isEditMode = false;
+                engData = new EngData();
             }
+        }else{
+            isEditMode = false;
+            engData = new EngData();
         }
-
+        setListData();
     }
 
     private void setListData(){
+        meanEditList = new ArrayList<>();
+        chapEditList = new ArrayList<>();
+
         if(isEditMode){
 
             HashMap<String, EngMeanData> meanMap = engData.getMeanMap();
             ArrayList<EngChapterData> chapList = engData.getChapDataList();
-
-            meanEditList = new ArrayList<>();
-            chapEditList = new ArrayList<>();
 
             for(String type : meanMap.keySet()){
                 EditData editData = new EditData();
@@ -126,13 +130,12 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
                 chapEditList.add(editData);
             }
 
-            meansAdapter.setDataList(meanEditList);
-            chapsAdapter.setDataList(chapEditList);
-
-            meansAdapter.notifyDataSetChanged();
-            chapsAdapter.notifyDataSetChanged();
-
         }
+        meansAdapter.setDataList(meanEditList);
+        chapsAdapter.setDataList(chapEditList);
+
+        meansAdapter.notifyDataSetChanged();
+        chapsAdapter.notifyDataSetChanged();
     }
 
     private EditAdapter.EditAdapterListener meansListener = new EditAdapter.EditAdapterListener() {
@@ -164,28 +167,28 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
     };
 
     private void editMean(int pos){
-        EngMeanData meanData = engData.getMeanMap().get(meanEditList.get(pos).getParam());
+        EditData editData = meanEditList.get(pos);
         ArrayList<String> meanTypes = getMeanTypes();
 
         EditSubData subData = new EditSubData();
 
-        subData.setList(meanData.getMeans());
+        subData.setList(editData.getValues());
         subData.setTitleList(meanTypes);
-        subData.setPostTitle(meanTypes.indexOf(meanData.getType()));
+        subData.setPostTitle(meanTypes.indexOf(editData.getParam()));
         subData.setPos(pos);
 
         startSubEdit(subData, CommonData.REQ_CODE_EDIT_MEAN);
     }
 
     private void editChapter(int pos){
-        EngChapterData chapterData = engData.getChapDataList().get(pos);
+        EditData editData = chapEditList.get(pos);
         ArrayList<String> chapList = getChapList();
 
         EditSubData subData = new EditSubData();
 
-        subData.setList(chapterData.getSubList());
+        subData.setList(editData.getValues());
         subData.setTitleList(chapList);
-        subData.setPostTitle(chapList.indexOf(String.valueOf(chapterData.getChapter())));
+        subData.setPostTitle(chapList.indexOf(editData.getParam()));
         subData.setPos(pos);
 
         startSubEdit(subData, CommonData.REQ_CODE_EDIT_CHAP);
@@ -263,19 +266,30 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         }
 
         LogUtil.dLog("save before data : "+engData.toString());
-        compare(engData, changeData);
+
+        if(!compare(engData, changeData)) return;
+
         LogUtil.dLog("save after data : "+engData.toString());
-        // insert or update
-        //finish();
+
+        if(isEditMode){
+            engStudyDB.updateEngAll(engData);
+        }else{
+            engStudyDB.insertEng(engData);
+        }
+
+        finish();
     }
 
     public boolean compare(EngData base, EngData data){
         boolean change = false;
+        LogUtil.dLog("compare base / data: "+base.getEng()+"/"+data.getEng());
         if(!base.getEng().equals(data.getEng())){
             change = true;
             base.setEng(data.getEng());
         }
-        return change || base.merge(data);
+
+        boolean merge = base.merge(data);
+        return change || merge;
     }
 
     private void reset(){
@@ -307,7 +321,7 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
             EditData editData = new EditData();
             editData.setData(subData);
-            LogUtil.dLog("onActivityResult editData : "+editData.getParam());
+            LogUtil.dLog("onActivityResult editData : "+editData.getParam()+"/"+editData.getValues());
 
             switch (requestCode){
                 case CommonData.REQ_CODE_ADD_MEAN:

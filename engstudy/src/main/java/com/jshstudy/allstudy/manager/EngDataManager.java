@@ -3,6 +3,7 @@ package com.jshstudy.allstudy.manager;
 import com.jshstudy.allstudy.data.EngDataC;
 import com.jshstudy.allstudy.data.common.EditData;
 import com.jshstudy.allstudy.data.engdata.EngChapterData;
+import com.jshstudy.allstudy.data.engdata.EngCommon;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngMeanData;
 import com.jshstudy.allstudy.util.StringUtil;
@@ -104,5 +105,42 @@ public class EngDataManager {
         return jo;
     }
 
+    public String makeUdateEngDatQuery(EngData engData){
+        String eng = engData.getEng();
+        String mean = engData.getMean();
+        HashMap<Integer, JSONArray> chapMap = engData.getChapMap();
+        int noChap = 0;
+        int idx = engData.getIdx();
+        String query;
 
+        StringBuilder sb = new StringBuilder();
+        for(EngCommon.Chapter chap : EngCommon.Chapter.values()){
+            sb.append(chap.simpleName()).append("=");
+            if(chapMap.containsKey(chap.num())){
+                JSONArray ja = chapMap.get(chap.num());
+                sb.append("'");
+                if(ja != null && ja.length()>0){
+                    sb.append(ja.toString());
+                }else{
+                    sb.append(chap.num());
+                }
+                sb.append("'");
+            }else{
+                sb.append("null");
+            }
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(","));
+
+        if(chapMap != null && chapMap.size()>0){
+            noChap = 0;
+        }else{
+            noChap = 1;
+        }
+
+        query=String.format(EngDataC.EngDB.QUERY_UPDATE_ENG_ALL,
+                eng, mean, sb.toString(), noChap, idx);
+
+        return query;
+    }
 }
