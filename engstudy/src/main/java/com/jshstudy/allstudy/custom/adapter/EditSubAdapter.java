@@ -26,8 +26,9 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
 
     private boolean isGetView = false;
 
-    private boolean isAdd = false;
-    private int posAdd = -1;
+    private boolean isAdd = false;  // state exist plus empty item
+    private int posAdd = -1;    // position of plus empty item
+    private int posPlus = 0;    // position of plus button
 
     public EditSubAdapter(Context context){
         this.context = context;
@@ -44,8 +45,11 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
     @Override
     public int getCount() {
         if(list != null){
-            posAdd = isAdd?list.size():-1;
-            return isAdd?list.size()+2:list.size()+1;
+            int cntAdd = isAdd?2:1; // + empty item + plus button
+            int total = list.size() + cntAdd;
+            posAdd = isAdd?total-cntAdd:-1;
+            posPlus = total-1;
+            return total;
         }
         return 1;
     }
@@ -64,7 +68,7 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
     public View getView(int position, View convertView, ViewGroup parent) {
         isGetView = true;
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if(position==getCount()-1){
+        if(position==posPlus){
             isGetView =false;
             convertView = inflater.inflate(R.layout.item_edit_plus, null);
             Button btn_add_edit_plus = (Button)convertView.findViewById(R.id.btn_add_edit_plus);
@@ -92,23 +96,7 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
                 holder.et_text_sub_edit.setText(list.get(position));
             }
 
-            holder.et_text_sub_edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!isGetView){
-                        ViewHolder holder = (ViewHolder)v.getTag();
-                        if(hasFocus){
-                            holder.lil_btn_sub_edit.setVisibility(View.VISIBLE);
-                            holder.btn_del_edit_sub.setVisibility(View.GONE);
-                        }else{
-                            holder.lil_btn_sub_edit.setVisibility(View.GONE);
-                            holder.btn_del_edit_sub.setVisibility(View.VISIBLE);
-                        }
-                    }else{
-                        isGetView = false;
-                    }
-                }
-            });
+            holder.et_text_sub_edit.setOnFocusChangeListener(focusChangeListener);
 
             holder.et_text_sub_edit.setTag(holder);
             holder.btn_apply_sub_edit.setTag(holder);
@@ -128,6 +116,60 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
         Button btn_del_edit_sub;
     }
 
+    private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(!isGetView){
+                ViewHolder holder = (ViewHolder)v.getTag();
+                if(hasFocus){
+                    holder.lil_btn_sub_edit.setVisibility(View.VISIBLE);
+                    holder.btn_del_edit_sub.setVisibility(View.GONE);
+                }else{
+                    holder.lil_btn_sub_edit.setVisibility(View.GONE);
+                    holder.btn_del_edit_sub.setVisibility(View.VISIBLE);
+                }
+            }else{
+                isGetView = false;
+            }
+        }
+    };
+
+    private void apply(ViewHolder holder){
+        LogUtil.dLog("apply pos"+holder.pos);
+        isAdd = false;
+        String edit = holder.et_text_sub_edit.getText().toString();
+        if(holder.pos == posAdd){
+            if(!StringUtil.isEmpty(edit)){
+                list.add(edit);
+            }
+        }else if(StringUtil.isEmpty(edit)){
+            list.remove(holder.pos);
+        }else{
+            list.set(holder.pos, edit);
+        }
+        notifyDataSetChanged();
+    }
+
+    private void delete(int pos){
+        LogUtil.dLog("delete pos"+pos);
+        isAdd = false;
+        if(pos != posAdd){
+            list.remove(pos);
+        }
+        notifyDataSetChanged();
+    }
+
+    private void cancel(ViewHolder holder){
+        LogUtil.dLog("cancel pos"+holder.pos);
+        String before;
+        if(holder.pos == posAdd){
+            before = "";
+        }else{
+            before = list.get(holder.pos);
+        }
+        holder.et_text_sub_edit.setText(before);
+    }
+
     @Override
     public void onClick(View v) {
         ViewHolder holder;
@@ -139,33 +181,15 @@ public class EditSubAdapter extends BaseAdapter implements View.OnClickListener{
                 break;
             case R.id.btn_apply_sub_edit:
                 holder = (ViewHolder)v.getTag();
-                String edit = holder.et_text_sub_edit.getText().toString();
-                LogUtil.dLog("click "+holder.pos+"/"+isAdd+"/"+posAdd);
-                if(holder.pos == posAdd){
-                    isAdd = false;
-                    if(!StringUtil.isEmpty(edit)){
-                        list.add(edit);
-                    }
-                }else if(StringUtil.isEmpty(edit)){
-                    list.remove(holder.pos);
-                }else{
-                    list.set(holder.pos, edit);
-                }
-                notifyDataSetChanged();
+                apply(holder);
                 break;
             case R.id.btn_cancel_sub_edit:
                 holder = (ViewHolder)v.getTag();
-                String before = list.get(holder.pos);
-                holder.et_text_sub_edit.setText(before);
+                cancel(holder);
                 break;
             case R.id.btn_del_edit_sub:
                 pos = (int)v.getTag();
-                if(pos == posAdd){
-                    isAdd = false;
-                }else{
-                    list.remove(pos);
-                }
-                notifyDataSetChanged();
+                delete(pos);
                 break;
         }
     }

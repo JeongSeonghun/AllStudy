@@ -29,4 +29,29 @@ public class CommonData {
         public static final String FORMAT_TEMP_VALUE = " : %1$s";
         public static final String FORMAT_WORD_SUCCESS_RATE_TOTAL = "%1$d %% (total try : %2$d)";
     }
+
+    public static class dialog{
+        public static final int TYPE_SINGEL = 0;
+        public static final int TYPE_MULTY = 1;
+    }
+
+    public enum Chapter{
+        chapterNo(-1, "no"),
+        chapterAll(0, "all");
+
+        private int code;
+        private String simple;
+        Chapter(int code, String simple){
+            this.code = code;
+            this.simple = simple;
+        }
+
+        public int code(){
+            return code;
+        }
+
+        public String simple(){
+            return simple;
+        }
+    }
 }

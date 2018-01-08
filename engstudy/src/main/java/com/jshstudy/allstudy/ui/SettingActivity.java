@@ -8,12 +8,16 @@ import android.widget.TextView;
 
 import com.jshstudy.allstudy.BuildConfig;
 import com.jshstudy.allstudy.R;
+import com.jshstudy.allstudy.data.EngBaseInput;
 import com.jshstudy.allstudy.data.EngStudyDB;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView tv_version_setting;
     private Button btn_init_success_setting;
+    private Button btn_init_setting;
+    private Button btn_init_data_setting;
+
     private EngStudyDB engStudyDB;
 
     @Override
@@ -28,6 +32,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void initUi(){
         tv_version_setting = (TextView)findViewById(R.id.tv_version_setting);
         btn_init_success_setting = (Button)findViewById(R.id.btn_init_success_setting);
+        btn_init_setting = (Button)findViewById(R.id.btn_init_setting);
+        btn_init_data_setting = (Button)findViewById(R.id.btn_init_data_setting);
+
+        btn_init_success_setting.setOnClickListener(this);
+        btn_init_setting.setOnClickListener(this);
+        btn_init_data_setting.setOnClickListener(this);
     }
 
     private void initData(){
@@ -41,11 +51,22 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         engStudyDB.updateSuccessInit();
     }
 
+    private void initWordData(){
+        engStudyDB.deleteWordAll();
+        EngBaseInput baseInput = new EngBaseInput();
+        baseInput.init(this);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_init_success_setting:
                 initSuccessCnt();
+                break;
+            case R.id.btn_init_setting:
+                break;
+            case R.id.btn_init_data_setting:
+                initWordData();
                 break;
         }
     }

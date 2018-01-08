@@ -98,5 +98,6 @@
     <string name="study">study</string>
     <string name="word_success">word success</string>
     <string name="user_info">user info</string>
+    <string name="eng_word">eng word</string>
 
 </resources>

@@ -89,7 +89,7 @@ public abstract class EngBase {
             JSONArray ja = new JSONArray();
             if(!StringUtil.isEmpty(detailChap)){
                 ja.put(detailChap);
-                engData.setCh(chapter, ja.toString());
+                engData.setCh(chapter, ja);
             }else{
 
             }

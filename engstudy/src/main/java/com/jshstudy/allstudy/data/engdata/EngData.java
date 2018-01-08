@@ -2,9 +2,6 @@ package com.jshstudy.allstudy.data.engdata;
 
 import android.database.Cursor;
 
-import com.jshstudy.allstudy.AppConfig;
-import com.jshstudy.allstudy.data.EngDataC;
-import com.jshstudy.allstudy.data.common.EditData;
 import com.jshstudy.allstudy.manager.EngDataManager;
 import com.jshstudy.common.data.ComDB;
 import com.jshstudy.common.util.LogUtil;
@@ -17,7 +14,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -38,6 +34,7 @@ public class EngData {
     public EngData(){
         eng = "";
         mean = "";
+        meanMap = new HashMap<>();
     }
 
     public void setIdx(int idx){
@@ -48,7 +45,7 @@ public class EngData {
         return idx;
     }
 
-    public void setMean(String mean){
+    private void setMean(String mean){
         this.mean = mean;
         setMeanData();
     }
@@ -99,7 +96,7 @@ public class EngData {
     }
 
     // JSONArray text
-    public void setCh(int ch, String detailChapter){
+    private void setCh(int ch, String detailChapter){
         LogUtil.dLog("setCh data : "+ch+" / "+detailChapter);
         if(detailChapter == null || detailChapter.isEmpty()) return;
 
@@ -108,12 +105,8 @@ public class EngData {
 
         try {
             JSONArray ja = new JSONArray(detailChapter);
-            chapMap.put(ch, ja);
 
-            EngChapterData chapterData = new EngChapterData();
-            chapterData.setChapter(ch);
-            chapterData.setSubList(ja);
-            chapList.add(chapterData);
+            setCh(ch, ja);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -184,19 +177,19 @@ public class EngData {
                 setIdx(cur.getInt(cur.getColumnIndex(col)));
             }
 
-            if(col.equals(EngDataC.EngDB.COL_ENG)){
+            if(col.equals(EngDBDataC.EngDB.COL_ENG)){
                 setEng(cur.getString(cur.getColumnIndex(col)));
             }
 
-            if(col.equals(EngDataC.EngDB.COL_KOR)){
+            if(col.equals(EngDBDataC.EngDB.COL_KOR)){
                 setMean(cur.getString(cur.getColumnIndex(col)));
             }
 
-            if(col.equals(EngDataC.EngDB.COL_SUCCESS)){
+            if(col.equals(EngDBDataC.EngDB.COL_SUCCESS)){
                 setSuccess(cur.getInt(cur.getColumnIndex(col)));
             }
 
-            if(col.equals(EngDataC.EngDB.COL_FAIL)){
+            if(col.equals(EngDBDataC.EngDB.COL_FAIL)){
                 setFail(cur.getInt(cur.getColumnIndex(col)));
             }
 
@@ -324,7 +317,6 @@ public class EngData {
     // kor {type1:[mean1, mean2...], type2:[mean...]...}
 
     private void setMeanData(){
-        meanMap = new HashMap<>();
         if(StringUtil.isEmpty(mean)) return;
 
         JSONObject jo;

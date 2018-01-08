@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
+import com.jshstudy.allstudy.data.common.ChapterData;
+import com.jshstudy.allstudy.data.common.SuccessData;
+import com.jshstudy.allstudy.data.engdata.EngDBDataC;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngSearchData;
 import com.jshstudy.allstudy.manager.EngDataManager;
@@ -53,7 +55,7 @@ public class EngStudyDB {
             EngDataManager dataManager = new EngDataManager();
             String query = dataManager.makeEngDataInsertQuery(data);
 
-            logExecSQL(query);
+            logWithExecSQL(query);
 
         }
     }
@@ -61,7 +63,7 @@ public class EngStudyDB {
     public int selectEngCheck(EngData data){
         db = engHelper.getReadableDatabase();
 
-        String query = String.format(EngDataC.EngDB.QUERY_SELECT_ENG_CHECK, data.getEng());
+        String query = String.format(EngDBDataC.EngDB.QUERY_SELECT_ENG_CHECK, data.getEng());
 
         logRawQuery(query);
 
@@ -84,7 +86,7 @@ public class EngStudyDB {
 
         EngData data = null;
 
-        String query = String.format(Locale.KOREA, EngDataC.EngDB.QUERY_SELECT_ENG, idx);
+        String query = String.format(Locale.KOREA, EngDBDataC.EngDB.QUERY_SELECT_ENG, idx);
 
         logRawQuery(query);
 
@@ -106,10 +108,10 @@ public class EngStudyDB {
 
         ArrayList<EngData> engList = new ArrayList<>();
 
-        int param = (page-1)*EngDataC.EngDB.LIMIT_SEARCH;
-//        if(param==0)param=1;
+        int param = (page-1)* EngDBDataC.EngDB.LIMIT_SEARCH;
+
         String query = String.format(Locale.KOREA,
-                EngDataC.EngDB.QUERY_SELECT_ENG_OFFSET, EngDataC.EngDB.LIMIT_SEARCH, param);
+                EngDBDataC.EngDB.QUERY_SELECT_ENG_OFFSET, EngDBDataC.EngDB.LIMIT_SEARCH, param);
 
         logRawQuery(query);
 
@@ -134,7 +136,7 @@ public class EngStudyDB {
 
         int cnt = -1;
 
-        String query = EngDataC.EngDB.QUERY_SELECT_ENG_CNT;
+        String query = EngDBDataC.EngDB.QUERY_SELECT_ENG_CNT;
 
         logRawQuery(query);
 
@@ -155,7 +157,7 @@ public class EngStudyDB {
 
         int cnt = -1;
 
-        String query = EngDataC.EngDB.QUERY_SELECT_ENG_CNT + getWhereSearchEng(searchData);
+        String query = EngDBDataC.EngDB.QUERY_SELECT_ENG_CNT + getWhereSearchEng(searchData);
 
         logRawQuery(query);
 
@@ -182,10 +184,10 @@ public class EngStudyDB {
             if(isEng){
                 // sb.append("UPPER(");
                 sb.append("LOWER(");
-                sb.append(EngDataC.EngDB.COL_ENG);
+                sb.append(EngDBDataC.EngDB.COL_ENG);
                 sb.append(")");
             }else{
-                sb.append(EngDataC.EngDB.COL_KOR);
+                sb.append(EngDBDataC.EngDB.COL_KOR);
             }
 
             sb.append(" LIKE LOWER('%").append(searchData.getWord()).append("%')");
@@ -198,7 +200,7 @@ public class EngStudyDB {
                 if(!StringUtil.isEmpty(word)){
                     sb.append(" AND (");
                 }
-                sb.append(EngDataC.EngDB.COL_NCH).append("=1");
+                sb.append(EngDBDataC.EngDB.COL_NCH).append("=1");
 
                 if(!StringUtil.isEmpty(word)){
                     sb.append(")");
@@ -208,8 +210,8 @@ public class EngStudyDB {
                 if(!StringUtil.isEmpty(word)){
                     sb.append(" AND (");
                 }
-                for(ChapterAdapter.Chapter chapter : searchData.getChapters()){
-                    sb.append(String.format(Locale.KOREA, EngDataC.EngDB.COL_CH, chapter.getChapterNum()));
+                for(ChapterData chapter : searchData.getChapters()){
+                    sb.append(String.format(Locale.KOREA, EngDBDataC.EngDB.COL_CH, chapter.getChapterNum()));
                     sb.append(" IS NOT NULL").append(" OR ");
                 }
                 sb.delete(sb.lastIndexOf("OR"), sb.length());
@@ -229,10 +231,10 @@ public class EngStudyDB {
 
         ArrayList<EngData> engList = new ArrayList<>();
 
-        int param = (page-1)*EngDataC.EngDB.LIMIT_SEARCH;
-//        if(param==0)param=1;
+        int param = (page-1)* EngDBDataC.EngDB.LIMIT_SEARCH;
+
         String query = String.format(Locale.KOREA,
-                EngDataC.EngDB.QUERY_SELECT_ENG_OFFSET_WHERE, getWhereSearchEng(searchData), EngDataC.EngDB.LIMIT_SEARCH, param);
+                EngDBDataC.EngDB.QUERY_SELECT_ENG_OFFSET_WHERE, getWhereSearchEng(searchData), EngDBDataC.EngDB.LIMIT_SEARCH, param);
 
         logRawQuery(query);
 
@@ -255,7 +257,7 @@ public class EngStudyDB {
     public SuccessData selectSuccessSum(){
         db = engHelper.getReadableDatabase();
 
-        String query = EngDataC.EngDB.QUERY_SELECT_ENG_SUCCESS_SUM;
+        String query = EngDBDataC.EngDB.QUERY_SELECT_ENG_SUCCESS_SUM;
 
         logRawQuery(query);
 
@@ -267,10 +269,10 @@ public class EngStudyDB {
         SuccessData data = new SuccessData();
         for(String col : cur.getColumnNames()){
             LogUtil.dLog("selectSuccessSum col: "+col);
-            if(col.equals(String.format(ComDB.FORMAT_FUNC_FORMAT_SUM,EngDataC.EngDB.COL_SUCCESS))){
+            if(col.equals(String.format(ComDB.FORMAT_FUNC_FORMAT_SUM, EngDBDataC.EngDB.COL_SUCCESS))){
                 data.setCntSuccess(cur.getInt(cur.getColumnIndex(col)));
             }
-            if(col.equals(String.format(ComDB.FORMAT_FUNC_FORMAT_SUM,EngDataC.EngDB.COL_FAIL))){
+            if(col.equals(String.format(ComDB.FORMAT_FUNC_FORMAT_SUM, EngDBDataC.EngDB.COL_FAIL))){
                 data.setCntFail(cur.getInt(cur.getColumnIndex(col)));
             }
         }
@@ -284,9 +286,9 @@ public class EngStudyDB {
     // kor, success, fail
     public void updateEng(EngData data){
 
-        String query = String.format(EngDataC.EngDB.QUERY_UPDATE_ENG, data.getMean(), data.getIdx());
+        String query = String.format(EngDBDataC.EngDB.QUERY_UPDATE_ENG, data.getMean(), data.getIdx());
 
-        logExecSQL(query);
+        logWithExecSQL(query);
 
     }
 
@@ -294,9 +296,9 @@ public class EngStudyDB {
 
         EngDataManager dataManager = new EngDataManager();
 
-        String query = dataManager.makeUdateEngDatQuery(data);
+        String query = dataManager.makeUpdateEngDatQuery(data);
 
-        logExecSQL(query);
+        logWithExecSQL(query);
 
     }
 
@@ -308,28 +310,40 @@ public class EngStudyDB {
 
         String query;
         if(success){
-            query = String.format(EngDataC.EngDB.QUERY_UPDATE_SUCCESS
-                    , EngDataC.EngDB.COL_SUCCESS, data.getSuccess(), idx);
+            query = String.format(EngDBDataC.EngDB.QUERY_UPDATE_SUCCESS
+                    , EngDBDataC.EngDB.COL_SUCCESS, data.getSuccess(), idx);
         }else{
-            query = String.format(EngDataC.EngDB.QUERY_UPDATE_SUCCESS
-                    , EngDataC.EngDB.COL_FAIL, data.getFail(), idx);
+            query = String.format(EngDBDataC.EngDB.QUERY_UPDATE_SUCCESS
+                    , EngDBDataC.EngDB.COL_FAIL, data.getFail(), idx);
         }
 
-        logExecSQL(query);
+        logWithExecSQL(query);
 
     }
 
     public void updateSuccessInit(){
-        String query = EngDataC.EngDB.QUERY_UPDATE_SUCCESS_INIT;
+        String query = EngDBDataC.EngDB.QUERY_UPDATE_SUCCESS_INIT;
 
-        logExecSQL(query);
+        logWithExecSQL(query);
+    }
+
+    public void deleteWord(int idx){
+        String query = String.format(Locale.KOREA, EngDBDataC.EngDB.QUERY_DELETE_WORD, idx);
+
+        logWithExecSQL(query);
+    }
+
+    public void deleteWordAll(){
+        String query = EngDBDataC.EngDB.QUERY_DELETE_WORD_ALL;
+
+        logWithExecSQL(query);
     }
 
     private void logRawQuery(String query){
         LogUtil.dLog(getClass().getSimpleName(), "raw query : "+query);
     }
 
-    private void logExecSQL(String query){
+    private void logWithExecSQL(String query){
         SQLiteDatabase db = engHelper.getWritableDatabase();
         LogUtil.dLog(getClass().getSimpleName(), "exec query : "+query);
 

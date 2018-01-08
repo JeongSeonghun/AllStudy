@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.data.EngStudyDB;
-import com.jshstudy.allstudy.data.SuccessData;
+import com.jshstudy.allstudy.data.common.SuccessData;
 import com.jshstudy.allstudy.data.common.CommonData;
 
 import java.util.Locale;

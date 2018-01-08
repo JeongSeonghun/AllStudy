@@ -36,6 +36,7 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
     private EditText et_value_eng_edit_eng;
     private Button btn_save_edit;
     private Button btn_reset_edit;
+    private Button btn_del_word_edit;
     private ListView lv_mean_edit_eng;
     private ListView lv_chap_edit_eng;
 
@@ -62,11 +63,13 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         et_value_eng_edit_eng = (EditText)findViewById(R.id.et_value_eng_edit_eng);
         btn_save_edit = (Button)findViewById(R.id.btn_save_edit);
         btn_reset_edit = (Button)findViewById(R.id.btn_reset_edit);
+        btn_del_word_edit = (Button)findViewById(R.id.btn_del_word_edit);
         lv_mean_edit_eng = (ListView)findViewById(R.id.lv_mean_edit_eng);
         lv_chap_edit_eng = (ListView)findViewById(R.id.lv_chap_edit_eng);
 
         btn_save_edit.setOnClickListener(this);
         btn_reset_edit.setOnClickListener(this);
+        btn_del_word_edit.setOnClickListener(this);
 
         setAdapter();
     }
@@ -98,10 +101,12 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
             }else{
                 isEditMode = false;
+                btn_del_word_edit.setVisibility(View.GONE);
                 engData = new EngData();
             }
         }else{
             isEditMode = false;
+            btn_del_word_edit.setVisibility(View.GONE);
             engData = new EngData();
         }
         setListData();
@@ -140,28 +145,24 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
 
     private EditAdapter.EditAdapterListener meansListener = new EditAdapter.EditAdapterListener() {
         @Override
-        public void onClick(int pos, boolean isEdit) {
-            LogUtil.dLog("mean onClick : "+pos+"/"+isEdit);
+        public void onClickEdit(int pos) {
             editMean(pos);
         }
 
         @Override
         public void onClickPlus() {
-            LogUtil.dLog("mean onClickPlus");
             addMean();
         }
     };
 
     private EditAdapter.EditAdapterListener chapsListener = new EditAdapter.EditAdapterListener() {
         @Override
-        public void onClick(int pos, boolean isEdit) {
-            LogUtil.dLog("chap onClick : "+pos+"/"+isEdit);
+        public void onClickEdit(int pos) {
             editChapter(pos);
         }
 
         @Override
         public void onClickPlus() {
-            LogUtil.dLog("mean onClickPlus");
             addChapter();
         }
     };
@@ -258,43 +259,59 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
         String eng = et_value_eng_edit_eng.getText().toString();
         EngDataManager dataManager = new EngDataManager();
 
-        EngData changeData = new EngData();
-        changeData.setEng(eng);
-        changeData.setMean(dataManager.makeMeanMapToJSON(meanEditList));
-        for(EditData editData : chapEditList){
-            changeData.setCh(Integer.valueOf(editData.getParam().substring(2)), new JSONArray(editData.getValues()));
-        }
-
-        LogUtil.dLog("save before data : "+engData.toString());
+        EngData changeData = dataManager.makeEngDataFromEditData(eng, meanEditList, chapEditList);
 
         if(!compare(engData, changeData)) return;
 
-        LogUtil.dLog("save after data : "+engData.toString());
+        changeData.setIdx(engData.getIdx());
+        changeData.setSuccess(engData.getSuccess());
+        changeData.setFail(engData.getFail());
+
+        LogUtil.dLog("save after data : "+changeData.toString());
 
         if(isEditMode){
-            engStudyDB.updateEngAll(engData);
+            engStudyDB.updateEngAll(changeData);
         }else{
-            engStudyDB.insertEng(engData);
+            engStudyDB.insertEng(changeData);
         }
 
+        setResult(RESULT_OK);
         finish();
     }
 
     public boolean compare(EngData base, EngData data){
         boolean change = false;
-        LogUtil.dLog("compare base / data: "+base.getEng()+"/"+data.getEng());
+        LogUtil.dLog("save before data : "+engData.toString());
         if(!base.getEng().equals(data.getEng())){
             change = true;
-            base.setEng(data.getEng());
         }
 
-        boolean merge = base.merge(data);
-        return change || merge;
+        if(!base.getMeanMap().equals(data.getMeanMap())){
+            change = true;
+        }
+
+        if((base.getChapMap() ==null && data.getChapMap() != null)){
+            change = true;
+        }
+
+        if(base.getChapMap() != null && !base.getChapMap().equals(data.getChapMap())){
+            change = true;
+        }
+
+        return change;
     }
 
     private void reset(){
         et_value_eng_edit_eng.setText(engData.getEng());
         setListData();
+    }
+
+    private void delete(){
+        if(isEditMode){
+            engStudyDB.deleteWord(engData.getIdx());
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 
     private void changEditData(int reqCode){
@@ -351,6 +368,9 @@ public class EngEditWordActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.btn_reset_edit:
                 reset();
+                break;
+            case R.id.btn_del_word_edit:
+                delete();
                 break;
         }
     }

@@ -1,4 +1,4 @@
-package com.jshstudy.allstudy.data;
+package com.jshstudy.allstudy.data.common;
 
 /**
  * Created by shun6 on 2018-01-06.
@@ -29,6 +29,9 @@ public class SuccessData {
     }
 
     public int getRateSuccess100(){
+        if(getTotal()<=0){
+            return 0;
+        }
         return cntSuccess*100/getTotal();
     }
 

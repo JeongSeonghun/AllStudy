@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
+import com.jshstudy.allstudy.data.common.ChapterData;
 import com.jshstudy.allstudy.data.common.CommonData;
 import com.jshstudy.allstudy.data.EngStudyDB;
 import com.jshstudy.allstudy.data.engdata.EngData;
@@ -93,7 +94,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         intentAct.putExtra(CommonData.IntentData.KEY_MOD, CommonData.IntentData.VALUE_MOD_EDIT);
         intentAct.putExtra(CommonData.IntentData.KEY_IDX, dataList.get(pos).getIdx());
 
-        startActivity(intentAct);
+        startActivityForResult(intentAct, CommonData.REQ_CODE_EDIT);
     }
 
     private void setAdapter(){
@@ -177,17 +178,11 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         searchEng(page);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        listAdapter.notifyDataSetChanged();
-    }
-
     private void searchEng(){
         engSearchData = createEngSearchData();
 
         if(engSearchData == null){
+            searchEng(page);
             return;
         }
 
@@ -207,7 +202,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         String word = null;
         String selLang = null;
         boolean isEng = false;
-        ArrayList<ChapterAdapter.Chapter> chapList = new ArrayList<>();
+        ArrayList<ChapterData> chapList = new ArrayList<>();
 
         word = lang_search.getText().toString();
 
@@ -216,7 +211,7 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
             isEng = true;
         }
 
-        for(ChapterAdapter.Chapter chapter : chapterAdapter.getChapList()){
+        for(ChapterData chapter : chapterAdapter.getChapList()){
             if(chapter.isCheck()) chapList.add(chapter);
         }
 
@@ -239,6 +234,15 @@ public class SearchEngActivity extends AppCompatActivity implements View.OnClick
         engSearchData = null;
         page = 1;
         initData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            searchEng();
+
+        }
     }
 
     @Override

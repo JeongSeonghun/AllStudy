@@ -1,6 +1,6 @@
 package com.jshstudy.allstudy.data.engdata;
 
-import com.jshstudy.allstudy.custom.adapter.ChapterAdapter;
+import com.jshstudy.allstudy.data.common.ChapterData;
 import com.jshstudy.common.util.StringUtil;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class EngSearchData {
     private String word;
     private boolean isEng = false;
-    private ArrayList<ChapterAdapter.Chapter> chapters = new ArrayList<>();
+    private ArrayList<ChapterData> chapters = new ArrayList<>();
     public static final int TYPE_CHAPTER_SEARCH_ALL = 0;
     public static final int TYPE_CHAPTER_SEARCH_CONTAIN = 1;
     public static final int TYPE_CHAPTER_SEARCH_NO = 2;
@@ -31,7 +31,7 @@ public class EngSearchData {
         return word;
     }
 
-    public void setChapters(ArrayList<ChapterAdapter.Chapter> chapters){
+    public void setChapters(ArrayList<ChapterData> chapters){
         if(chapters != null){
             this.chapters = chapters;
         }
@@ -39,7 +39,7 @@ public class EngSearchData {
         searchChapType = chkSearchChapType();
     }
 
-    public ArrayList<ChapterAdapter.Chapter> getChapters(){
+    public ArrayList<ChapterData> getChapters(){
         return chapters;
     }
 
@@ -48,7 +48,7 @@ public class EngSearchData {
             return TYPE_CHAPTER_SEARCH_ALL;
         }
 
-        ChapterAdapter.Chapter chapter = chapters.get(0);
+        ChapterData chapter = chapters.get(0);
         if(chapter.getChapterNum() == -1){
             return TYPE_CHAPTER_SEARCH_ALL;
         }

@@ -1,6 +1,5 @@
-package com.jshstudy.allstudy.data;
+package com.jshstudy.allstudy.data.engdata;
 
-import com.jshstudy.allstudy.AppConfig;
 import com.jshstudy.common.data.ComDB;
 
 import java.util.Locale;
@@ -9,10 +8,7 @@ import java.util.Locale;
  * Created by shun6 on 2017-12-10.
  */
 
-public class EngDataC {
-    public class EngType{
-
-    }
+public class EngDBDataC {
 
     // final eng data
     // idx(int), eng(text), kor(text), chXX(boolean), success(int), fail(int)
@@ -97,6 +93,11 @@ public class EngDataC {
 
         public static final String QUERY_UPDATE_SUCCESS_INIT = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
                 COL_SUCCESS+"=0,"+COL_FAIL+"=0");
+
+        public static final String QUERY_DELETE_WORD = String.format(Locale.KOREA, ComDB.QUERY_DELETE_WHERE,
+                NAME_TABLE, ComDB.COL_IDX+"=%1$s");
+        public static final String QUERY_DELETE_WORD_ALL = String.format(Locale.KOREA, ComDB.QUERY_DELETE,
+                NAME_TABLE);
     }
 
     public static final class EngDetailChapterDB{
@@ -121,11 +122,5 @@ public class EngDataC {
         public static final String QUERY_SELECT_CHAP = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+" WHERE "+COL_SUB+"=%1$s";
         public static final String QUERY_SELECT_TEXT = "SELECT "+COL_DESC+" FROM "+NAME_TABLE+" WHERE "+COL_SUB + "=%1$s";
     }
-
-    public static class Chapter{
-        public static int CHAPTER_ALL = -1;
-        public static int CHAPTER_NO = 0;
-    }
-
 
 }

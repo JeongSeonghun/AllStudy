@@ -2,8 +2,6 @@ package com.jshstudy.allstudy.data.engdata;
 
 import android.database.Cursor;
 
-import com.jshstudy.allstudy.data.EngDataC;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -59,11 +57,11 @@ public class EngChapterData {
     public void parse(Cursor cursor){
 
         for(String col : cursor.getColumnNames()){
-            if(EngDataC.EngDetailChapterDB.COL_CHAPTER.equals(col)){
+            if(EngDBDataC.EngDetailChapterDB.COL_CHAPTER.equals(col)){
                 setChapter(cursor.getInt(cursor.getColumnIndex(col)));
-            }else if(EngDataC.EngDetailChapterDB.COL_SUB.equals(col)){
+            }else if(EngDBDataC.EngDetailChapterDB.COL_SUB.equals(col)){
                 setSubList(cursor.getString(cursor.getColumnIndex(col)));
-            }else if(EngDataC.EngDetailChapterDB.COL_DESC.equals(col)){
+            }else if(EngDBDataC.EngDetailChapterDB.COL_DESC.equals(col)){
                 setDesc(cursor.getString(cursor.getColumnIndex(col)));
             }
         }

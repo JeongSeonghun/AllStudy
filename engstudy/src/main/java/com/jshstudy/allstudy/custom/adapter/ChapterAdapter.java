@@ -12,8 +12,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.jshstudy.allstudy.R;
-import com.jshstudy.allstudy.data.EngDataC;
-import com.jshstudy.common.util.LogUtil;
+import com.jshstudy.allstudy.data.engdata.EngDBDataC;
+import com.jshstudy.allstudy.data.common.ChapterData;
+import com.jshstudy.allstudy.data.common.CommonData;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -24,7 +25,7 @@ import java.util.Locale;
 
 public class ChapterAdapter extends BaseAdapter{
 
-    private ArrayList<Chapter> chapList = new ArrayList<>();
+    private ArrayList<ChapterData> chapList = new ArrayList<>();
     private Context context;
 
     private boolean isGetView = false;
@@ -37,14 +38,14 @@ public class ChapterAdapter extends BaseAdapter{
 
     public void init(){
         if(chapList != null) chapList.clear();
-        chapList.add(new Chapter(EngDataC.Chapter.CHAPTER_ALL, "all"));
-        for(int cnt = 1; cnt <= EngDataC.EngDB.TOTAL_CH ; cnt++){
-            chapList.add(new Chapter(cnt, String.format(Locale.KOREA, EngDataC.EngDB.COL_CH, cnt)));
+        chapList.add(new ChapterData(CommonData.Chapter.chapterAll.code(), CommonData.Chapter.chapterAll.simple()));
+        for(int cnt = 1; cnt <= EngDBDataC.EngDB.TOTAL_CH ; cnt++){
+            chapList.add(new ChapterData(cnt, String.format(Locale.KOREA, EngDBDataC.EngDB.COL_CH, cnt)));
         }
-        chapList.add(new Chapter(EngDataC.Chapter.CHAPTER_NO, "no"));
+        chapList.add(new ChapterData(CommonData.Chapter.chapterNo.code(), CommonData.Chapter.chapterNo.simple()));
     }
 
-    public ArrayList<Chapter> getChapList(){
+    public ArrayList<ChapterData> getChapList(){
         return chapList;
     }
 
@@ -54,7 +55,7 @@ public class ChapterAdapter extends BaseAdapter{
     }
 
     @Override
-    public Chapter getItem(int position) {
+    public ChapterData getItem(int position) {
         return chapList.get(position);
     }
 
@@ -85,7 +86,7 @@ public class ChapterAdapter extends BaseAdapter{
             holder.tv_chap_item_eng.setText(R.string.chapter);
 
         }else{
-            Chapter chapter = getItem(position-1);
+            ChapterData chapter = getItem(position-1);
             holder.cb_chap_item_eng.setTag(R.string.key_item_cb, position-1);
             holder.cb_chap_item_eng.setVisibility(View.VISIBLE);
             if(holder.cb_chap_item_eng.isChecked() != chapter.isCheck()){
@@ -121,7 +122,7 @@ public class ChapterAdapter extends BaseAdapter{
     };
 
     private void changeChapter(int position, boolean isChecked){
-        Chapter chapter = getItem(position);
+        ChapterData chapter = getItem(position);
         chapter.setCheck(isChecked);
 
         if(chapter.getChapterNum() == -1 || chapter.getChapterNum() == 0){
@@ -145,38 +146,4 @@ public class ChapterAdapter extends BaseAdapter{
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    public class Chapter{
-        private int chapterNum = -1;
-        private String chapterStr = null;
-        private boolean check = false;
-
-        public Chapter(int chapterNum, String chapterStr){
-            setChapterNum(chapterNum);
-            setChapterStr(chapterStr);
-        }
-
-        public void setChapterNum(int chapterNum){
-            this.chapterNum = chapterNum;
-        }
-
-        public int getChapterNum(){
-            return chapterNum;
-        }
-
-        public void setChapterStr(String chapterStr){
-            this.chapterStr = chapterStr;
-        }
-
-        public String getChapterStr(){
-            return chapterStr;
-        }
-
-        public void setCheck(boolean check){
-            this.check = check;
-        }
-
-        public boolean isCheck(){
-            return check;
-        }
-    }
 }

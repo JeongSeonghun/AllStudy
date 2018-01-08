@@ -1,8 +1,7 @@
 package com.jshstudy.allstudy.manager;
 
-import com.jshstudy.allstudy.data.EngDataC;
+import com.jshstudy.allstudy.data.engdata.EngDBDataC;
 import com.jshstudy.allstudy.data.common.EditData;
-import com.jshstudy.allstudy.data.engdata.EngChapterData;
 import com.jshstudy.allstudy.data.engdata.EngCommon;
 import com.jshstudy.allstudy.data.engdata.EngData;
 import com.jshstudy.allstudy.data.engdata.EngMeanData;
@@ -28,10 +27,10 @@ public class EngDataManager {
         String rowChap = makeInsertChapRow(data);
 
         if(StringUtil.isEmpty(rowChap)){
-            query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG_NO_Ch,
+            query = String.format(EngDBDataC.EngDB.QUERY_INSERT_ENG_NO_Ch,
                     data.getEng(), data.getMean());
         }else{
-            query = String.format(EngDataC.EngDB.QUERY_INSERT_ENG
+            query = String.format(EngDBDataC.EngDB.QUERY_INSERT_ENG
                     , rowChap, data.getEng(), data.getMean(), makeInsertChapValue(data));
         }
 
@@ -45,7 +44,7 @@ public class EngDataManager {
         if(chapList == null || chapList.size()<=0) return null;
 
         for(int chap : chapList){
-            sb.append(String.format(Locale.KOREA, EngDataC.EngDB.COL_CH, chap)).append(",");
+            sb.append(String.format(Locale.KOREA, EngDBDataC.EngDB.COL_CH, chap)).append(",");
         }
 
         sb.deleteCharAt(sb.lastIndexOf(","));
@@ -105,7 +104,7 @@ public class EngDataManager {
         return jo;
     }
 
-    public String makeUdateEngDatQuery(EngData engData){
+    public String makeUpdateEngDatQuery(EngData engData){
         String eng = engData.getEng();
         String mean = engData.getMean();
         HashMap<Integer, JSONArray> chapMap = engData.getChapMap();
@@ -138,9 +137,27 @@ public class EngDataManager {
             noChap = 1;
         }
 
-        query=String.format(EngDataC.EngDB.QUERY_UPDATE_ENG_ALL,
+        query=String.format(EngDBDataC.EngDB.QUERY_UPDATE_ENG_ALL,
                 eng, mean, sb.toString(), noChap, idx);
 
         return query;
+    }
+
+    public EngData makeEngDataFromEditData(String eng, ArrayList<EditData> meanEditList, ArrayList<EditData> chapEditList){
+        EngData changeData = new EngData();
+
+        changeData.setEng(eng);
+        changeData.setMean(makeMeanMapToJSON(meanEditList));
+
+        for(EditData editData : chapEditList){
+            if(editData.getValues().size()>0){
+                changeData.setCh(Integer.valueOf(editData.getParam().substring(2)), new JSONArray(editData.getValues()));
+            }else{
+                changeData.setCh(Integer.valueOf(editData.getParam().substring(2)));
+            }
+
+        }
+
+        return changeData;
     }
 }

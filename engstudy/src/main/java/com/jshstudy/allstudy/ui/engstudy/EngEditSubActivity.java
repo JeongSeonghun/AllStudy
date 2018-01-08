@@ -36,13 +36,6 @@ public class EngEditSubActivity extends AppCompatActivity implements View.OnClic
         initData();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        sp_title_sub_edit.setSelection(posTitle);
-//        titleAdapter.notifyDataSetChanged();
-    }
-
     private void initUi(){
         lv_text_sub_edit = (ListView) findViewById(R.id.lv_text_sub_edit);
         btn_save_sub_edit = (Button) findViewById(R.id.btn_save_sub_edit);
@@ -87,17 +80,23 @@ public class EngEditSubActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    private void apply(){
+        LogUtil.dLog("sub apply");
+        subData.setList(adapter.getList());
+        subData.setPostTitle(posTitle);
+
+        Intent intentResult = new Intent();
+        intentResult.putExtra(CommonData.IntentData.KEY_SUB_DATA, subData);
+        setResult(RESULT_OK, intentResult);
+
+        finish();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_save_sub_edit:
-                subData.setList(adapter.getList());
-                subData.setPostTitle(posTitle);
-                LogUtil.dLog("sub save");
-                Intent intentResult = new Intent();
-                intentResult.putExtra(CommonData.IntentData.KEY_SUB_DATA, subData);
-                setResult(RESULT_OK, intentResult);
-                finish();
+                apply();
                 break;
         }
     }
