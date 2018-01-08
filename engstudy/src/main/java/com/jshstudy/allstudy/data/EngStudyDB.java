@@ -92,12 +92,14 @@ public class EngStudyDB {
 
         Cursor cur = db.rawQuery(query, null);
 
-        if(cur!=null && cur.getCount()>0 && cur.moveToNext()){
+        if(cur == null || cur.getCount()<=0) return null;
+
+        if(cur.getCount()>0 && cur.moveToNext()){
             data = new EngData();
             data.setData(cur);
         }
 
-        if(cur !=null) cur.close();
+        cur.close();
 
         LogUtil.dLog(getClass().getSimpleName(), "select eng : "+(data!=null?data.getEng():"null"));
         return data;
@@ -283,6 +285,26 @@ public class EngStudyDB {
         return data;
     }
 
+    public int selectLastWordIdx(){
+        db = engHelper.getReadableDatabase();
+
+        String query = EngDBDataC.EngDB.QUERY_SELECT_ENG_LAST_IDX;
+
+        logRawQuery(query);
+
+        Cursor cur = db.rawQuery(query, null);
+
+        if(cur == null || cur.getCount()<=0) return -1;
+
+        cur.moveToNext();
+
+        int lastIdx = cur.getInt(cur.getColumnIndex(ComDB.COL_IDX));
+
+        cur.close();
+
+        return lastIdx;
+    }
+
     // kor, success, fail
     public void updateEng(EngData data){
 
@@ -327,6 +349,12 @@ public class EngStudyDB {
         logWithExecSQL(query);
     }
 
+    public void updateWordIdxInit(){
+        String query = EngDBDataC.EngDB.QUERY_UPDATE_IDX_INIT;
+
+        logWithExecSQL(query);
+    }
+
     public void deleteWord(int idx){
         String query = String.format(Locale.KOREA, EngDBDataC.EngDB.QUERY_DELETE_WORD, idx);
 
@@ -337,6 +365,8 @@ public class EngStudyDB {
         String query = EngDBDataC.EngDB.QUERY_DELETE_WORD_ALL;
 
         logWithExecSQL(query);
+
+        updateWordIdxInit();
     }
 
     private void logRawQuery(String query){

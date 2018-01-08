@@ -26,6 +26,9 @@ public class ComDB {
     public static final String TYPE_REAL = "REAL";
     public static final String TYPE_BLOB = "BLOB";
 
+    public static final String ORDER_ASC = "ASC";
+    public static final String ORDER_DESC = "DESC";
+
     public static final String QUERY_CREATE_TABLE_N = "CREATE TABLE IF NOT EXISTS %1$s (%2$s)";
 
     public static final String QURERY_INIT_IDX = "UPDATE SQLITE_SEQUENCE SET seq = %1$d WHERE name = '%2$s'";

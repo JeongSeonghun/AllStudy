@@ -28,6 +28,7 @@ public class CommonData {
         public static final String FORMAT_WORD_RESULT_CNT = "Success %1$d / Fail %2$d";
         public static final String FORMAT_TEMP_VALUE = " : %1$s";
         public static final String FORMAT_WORD_SUCCESS_RATE_TOTAL = "%1$d %% (total try : %2$d)";
+        public static final String FROMAT_WORD_RESULT_FAIL = "Fail : %1$s => %2$s";
     }
 
     public static class dialog{

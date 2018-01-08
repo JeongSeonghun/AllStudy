@@ -1,5 +1,6 @@
 package com.jshstudy.allstudy.ui.engstudy;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
 
     private int totalNum = -1;
     private int tryCnt = 0;
+    private int cntTryLimit = 3;
     private String meanQuest;
 
     @Override
@@ -69,11 +71,26 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
         setWord();
     }
 
+    private EngData setWordRepeat(){
+        EngData data = null;
+        int cntRepeat = 0;
+        do{
+            cntRepeat ++;
+            data = engStudyDB.selectEng(getRandomIdx(totalNum)+1);
+            LogUtil.dLog("repeat search result : "+cntRepeat+"/"+data);
+        }while (data == null);
+
+        return data;
+    }
+
     private void setWord(){
-        totalNum = engStudyDB.selectEngCnt();
+        totalNum = engStudyDB.selectLastWordIdx();
         LogUtil.dLog("setWord total : "+ totalNum);
 
         engData = engStudyDB.selectEng(getRandomIdx(totalNum)+1);
+        if(engData == null){
+            engData = setWordRepeat();
+        }
 
         tv_value_eng_word_chk.setText(engData.getEng());
 
@@ -88,6 +105,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setQuestMean(){
+        LogUtil.dLog("setQuestMean");
         HashMap<String, EngMeanData> meanMap = engData.getMeanMap();
 
         int posQuestMean = getRandomIdx(meanMap.size());
@@ -95,7 +113,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
         Set<String> set = meanMap.keySet();
         ArrayList<String> types = new ArrayList<>(set);
         String typeQuest = types.get(posQuestMean);
-
+        LogUtil.dLog("setQuestMean typeQuest : "+typeQuest);
         StringBuilder sb = new StringBuilder();
 
         for(String type : set){
@@ -108,6 +126,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
 
                 meanQuest = means.get(cnt);
                 means.remove(cnt);
+                LogUtil.dLog("setQuestMean meanQuest: "+meanQuest);
 
                 if(means.size()>0){
                     sb.append(type).append(means.toString());
@@ -116,7 +135,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        LogUtil.dLog("setQuestMean : "+typeQuest+"/"+meanQuest);
+
         tv_show_mean_chk_word.setText(sb.toString());
         tv_quest_mean_type_word.setText(typeQuest);
     }
@@ -140,7 +159,8 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
     private void check(){
         LogUtil.dLog("check : "+tryCnt);
         tryCnt++;
-        if(tryCnt>3){
+        if(tryCnt>cntTryLimit){
+
             //...
             return;
         }
@@ -154,10 +174,18 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
         if(isSuccess){
             engData.updateSuccess(true);
             tv_result_chk_word.setText(R.string.success);
+            tv_result_chk_word.setTextColor(Color.BLUE);
             btn_chk_word.setEnabled(false);
         }else{
             engData.updateSuccess(false);
-            tv_result_chk_word.setText(R.string.fail);
+            tv_result_chk_word.setTextColor(Color.RED);
+            if(tryCnt>=cntTryLimit){
+                btn_chk_word.setEnabled(false);
+                tv_result_chk_word.setText(String.format(CommonData.Format.FROMAT_WORD_RESULT_FAIL,
+                        answerMean, meanQuest));
+            }else{
+                tv_result_chk_word.setText(R.string.fail);
+            }
         }
         LogUtil.dLog("check result a/q: "+answerMean+"/"+meanQuest+"->"+isSuccess);
         tv_result_cnt_chk_word.setText(String.format(Locale.KOREA,
@@ -172,6 +200,7 @@ public class EngChkWordActivity extends AppCompatActivity implements View.OnClic
 
     private void next(){
         et_quest_mean_chk_word.setText("");
+        tv_result_chk_word.setText("");
         btn_chk_word.setEnabled(true);
         setWord();
     }

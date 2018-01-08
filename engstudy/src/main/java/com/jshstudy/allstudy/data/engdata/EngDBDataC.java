@@ -61,9 +61,6 @@ public class EngDBDataC {
         public static final String QUERY_SELECT_ENG_CHECK = "SELECT "+ComDB.COL_IDX+" from "+ NAME_TABLE+
                 " where "+COL_ENG +" = '%1$s'";
 
-        public static final String QUERY_SELECT_ENG_LIMIT = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+
-                " LIMIT %1$d";
-
         public static final String QUERY_SELECT_ENG_OFFSET = String.format(ComDB.QUERY_SELECT, NAME_TABLE)+
                 " LIMIT %1$d OFFSET %2$d";
 
@@ -75,12 +72,14 @@ public class EngDBDataC {
         public static final String QUERY_SELECT_ENG_SUCCESS_SUM = "SELECT SUM("+COL_SUCCESS+"), SUM("+COL_FAIL+") "+
                 "FROM "+NAME_TABLE;
 
+        public static final String QUERY_SELECT_ENG_LAST_IDX = "SELECT "+ComDB.COL_IDX+" from "+NAME_TABLE+
+                " ORDER BY "+ComDB.COL_IDX+" "+ComDB.ORDER_DESC+" LIMIT 1";
+
         public static final String QUERY_INSERT_ENG = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
                 COL_ENG+ " , "+ COL_KOR+", %1$s, "+COL_NCH, "'%2$s', '%3$s', '%4$s', 0");// col_chapList, eng, kor, val_chapLIst
 
         public static final String QUERY_INSERT_ENG_NO_Ch = String.format(ComDB.QUERY_INSERT, NAME_TABLE,
                 COL_ENG+ " , "+ COL_KOR+", "+COL_NCH, "'%1$s', '%2$s', 1");
-
 
         public static final String QUERY_UPDATE_ENG = String.format(ComDB.QUERY_UPDATE_WHERE, NAME_TABLE,
                 COL_KOR+"='%1$s'", ComDB.COL_IDX + "= %2$d");
@@ -94,8 +93,12 @@ public class EngDBDataC {
         public static final String QUERY_UPDATE_SUCCESS_INIT = String.format(ComDB.QUERY_UPDATE, NAME_TABLE,
                 COL_SUCCESS+"=0,"+COL_FAIL+"=0");
 
+        public static final String QUERY_UPDATE_IDX_INIT = String.format(Locale.KOREA, ComDB.QURERY_INIT_IDX,
+                0, NAME_TABLE);
+
         public static final String QUERY_DELETE_WORD = String.format(Locale.KOREA, ComDB.QUERY_DELETE_WHERE,
                 NAME_TABLE, ComDB.COL_IDX+"=%1$s");
+
         public static final String QUERY_DELETE_WORD_ALL = String.format(Locale.KOREA, ComDB.QUERY_DELETE,
                 NAME_TABLE);
     }

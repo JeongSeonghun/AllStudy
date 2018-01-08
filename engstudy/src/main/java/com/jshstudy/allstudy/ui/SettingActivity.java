@@ -20,6 +20,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private EngStudyDB engStudyDB;
 
+    private boolean isLock = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +54,34 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initWordData(){
+        lock(true);
         engStudyDB.deleteWordAll();
         EngBaseInput baseInput = new EngBaseInput();
         baseInput.init(this);
+        lock(false);
     }
+
+    private void lock(boolean isLock){
+        this.isLock = isLock;
+
+        if(isLock){
+            
+        }
+    }
+
+    private Thread lockTimer = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            if(isLock){
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isLock = false;
+            }
+        }
+    });
 
     @Override
     public void onClick(View v) {
@@ -69,5 +95,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 initWordData();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isLock){
+            return;
+        }
+        super.onBackPressed();
     }
 }
