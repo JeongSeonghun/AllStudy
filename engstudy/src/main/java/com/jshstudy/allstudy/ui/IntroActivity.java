@@ -15,6 +15,8 @@ import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.data.EngBaseInput;
 import com.jshstudy.common.util.LogUtil;
 
+import java.util.ArrayList;
+
 public class IntroActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private Context context;
@@ -68,6 +70,20 @@ public class IntroActivity extends AppCompatActivity {
 
         }
         
+    }
+
+    private void permissionCheck2(){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
+
+        ArrayList<String> permissionList = new ArrayList<>();
+
+        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+
+        if(permissionList.size()>0){
+            requestPermissions((String[])permissionList.toArray(), MY_PERMISSIONS_REQUEST);
+        }
     }
 
     // 권한 요청 결과 수신

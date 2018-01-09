@@ -1,5 +1,7 @@
 package com.jshstudy.allstudy.ui;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -54,34 +56,35 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initWordData(){
-        lock(true);
+        mHandler.sendEmptyMessage(1);
         engStudyDB.deleteWordAll();
         EngBaseInput baseInput = new EngBaseInput();
         baseInput.init(this);
-        lock(false);
+        mHandler.sendEmptyMessage(2);
     }
 
     private void lock(boolean isLock){
         this.isLock = isLock;
-
-        if(isLock){
-            
-        }
+        btn_init_success_setting.setEnabled(!isLock);
+        btn_init_setting.setEnabled(!isLock);
+        btn_init_data_setting.setEnabled(!isLock);
     }
 
-    private Thread lockTimer = new Thread(new Runnable() {
+    Handler mHandler = new Handler(){
         @Override
-        public void run() {
-            if(isLock){
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                isLock = false;
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(isFinishing() || isDestroyed()) return;
+            switch (msg.what){
+                case 1:
+                    lock(true);
+                    break;
+                case 2:
+                    lock(false);
+                    break;
             }
         }
-    });
+    };
 
     @Override
     public void onClick(View v) {
