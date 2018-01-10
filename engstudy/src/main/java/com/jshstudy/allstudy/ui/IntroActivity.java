@@ -11,6 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.jshstudy.allstudy.R;
 import com.jshstudy.allstudy.data.EngBaseInput;
 import com.jshstudy.common.util.LogUtil;
@@ -20,6 +22,9 @@ import java.util.ArrayList;
 public class IntroActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private Context context;
+
+    public final int MY_PERMISSIONS_REQUEST = 100;  // 요청 권한 구분용, 권한 필요한 부분에서만 부분적으로 사용 가능하게 함
+    public final int GOOGLE_PLAY_AVAILABLE_REQUEST = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +47,11 @@ public class IntroActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
 //            permissionCheck();
         }
+//        if(isGooglePlayServicesAvailable())
         //goToLogin();
         init();
         IntroTimerStart();
     }
-
-    // 요청 권한 구분용, 권한 필요한 부분에서만 부분적으로 사용 가능하게 함
-    public final int MY_PERMISSIONS_REQUEST = 100;
 
     private void permissionCheck(){
         // 권한 확인
@@ -84,6 +87,18 @@ public class IntroActivity extends AppCompatActivity {
         if(permissionList.size()>0){
             requestPermissions((String[])permissionList.toArray(), MY_PERMISSIONS_REQUEST);
         }
+    }
+
+    public boolean isGooglePlayServicesAvailable() {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(this);
+        if (status != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(status)) {
+                googleApiAvailability.getErrorDialog(this, status, GOOGLE_PLAY_AVAILABLE_REQUEST).show();
+            }
+            return false;
+        }
+        return true;
     }
 
     // 권한 요청 결과 수신
@@ -133,6 +148,15 @@ public class IntroActivity extends AppCompatActivity {
 
         engBaseInput.init(this);
         
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GOOGLE_PLAY_AVAILABLE_REQUEST){
+            //...
+        }
     }
 
     @Override

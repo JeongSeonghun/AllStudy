@@ -36,7 +36,8 @@
         <activity
             android:name=".ui.engstudy.EngEditSubActivity"
             android:theme="@style/Base.V7.Theme.AppCompat.Dialog" />
-        <activity android:name=".ui.UserInfoActivity"></activity>
+        <activity android:name=".ui.UserInfoActivity" />
+        <activity android:name=".ui.Main2Activity"></activity>
     </application>
 
 </manifest>
